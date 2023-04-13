@@ -1,0 +1,25 @@
+[versions]
+navVersion = "2.5.3"
+firebaseAuthVersion = "21.1.0"
+firebaseStorageVersion = "20.1.0"
+coreKtxVersion = "1.7.0"
+appCompatVersion = "1.6.1"
+materialVersion = "1.8.0"
+constraintLayoutVersion = "2.1.4"
+circleImageVersion = "2.1.0"
+
+[libraries]
+androidx-navigation-fragment-ktx = {module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
+androidx-navigation-ui-ktx = {module = "androidx.navigation:navigation-ui-ktx", version.ref = "navVersion"}
+firebase-auth-ktx = {module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthVersion"}
+firebase-storage-ktx = {module = "com.google.firebase:firebase-storage-ktx", version.ref = "firebaseStorageVersion"}
+androidx-core-ktx = {module = "androidx.core:core-ktx" , version.ref = "coreKtxVersion"}
+android-material = {module = "com.google.android.material:material", version.ref = "materialVersion"}
+androidx-constraintlayout = {module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayoutVersion"}
+circleimageview = {module = "de.hdodenhof:circleimageview", version.ref = "circleImageVersion"}
+
+
+[bundles]
+navigation = ["androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx"]
+
+[plugins]
