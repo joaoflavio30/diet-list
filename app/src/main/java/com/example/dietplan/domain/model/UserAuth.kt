@@ -1,4 +1,6 @@
 package com.example.dietplan.domain.model
 
-class UserAuth {
-}
+data class UserAuth(
+    var email: String = "",
+    var password: String = "",
+)

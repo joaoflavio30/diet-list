@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/registerFragment">
+    app:startDestination="@id/splashScreen">
 
     <fragment
         android:id="@+id/registerFragment"
@@ -49,15 +49,37 @@
             android:name="meal_type"
             app:argType="string"
             android:defaultValue='""' />
+        <action
+            android:id="@+id/action_searchFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/dailyGoalFragment"
         android:name="com.example.dietplan.ui.dailygoal.DailyGoalFragment"
         android:label="fragment_daily_goal"
-        tools:layout="@layout/fragment_daily_goal" />
+        tools:layout="@layout/fragment_daily_goal" >
+        <action
+            android:id="@+id/action_dailyGoalFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.dietplan.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.example.dietplan.presentation.splashscreen.SplashScreen"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreen_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_splashScreen_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_splashScreen_to_dailyGoalFragment"
+            app:destination="@id/dailyGoalFragment" />
+    </fragment>
 </navigation>

@@ -1,7 +1,8 @@
 package com.example.dietplan.di
 
+import com.example.dietplan.FirebaseAuthRepository
+import com.example.dietplan.FirebaseAuthRepositoryImpl
 import com.example.dietplan.login.data.remote.FirebaseAuthLogin
-import com.example.dietplan.register.data.repository.remote.FirebaseAuthRegister
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -23,5 +24,7 @@ object FirebaseModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseAuthRegister(firebase: FirebaseAuth): FirebaseAuthRegister = FirebaseAuthRegister(firebase)
+    fun providesFirebaseAuthRepository(auth: FirebaseAuth): FirebaseAuthRepository {
+        return FirebaseAuthRepositoryImpl(auth)
+    }
 }

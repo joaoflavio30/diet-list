@@ -32,5 +32,11 @@ Today
     <string name="edit_profile">Edit Profile</string>
     <string name="change_picture">Change Picture</string>
     <string name="food_routine">Food Routine</string>
+    <string name="register">Register</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="back">Back</string>
+    <string name="continue_button_text">Continue</string>
+    <string name="welcome_message">Welcome User!</string>
+    <string name="sinopse_app">Make this app your daily food plan to lead a healthy life</string>
 </resources>
 

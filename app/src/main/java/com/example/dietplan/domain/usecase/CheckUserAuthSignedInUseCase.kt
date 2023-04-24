@@ -1,4 +1,7 @@
 package com.example.dietplan.domain.usecase
 
-class CheckUserAuthSignedInUseCase {
+import com.example.dietplan.FirebaseAuthRepository
+
+class CheckUserAuthSignedInUseCase(private val firebaseAuthRepository: FirebaseAuthRepository) {
+    suspend fun execute() = firebaseAuthRepository.userIsLogged()
 }

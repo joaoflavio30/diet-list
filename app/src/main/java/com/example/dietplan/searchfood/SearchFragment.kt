@@ -1,28 +1,25 @@
 package com.example.dietplan.searchfood
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.Toast
+import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.dietplan.R
-import com.example.dietplan.data.local.Meal
-import com.example.dietplan.data.model.DailyGoal
+import com.example.dietplan.data.model.RequestFood
 import com.example.dietplan.databinding.FragmentSearchBinding
-import com.example.dietplan.extensions.formatToTwoHouses
-import com.example.dietplan.viewmodel.SearchViewModel
+import com.example.dietplan.searchfood.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import java.math.RoundingMode
-import java.text.DecimalFormat
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), SearchContract.SearchFragment {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
@@ -34,96 +31,121 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        setOnClickListener()
+
+//        super.onViewCreated(view, savedInstanceState)
+//        binding.searchBtn.setOnClickListener {
+//            searchData()
+//        }
+//        binding.btnAdd.setOnClickListener {
+//            insertMeal()
+//            addMealForDatabase()
+//            findNavController().navigate(R.id.homeFragment)
+//        }
+    }
+
+    override fun setOnClickListener() {
         binding.searchBtn.setOnClickListener {
-            searchData()
+            if (checkFields()) {
+                val buttonSelectedId = binding.radioGroup.checkedRadioButtonId
+                val radioBtnSelected = binding.radioGroup.findViewById<RadioButton>(buttonSelectedId).text.toString()
+                val request = RequestFood(binding.editText.text.toString(), binding.quantityText.text.toString().toDouble(), radioBtnSelected)
+                Log.d("Tag", "$request")
+                viewModel.getMeal(request)
+                bindData()
+                progressBarObserver()
+            }
         }
+
         binding.btnAdd.setOnClickListener {
-            insertMeal()
-            addMealForDatabase()
-            findNavController().navigate(R.id.homeFragment)
+            viewModel.searchMeal.observe(viewLifecycleOwner) { searchMeal ->
+                viewModel.goalAchieved.observe(viewLifecycleOwner) { goalAchieved ->
+                    viewModel.incrementNutrientsToDailyDiet(searchMeal, goalAchieved)
+                }
+            }
+            navigateToHomeFragment()
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        viewModel.noMeal()
-    }
+    override fun checkFields(): Boolean {
+        val editText = binding.editText.text.toString()
+        val buttonSelectedId = binding.radioGroup.checkedRadioButtonId
+        val radioBtnSelected = binding.radioGroup.findViewById<RadioButton>(buttonSelectedId).text.toString()
+        val quantity = binding.quantityText.text.toString()
+        var valid = false
 
-    private fun addMealForDatabase() {
-        viewModel.meal.observe(viewLifecycleOwner) {
-            viewModel.insertMeals(it)
-            viewModel.insertMealForTheList(it, args.mealType)
+        when {
+            editText.isEmpty() -> {
+                binding.editText.setError("Enter Food!", null)
+                binding.editText.requestFocus()
+            }
+            radioBtnSelected.isEmpty() -> {
+                showToastLengthLong("Please choose some measure")
+            }
+            quantity.isEmpty() -> {
+                binding.quantityText.setError("Passwords must match.", null)
+                binding.quantityText.requestFocus()
+            }
+            !quantity.isDigitsOnly() -> {
+                binding.quantityText.setError("Please put a number for measure", null)
+            }
+            else -> {
+                valid = true
+            }
         }
+        return valid
     }
 
-    private fun searchData() {
-        val foodText = binding.editText
-        val radioGroup = binding.radioGroup
-        val quantityText = binding.quantityText
-        if (!foodText.text.isNullOrEmpty() && radioGroup.checkedRadioButtonId != -1 && !quantityText.text.isNullOrEmpty()) {
-            val radioButton = binding.root.findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
-            lifecycleScope.launch {
-                if (viewModel.mealIsPresentInDatabase(foodText.text.toString())) {
-                    setupDataByDatabase()
-                } else {
-                    viewModel.getFoods(foodText.text.toString() + " " + quantityText.text + " " + radioButton.text, foodText.text.toString())
-                    setupData()
+    override fun showToastLengthLong(text: String) {
+        Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
+    }
+
+    override fun progressBarObserver() {
+        viewModel.dailyDiet.observe(viewLifecycleOwner) { dailyDiet ->
+            viewModel.searchMeal.observe(viewLifecycleOwner) { searchMeal ->
+                viewModel.goalAchieved.observe(viewLifecycleOwner) { goalAchieved ->
+                    Log.d("teste", "${dailyDiet.calories.div(searchMeal.calories)}")
+                    binding.progress1.max = dailyDiet.protein.toInt()
+                    binding.progress2.max = dailyDiet.carb.toInt()
+                    binding.progress3.max = dailyDiet.fat.toInt()
+                    binding.progress4.max = dailyDiet.calories.toInt()
+
+                    binding.progress1.progress = searchMeal.protein.toInt().plus(goalAchieved.protein.toInt())
+                    binding.progress2.progress = searchMeal.carb.toInt().div(dailyDiet.carb.toInt()).plus(goalAchieved.carb.toInt())
+                    binding.progress3.progress = searchMeal.fat.toInt().div(dailyDiet.fat.toInt()).plus(goalAchieved.fat.toInt())
+                    binding.progress4.progress = searchMeal.calories.toInt().div(dailyDiet.calories.toInt()).plus(goalAchieved.calories.toInt())
                 }
             }
         }
     }
 
-    private fun setupDataByDatabase() {
-        lifecycleScope.launch {
-            viewModel.getFoodByFoodName(binding.editText.text.toString())
-            setupData()
+    override fun observeDailyDiet() {
+        viewModel.dailyDiet.observe(viewLifecycleOwner) {}
+    }
+
+    override fun setNutrientsNumber() {
+        viewModel.searchMeal.observe(viewLifecycleOwner) { currentMeal ->
+            if (currentMeal.calories != 0.0) {
+                binding.proteinCount.text = currentMeal.protein.toString()
+                binding.carbCount.text = currentMeal.carb.toString()
+                binding.fatCount.text = currentMeal.fat.toString()
+                binding.caloriesCount.text = currentMeal.calories.toString()
+            } else showToastLengthLong("Food not found")
         }
     }
 
-    private fun setupData() {
-        viewModel.meal.observe(viewLifecycleOwner) {
-            val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.CEILING
-            binding.proteinCount.text = df.format(it.protein).toString()
-            binding.carbCount.text = df.format(it.carb).toString()
-            binding.fatCount.text = df.format(it.fat).toString()
-            binding.caloriesCount.text = df.format(it.calories).toString()
-            quantoFaltaProteina(it)
-        }
+    override fun bindData() {
+        progressBarObserver()
+        setNutrientsNumber()
     }
 
-    private fun insertMeal() {
-        viewModel.meal.observe(viewLifecycleOwner) {
-            viewModel.bindCurrentDaily(
-                DailyGoal(
-                    calories = it.calories.formatToTwoHouses(),
-                    protein = it.protein.formatToTwoHouses(),
-                    carb = it.carb.formatToTwoHouses(),
-                    fat = it.fat.formatToTwoHouses(),
-                ),
-            )
-        }
-    }
-
-    private fun quantoFaltaProteina(meal: Meal) {
-        viewModel.currentDaily.observe(viewLifecycleOwner) { currentDaily ->
-            viewModel.dailyGoal.observe(viewLifecycleOwner) { dailyGoal ->
-                binding.progress1.max = dailyGoal.protein.toInt()
-                binding.progress2.max = dailyGoal.carb.toInt()
-                binding.progress3.max = dailyGoal.fat.toInt()
-                binding.progress4.max = dailyGoal.calories.toInt()
-                binding.progress1.setProgress(currentDaily.protein.toInt() + meal.protein.toInt(), true)
-                binding.progress2.setProgress(currentDaily.carb.toInt() + meal.carb.toInt(), true)
-                binding.progress3.setProgress(currentDaily.fat.toInt() + meal.fat.toInt(), true)
-                binding.progress4.setProgress(currentDaily.calories.toInt() + meal.calories.toInt(), true)
-            }
-        }
+    override fun navigateToHomeFragment() {
+        findNavController().navigate(R.id.action_searchFragment_to_homeFragment)
     }
 }

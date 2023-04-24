@@ -1,4 +1,8 @@
 package com.example.dietplan.searchfood.usecases
 
-interface SaveMealInDatabase {
+import com.example.dietplan.data.local.Meal
+
+interface SaveMealInDatabaseUseCase {
+
+    suspend fun execute(meal: Meal)
 }

@@ -13,12 +13,4 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
 
-    @Provides
-    @Singleton
-    fun provideGsonConverterFactory(): GsonConverterFactory = RetrofitService.gsonConverterFactory
-
-    @Provides
-    @Singleton
-    fun provideRetrofitService(): Api =
-        RetrofitService.retrofit
 }

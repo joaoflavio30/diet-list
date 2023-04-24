@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.dietplan.databinding.FragmentProfileBinding
-import com.example.dietplan.viewmodel.SearchViewModel
+import com.example.dietplan.searchfood.viewmodel.SearchViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -33,7 +33,7 @@ class ProfileFragment : Fragment() {
                     Log.e("TAG", "Error loading image from Firebase Storage", exception)
                 },
             )
-            viewModel.bindUriProfileImg(uri.toString())
+//            viewModel.bindUriProfileImg(uri.toString())
         }
     }
 

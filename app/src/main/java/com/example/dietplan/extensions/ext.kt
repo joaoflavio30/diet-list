@@ -6,6 +6,8 @@ import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.view.View
+import androidx.core.content.ContextCompat
+import com.example.dietplan.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -35,3 +37,15 @@ fun LocalDateTime.toTimeString(): String {
     return this.format(formatter)
 }
 
+fun String?.isNotNullOrEmptyNotBlank(): Boolean {
+    return !this.isNullOrEmpty() && this.isNotBlank()
+}
+
+fun View.highlightAView() {
+    this.setBackgroundColor(
+        ContextCompat.getColor(
+            context,
+            R.color.red,
+        ),
+    )
+}

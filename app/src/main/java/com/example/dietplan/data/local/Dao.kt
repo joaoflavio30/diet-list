@@ -15,12 +15,12 @@ interface Dao {
     fun loadAllByIds(mealIds: IntArray): List<com.example.dietplan.data.local.Meal>
 
     @Query(
-        "SELECT * FROM meal WHERE food_name IS :foodName"
+        "SELECT * FROM meal WHERE food_name IS :foodName",
     )
-    suspend fun findByName(foodName: String): com.example.dietplan.data.local.Meal?
+    suspend fun findByName(foodName: String): Meal?
 
     @Insert
-    suspend fun insertAll(vararg meals: com.example.dietplan.data.local.Meal)
+    suspend fun insertAll(vararg meals: Meal)
 
     @Delete
     fun delete(meal: com.example.dietplan.data.local.Meal)

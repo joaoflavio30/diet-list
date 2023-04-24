@@ -1,8 +1,8 @@
 package com.example.dietplan.fragments
 
-import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.os.Bundle
-import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,102 +11,154 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.dietplan.DataState
 import com.example.dietplan.LoginViewModel
 import com.example.dietplan.R
 import com.example.dietplan.databinding.FragmentLoginBinding
+import com.example.dietplan.domain.model.UserAuth
+import com.example.dietplan.fragments.contracts.SignInContracts
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(), SignInContracts.SignInFragment {
 
     private lateinit var googleSingInClient: GoogleSignInClient
-    private lateinit var auth: FirebaseAuth
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LoginViewModel by viewModels()
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            handleSignInResult(task)
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        auth = Firebase.auth
-        auth.signOut()
+        initGoogleSignInClient()
+        setOnClickListener()
+        signInSuccessObserver()
+        progressBarSignInObserver()
+    }
+    override fun checkFields(): Boolean {
+        val email = binding.loginField.text.toString()
+        val password = binding.password.text.toString()
+        var valid = false
+
+        when {
+            email.isEmpty() -> {
+                binding.loginField.setError("Enter Email!", null)
+                binding.loginField.requestFocus()
+            }
+            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                binding.loginField.setError("Enter valid email address.", null)
+                binding.loginField.requestFocus()
+            }
+            password.isEmpty() -> {
+                binding.password.setError("Enter password.", null)
+                binding.password.requestFocus()
+            }
+            password.length <= 6 -> {
+                binding.password.setError("Password length must be > 6 characters.", null)
+                binding.password.requestFocus()
+            }
+            else -> {
+                valid = true
+            }
+        }
+        return valid
+    }
+
+    override fun setOnClickListener() {
+        binding.googleLogin.setOnClickListener {
+            val signInIntent = googleSingInClient.signInIntent
+            launcher.launch(signInIntent)
+        }
+
         binding.btnLogin.setOnClickListener {
-            login()
+            if (checkFields()) {
+                val userAuth = UserAuth(binding.loginField.text.toString(), binding.password.text.toString())
+                viewModel.signIn(userAuth)
+            }
         }
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.your_web_client_id))
-            .requestEmail()
-            .build()
 
-        googleSingInClient = GoogleSignIn.getClient(this.requireActivity(), gso)
-        binding.loginField.setText(auth.currentUser?.email ?: "")
-        binding.googleLogin.setOnClickListener { signInGoogle() }
-        binding.register.setOnClickListener {
-            findNavController().navigate(R.id.registerFragment)
-        }
+        binding.register.setOnClickListener { navigateToSignUp() }
     }
 
-    private fun signInGoogle() {
-        val signInIntent = googleSingInClient.signInIntent
-        launcher.launch(signInIntent)
-    }
-    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-            handleResult(task)
-        }
-    }
-
-    private fun handleResult(task: Task<GoogleSignInAccount>) {
-        if (task.isSuccessful) {
-            val account: GoogleSignInAccount? = task.result
-            if (account != null) {
-                updateUi(account)
+    override fun signInSuccessObserver() {
+        viewModel.signInSuccess.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is DataState.Success -> showToastLengthLong("Login success!")
+                is DataState.Error -> showToastLengthLong("Failed to login: ${result.exception}")
+                is DataState.Loading -> {}
             }
         }
     }
 
-    private fun updateUi(account: GoogleSignInAccount) {
-        viewModel.firebaseAuthWithGoogle(account)
+    override fun showProgressBarSignIn() {
+        binding.progressCircular.visibility = View.VISIBLE
+        binding.btnLogin.visibility = View.INVISIBLE
+        binding.googleLogin.visibility = View.INVISIBLE
     }
 
-    private fun login() {
-        val email = binding.loginField.text.toString()
-        val password = binding.password.text.toString()
+    override fun hideProgressBarSignIn() {
+        binding.progressCircular.visibility = View.INVISIBLE
+        binding.btnLogin.visibility = View.VISIBLE
+        binding.googleLogin.visibility = View.VISIBLE
+    }
 
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(requireContext(), "Please put the password and email", Toast.LENGTH_SHORT).show()
+    override fun showToastLengthLong(text: String) {
+        Toast.makeText(activity, text, Toast.LENGTH_LONG)
+            .show()
+    }
+
+    override fun navigateToPopBackStack() {
+        findNavController().popBackStack()
+    }
+
+    override fun navigateToSignUp() {
+        findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+    }
+
+    override fun handleSignInResult(task: Task<GoogleSignInAccount>) {
+        val account = task.getResult(ApiException::class.java)
+        if (account != null) {
+            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+            viewModel.signInWithGoogle(credential)
         } else {
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this.requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d("TAG", "signInWithEmail:success")
-                        findNavController().navigate(R.id.homeFragment)
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w("TAG", "signInWithEmail:failure", task.exception)
-                        Toast.makeText(
-                            requireActivity(),
-                            "Authentication failed.",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                    }
-                }
+            showToastLengthLong("Google failed login")
+        }
+    }
+
+    override fun initGoogleSignInClient() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.your_web_client_id))
+            .requestEmail()
+            .build()
+        googleSingInClient = GoogleSignIn.getClient(requireContext(), gso)
+    }
+
+    override fun progressBarSignInObserver() {
+        viewModel.progressBarSignIn.observe(viewLifecycleOwner) { result ->
+            if (result) {
+                showProgressBarSignIn()
+            } else {
+                hideProgressBarSignIn()
+            }
         }
     }
 }

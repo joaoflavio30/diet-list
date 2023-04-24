@@ -1,4 +1,8 @@
 package com.example.dietplan.domain.usecase
 
-class RestorePasswordByEmailUseCase {
+import com.example.dietplan.FirebaseAuthRepository
+
+class RestorePasswordByEmailUseCase(private val firebaseAuthRepository: FirebaseAuthRepository) {
+
+    suspend fun execute(email: String) = firebaseAuthRepository.restorePasswordByEmail(email)
 }
