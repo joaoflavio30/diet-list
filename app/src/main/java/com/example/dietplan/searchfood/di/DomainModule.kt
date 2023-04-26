@@ -31,4 +31,32 @@ object DomainModule {
     @Provides
     @Singleton
     fun providesCheckIfHaveDataInDatabaseUseCase(repository: MealRepository): CheckIfHaveDataInDatabaseUseCase = CheckIfHaveDataInDatabaseUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun providesGetDailyGoalInDatabaseUseCase(repository: MealRepository): GetDailyGoalInDatabaseUseCase = GetDailyGoalInDatabaseUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun providesSaveDailyGoalInDatabaseUseCase(repository: MealRepository): SaveDailyGoalInDatabaseUseCase = SaveDailyGoalInDatabaseUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun providesUpdateDailyGoalInDatabaseUseCase(repository: MealRepository): UpdateDailyGoalInDatabaseUseCase = UpdateDailyGoalInDatabaseUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun providesGetAchievedGoalInDatabaseUseCase(repository: MealRepository): GetAchievedGoalInDatabaseUseCase = GetAchievedGoalInDatabaseUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun providesSaveAchievedGoalInDatabaseUseCase(repository: MealRepository): SaveAchievedGoalInDatabaseUseCase = SaveAchievedGoalInDatabaseUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun providesUpdateAchievedGoalInDatabaseUseCase(repository: MealRepository): UpdateAchievedGoalInDatabaseUseCase = UpdateAchievedGoalInDatabaseUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun providesAddWaterUseCase(repository: MealRepository): AddWaterUseCase = AddWaterUseCaseImpl(repository)
 }

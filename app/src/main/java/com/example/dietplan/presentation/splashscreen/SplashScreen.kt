@@ -2,12 +2,12 @@ package com.example.dietplan.presentation.splashscreen
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.dietplan.DataState
 import com.example.dietplan.R
@@ -33,10 +33,12 @@ class SplashScreen : Fragment(), SplashScreenContract.SplashScreenFragment {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        CoroutineScope(Dispatchers.Main).launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             viewModel.checkUserAuthSignedIn()
             delay(2000)
-            signInSuccessObserver()
+            withContext(Dispatchers.Main) {
+                signInSuccessObserver()
+            }
         }
     }
 

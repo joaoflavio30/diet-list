@@ -102,7 +102,10 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
     override fun signInSuccessObserver() {
         viewModel.signInSuccess.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is DataState.Success -> showToastLengthLong("Login success!")
+                is DataState.Success -> {
+                    showToastLengthLong("Login success!")
+                    navigateToHomeFragment()
+                }
                 is DataState.Error -> showToastLengthLong("Failed to login: ${result.exception}")
                 is DataState.Loading -> {}
             }
@@ -160,5 +163,9 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
                 hideProgressBarSignIn()
             }
         }
+    }
+
+    override fun navigateToHomeFragment() {
+        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
     }
 }

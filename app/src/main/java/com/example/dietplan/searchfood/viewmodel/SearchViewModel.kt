@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.dietplan.DataState
 import com.example.dietplan.data.local.Meal
+import com.example.dietplan.data.model.AchievedGoal
 import com.example.dietplan.data.model.DailyGoal
 import com.example.dietplan.data.model.RequestFood
 import com.example.dietplan.searchfood.SearchContract
@@ -20,6 +22,13 @@ class SearchViewModel @Inject constructor(
     private val saveMealInDatabaseUseCase: SaveMealInDatabaseUseCase,
     private val getDailyGoalUseCase: GetDailyGoalUseCase,
     private val checkIfHaveDataInDatabaseUseCase: CheckIfHaveDataInDatabaseUseCase,
+    private val getDailyGoalInDatabaseUseCase: GetDailyGoalInDatabaseUseCase,
+    private val saveDailyGoalInDatabaseUseCase: SaveDailyGoalInDatabaseUseCase,
+    private val saveAchievedGoalInDatabaseUseCase: SaveAchievedGoalInDatabaseUseCase,
+    private val getAchievedGoalInDatabaseUseCase: GetAchievedGoalInDatabaseUseCase,
+    private val updateAchievedGoalInDatabaseUseCase: UpdateAchievedGoalInDatabaseUseCase,
+    private val updateDailyGoalInDatabaseUseCase: UpdateDailyGoalInDatabaseUseCase,
+    private val addWaterUseCase: AddWaterUseCase,
 ) : ViewModel(), SearchContract.SearchViewModel {
 
     private val _searchMeal = MutableLiveData<Meal>()
@@ -61,15 +70,33 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    override fun incWater() {
-        _goalAchieved.postValue(
-            _goalAchieved.value?.apply {
-                water += 1
-            },
-        )
+    override suspend fun incWater(): DataState<Boolean> {
+        return addWaterUseCase.execute()
     }
 
     override fun submitDailyDiet(nutrients: DailyGoal) {
-        _dailyDiet.postValue(nutrients)
+        viewModelScope.launch {
+            saveDailyGoalInDatabaseUseCase.execute(nutrients)
+        }
+    }
+
+    override suspend fun getDailyDiet(): DailyGoal {
+        return getDailyGoalInDatabaseUseCase.execute()
+    }
+
+    override fun submitAchievedGoal(achievedGoal: AchievedGoal) {
+        viewModelScope.launch {
+            saveAchievedGoalInDatabaseUseCase.execute(achievedGoal)
+        }
+    }
+
+    override suspend fun getAchievedGoal(): AchievedGoal {
+        return getAchievedGoalInDatabaseUseCase.execute()
+    }
+
+    override fun updateAchievedGoal(achievedGoal: AchievedGoal) {
+        viewModelScope.launch {
+            updateAchievedGoalInDatabaseUseCase.execute(achievedGoal)
+        }
     }
 }

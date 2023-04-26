@@ -10,5 +10,11 @@ interface HomeContract {
         fun bindData()
 
         fun showDialog()
+
+        fun viewWaterMetrics()
+
+        fun onClickMenuItem()
+
+        fun loadImage()
     }
 }

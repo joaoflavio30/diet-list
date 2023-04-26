@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "daily_goal")
-data class DailyGoal(
+@Entity(tableName = "achieved_goal")
+data class AchievedGoal(
     @ColumnInfo(name = "calories") var calories: Double = 0.0,
     @ColumnInfo(name = "protein") var protein: Double = 0.0,
     @ColumnInfo(name = "carb")var carb: Double = 0.0,

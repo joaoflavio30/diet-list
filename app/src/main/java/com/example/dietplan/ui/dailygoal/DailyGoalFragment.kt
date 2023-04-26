@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.dietplan.R
+import com.example.dietplan.data.model.AchievedGoal
 import com.example.dietplan.data.model.DailyGoal
 import com.example.dietplan.databinding.FragmentDailyGoalBinding
 import com.example.dietplan.searchfood.viewmodel.SearchViewModel
@@ -87,6 +88,10 @@ class DailyGoalFragment : Fragment(), DailyGoalContract.DailyGoalFragment {
     override fun submitDailyDiet() {
         val nutrients = DailyGoal(binding.caloriesText.text.toString().toDouble(), binding.proteinText.text.toString().toDouble(), binding.carbText.text.toString().toDouble(), binding.fatText.text.toString().toDouble(), binding.waterText.text.toString().toInt())
         viewModel.submitDailyDiet(nutrients)
+
+        // submit too AchievedGoal in Database
+        viewModel.submitAchievedGoal(AchievedGoal())
+
         putTrueForPreferencesOfIfUserMakeDailyGoal()
     }
 

@@ -2,10 +2,11 @@ package com.example.dietplan.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.dietplan.data.model.AchievedGoal
+import com.example.dietplan.data.model.DailyGoal
 
-
-@Database(entities = [com.example.dietplan.data.local.Meal::class], version = 2, exportSchema = false)
+@Database(entities = [Meal::class, DailyGoal::class, AchievedGoal::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun dao(): com.example.dietplan.data.local.Dao
+    abstract fun dao(): Dao
 }

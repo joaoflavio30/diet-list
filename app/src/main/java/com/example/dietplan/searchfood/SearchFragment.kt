@@ -10,13 +10,16 @@ import android.widget.Toast
 import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.dietplan.R
+import com.example.dietplan.data.model.AchievedGoal
 import com.example.dietplan.data.model.RequestFood
 import com.example.dietplan.databinding.FragmentSearchBinding
 import com.example.dietplan.searchfood.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(), SearchContract.SearchFragment {
@@ -64,11 +67,7 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
         }
 
         binding.btnAdd.setOnClickListener {
-            viewModel.searchMeal.observe(viewLifecycleOwner) { searchMeal ->
-                viewModel.goalAchieved.observe(viewLifecycleOwner) { goalAchieved ->
-                    viewModel.incrementNutrientsToDailyDiet(searchMeal, goalAchieved)
-                }
-            }
+            saveAchievedGoal()
             navigateToHomeFragment()
         }
     }
@@ -107,7 +106,8 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
     }
 
     override fun progressBarObserver() {
-        viewModel.dailyDiet.observe(viewLifecycleOwner) { dailyDiet ->
+        lifecycleScope.launch {
+            val dailyDiet = viewModel.getDailyDiet()
             viewModel.searchMeal.observe(viewLifecycleOwner) { searchMeal ->
                 viewModel.goalAchieved.observe(viewLifecycleOwner) { goalAchieved ->
                     Log.d("teste", "${dailyDiet.calories.div(searchMeal.calories)}")
@@ -116,10 +116,10 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
                     binding.progress3.max = dailyDiet.fat.toInt()
                     binding.progress4.max = dailyDiet.calories.toInt()
 
-                    binding.progress1.progress = searchMeal.protein.toInt().plus(goalAchieved.protein.toInt())
-                    binding.progress2.progress = searchMeal.carb.toInt().div(dailyDiet.carb.toInt()).plus(goalAchieved.carb.toInt())
-                    binding.progress3.progress = searchMeal.fat.toInt().div(dailyDiet.fat.toInt()).plus(goalAchieved.fat.toInt())
-                    binding.progress4.progress = searchMeal.calories.toInt().div(dailyDiet.calories.toInt()).plus(goalAchieved.calories.toInt())
+                    binding.progress1.setProgress(searchMeal.protein.toInt().plus(goalAchieved.protein.toInt()), true)
+                    binding.progress2.setProgress(searchMeal.carb.toInt().plus(goalAchieved.carb.toInt()), true)
+                    binding.progress3.setProgress(searchMeal.fat.toInt().plus(goalAchieved.fat.toInt()), true)
+                    binding.progress4.setProgress(searchMeal.calories.toInt().plus(goalAchieved.calories.toInt()), true)
                 }
             }
         }
@@ -136,7 +136,9 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
                 binding.carbCount.text = currentMeal.carb.toString()
                 binding.fatCount.text = currentMeal.fat.toString()
                 binding.caloriesCount.text = currentMeal.calories.toString()
-            } else showToastLengthLong("Food not found")
+            } else {
+                showToastLengthLong("Food not found")
+            }
         }
     }
 
@@ -147,5 +149,13 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
 
     override fun navigateToHomeFragment() {
         findNavController().navigate(R.id.action_searchFragment_to_homeFragment)
+    }
+
+    override fun saveAchievedGoal() {
+        viewModel.searchMeal.observe(viewLifecycleOwner) { meal ->
+            val achievedGoal = AchievedGoal(calories = meal.calories, protein = meal.protein, carb = meal.carb, fat = meal.fat)
+            Log.d("teste A", "$achievedGoal")
+            viewModel.updateAchievedGoal(achievedGoal)
+        }
     }
 }

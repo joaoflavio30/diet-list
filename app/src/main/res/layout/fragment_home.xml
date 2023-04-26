@@ -73,7 +73,7 @@
                 android:layout_marginTop="50dp"
                 android:text="@string/protein_numb"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toStartOf="@id/count_calories"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/count_calories" />
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/protein_numb"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="@id/count_calories"
                 app:layout_constraintStart_toStartOf="@id/count_calories"
                 app:layout_constraintTop_toTopOf="@id/protein" />
@@ -148,7 +148,7 @@
                 android:layout_marginEnd="3dp"
                 android:text="@string/protein_numb"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/count_calories"
                 app:layout_constraintTop_toTopOf="@id/protein" />

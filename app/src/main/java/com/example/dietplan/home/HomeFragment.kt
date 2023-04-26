@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -58,12 +57,11 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListener()
         bindData()
-        Log.d("tag", "${viewModel.dailyDiet.value}")
     }
 
-    fun onClickMenuItem() {
-        binding.bottomMenu.setOnItemSelectedListener { menuitem ->
-            when (menuitem.itemId) {
+    override fun onClickMenuItem() {
+        binding.bottomMenu.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
                 R.id.page_2 -> {
                     findNavController().navigate(R.id.searchFragment)
                     return@setOnItemSelectedListener true
@@ -83,55 +81,28 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
         }
     }
 
-    private fun viewWaterMetrics() {
-        viewModel.goalAchieved.observe(viewLifecycleOwner) { goalAchieved ->
-            viewModel.dailyDiet.observe(viewLifecycleOwner) { dailyDiet ->
+    override fun viewWaterMetrics() {
+        lifecycleScope.launch(Dispatchers.Main) {
+            val current = viewModel.getAchievedGoal().water.toDouble()
+            val total = viewModel.getDailyDiet().water.toDouble()
+            Log.d("tag", "${current.div(total)}")
 
-                val current = goalAchieved.water.toDouble()
-                val total = dailyDiet.water.toDouble()
-
-                if (current.div(total) >= 0.33 && current.div(total) < 0.66) {
-                    binding.waterView2.highlightAView()
-                }
-                if (current.div(total) >= 0.66 && current.div(total) < 1.0) {
-                    binding.waterView2.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.red,
-                        ),
-                    )
-                    binding.waterView1.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.red,
-                        ),
-                    )
-                }
-                if (current.div(total) == 1.0) {
-                    binding.waterView2.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.red,
-                        ),
-                    )
-                    binding.waterView1.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.red,
-                        ),
-                    )
-                    binding.waterView3.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.red,
-                        ),
-                    )
-                }
+            if (current.div(total) >= 0.33 && current.div(total) < 0.66) {
+                binding.waterView2.highlightAView()
+            }
+            if (current.div(total) >= 0.66 && current.div(total) < 1.0) {
+                binding.waterView2.highlightAView()
+                binding.waterView1.highlightAView()
+            }
+            if (current.div(total) >= 1.0) {
+                binding.waterView2.highlightAView()
+                binding.waterView1.highlightAView()
+                binding.waterView3.highlightAView()
             }
         }
     }
 
-    private fun loadImage() {
+    override fun loadImage() {
         firebaseImageUploader.loadImageFromFirebaseStorage(
             "profile_images/${FirebaseAuth.getInstance().currentUser!!.uid}",
             successCallback = { uri: Uri ->
@@ -150,6 +121,7 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
         binding.waterMetric.setOnClickListener {
             showDialog()
         }
+        onClickMenuItem()
     }
 
     override fun navigateToSearchFragment() {
@@ -157,35 +129,35 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
     }
 
     override fun bindData() {
-        viewModel.dailyDiet.observe(viewLifecycleOwner) { dailyDiet ->
+        lifecycleScope.launch(Dispatchers.Main) {
+            val dailyDiet = viewModel.getDailyDiet()
+            val goalAchieved = viewModel.getAchievedGoal()
             Log.d("tag", "$dailyDiet")
-            viewModel.goalAchieved.observe(viewLifecycleOwner) { goalAchieved ->
-                binding.protein.text = getString(R.string.protein_numb).formatCurrentVsTotal(
-                    goalAchieved.protein.toString(),
-                    dailyDiet.protein.toString(),
-                    " g",
-                )
-                binding.carb.text = getString(R.string.protein_numb).formatCurrentVsTotal(
-                    goalAchieved.carb.toString(),
-                    dailyDiet.protein.toString(),
-                    " g",
-                )
-                binding.fat.text = getString(R.string.protein_numb).formatCurrentVsTotal(
-                    goalAchieved.fat.toString(),
-                    dailyDiet.fat.toString(),
-                    " g",
-                )
-                binding.currentWater.text = getString(R.string.water_numb).formatCurrentVsTotal(
-                    goalAchieved.water.toString(),
-                    dailyDiet.water.toString(),
-                    " liters",
-                )
-                binding.intoCalories.text =
-                    getString(R.string.calories_count, goalAchieved.calories.toString())
-                binding.countCalories.setMax(dailyDiet.calories.toInt())
-                binding.countCalories.setProgress(goalAchieved.calories.toInt(), true)
-                viewWaterMetrics()
-            }
+            binding.protein.text = getString(R.string.protein_numb).formatCurrentVsTotal(
+                goalAchieved.protein.toString(),
+                dailyDiet.protein.toString(),
+                " g",
+            )
+            binding.carb.text = getString(R.string.protein_numb).formatCurrentVsTotal(
+                goalAchieved.carb.toString(),
+                dailyDiet.carb.toString(),
+                " g",
+            )
+            binding.fat.text = getString(R.string.protein_numb).formatCurrentVsTotal(
+                goalAchieved.fat.toString(),
+                dailyDiet.fat.toString(),
+                " g",
+            )
+            binding.currentWater.text = getString(R.string.protein_numb).formatCurrentVsTotal(
+                goalAchieved.water.toString(),
+                dailyDiet.water.toString(),
+                " liters",
+            )
+            binding.intoCalories.text =
+                getString(R.string.calories_count, goalAchieved.calories.toString())
+            binding.countCalories.setMax(dailyDiet.calories.toInt())
+            binding.countCalories.setProgress(goalAchieved.calories.toInt(), true)
+            viewWaterMetrics()
         }
     }
 
@@ -198,12 +170,17 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
             setPositiveButton(
                 "Yes",
             ) { dialogInterface, int ->
-                val current = (viewModel.goalAchieved.value?.water)?.plus(1).toString()
-                val total = viewModel.dailyDiet.value?.water.toString()
-                binding.currentWater.text = getString(R.string.water_numb, current, total)
-                viewModel.incWater()
-                viewWaterMetrics()
-                Log.d("Tag", current + "----" + total)
+                lifecycleScope.launch(Dispatchers.Main) {
+                    Log.d("antes", "${viewModel.getAchievedGoal().water}")
+                    viewModel.incWater()
+                    Log.d("depois", "${viewModel.getAchievedGoal().water}")
+                    binding.currentWater.text = getString(R.string.water_numb).formatCurrentVsTotal(
+                        viewModel.getAchievedGoal().water.toString(),
+                        viewModel.getDailyDiet().water.toString(),
+                        " liters",
+                    )
+                    viewWaterMetrics()
+                }
             }
                 .setNegativeButton(
                     "No",

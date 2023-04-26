@@ -29,6 +29,8 @@ interface SignInContracts {
         fun initGoogleSignInClient()
 
         fun progressBarSignInObserver()
+
+        fun navigateToHomeFragment()
     }
 
     interface SignInViewModel {
