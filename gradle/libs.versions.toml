@@ -24,6 +24,7 @@ playServicesAuthVersion = "20.5.0"
 androidxRoomKtxVersion = "2.5.0"
 kotlinVersion = "1.7.20"
 gradleVersion = "7.3.1"
+androidXLifecycleVersion = "2.5.1"
 
 [libraries]
 androidxNavigationFragmentKtx = {module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
@@ -53,6 +54,10 @@ hiltWork = {module = "androidx.hilt:hilt-work", version.ref = "hiltWorkVersion"}
 playServicesAuth = {module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuthVersion"}
 androidxRoomKtx = { module = "androidx.room:room-ktx", version.ref = "androidxRoomKtxVersion" }
 roomCompiler = {module = "androidx.room:room-compiler", version.ref = "androidxRoomKtxVersion"}
+androidxLifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidXLifecycleVersion" }
+androidxLifecycleLivedataKtx = {module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidXLifecycleVersion"}
+androidxLifecycleViewmodelKtx = {module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidXLifecycleVersion"}
+androidxLifecycleNavigationNavigationSafeArgs = {module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navVersion"}
 
 
 

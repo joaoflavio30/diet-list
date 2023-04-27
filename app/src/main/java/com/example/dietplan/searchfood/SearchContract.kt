@@ -1,6 +1,6 @@
 package com.example.dietplan.searchfood
 
-import com.example.dietplan.DataState
+import com.example.dietplan.domain.model.DataState
 import com.example.dietplan.data.local.Meal
 import com.example.dietplan.data.model.AchievedGoal
 import com.example.dietplan.data.model.DailyGoal
@@ -37,7 +37,7 @@ interface SearchContract {
 
         fun saveRemoteDataInDatabase(meal: Meal)
 
-        suspend fun incWater(): DataState<Boolean>
+        suspend fun incWater(): com.example.dietplan.domain.model.DataState<Boolean>
 
         fun submitDailyDiet(nutrients: DailyGoal)
 

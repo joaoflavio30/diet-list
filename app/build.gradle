@@ -77,4 +77,8 @@ dependencies {
     implementation libs.firebaseAuthKtx
     implementation libs.androidxRoomKtx
     kapt libs.roomCompiler
+
+    implementation project(':component:authentication:data')
+    implementation project(':component:authentication:domain')
+    implementation project(':feature:authentication')
 }

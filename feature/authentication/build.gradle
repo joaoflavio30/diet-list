@@ -1,0 +1,32 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.example.dietplan.authentication'
+    compileSdk rootProject.ext.sdkVersion
+
+    viewBinding{
+        enabled = true
+    }
+}
+
+dependencies {
+
+    implementation libs.coroutinesAndroid
+    implementation libs.hiltAndroid
+    kapt libs.hiltCompiler
+
+    implementation libs.androidxConstraintLayout
+    implementation libs.androidxCoreKtx
+    implementation libs.androidxLifecycle
+    implementation libs.bundles.navigation
+    implementation libs.playServicesAuth
+    implementation libs.firebaseAuthKtx
+
+    implementation project(':component:authentication:domain')
+
+}

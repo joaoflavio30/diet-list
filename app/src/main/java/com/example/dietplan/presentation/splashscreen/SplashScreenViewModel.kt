@@ -3,7 +3,7 @@ package com.example.dietplan.presentation.splashscreen
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dietplan.DataState
+import com.example.dietplan.domain.model.DataState
 import com.example.dietplan.domain.usecase.CheckUserAuthSignedInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

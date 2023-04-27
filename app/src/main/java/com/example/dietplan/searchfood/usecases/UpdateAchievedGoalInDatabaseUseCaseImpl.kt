@@ -1,13 +1,13 @@
 package com.example.dietplan.searchfood.usecases
 
 import android.util.Log
-import com.example.dietplan.DataState
+import com.example.dietplan.domain.model.DataState
 import com.example.dietplan.data.model.AchievedGoal
 import com.example.dietplan.extensions.formatToTwoHouses
 import com.example.dietplan.repositories.MealRepository
 
 class UpdateAchievedGoalInDatabaseUseCaseImpl(private val repository: MealRepository): UpdateAchievedGoalInDatabaseUseCase {
-    override suspend fun execute(achievedGoal: AchievedGoal): DataState<Boolean> {
+    override suspend fun execute(achievedGoal: AchievedGoal): com.example.dietplan.domain.model.DataState<Boolean> {
         val oldAchievedGoal = repository.getAchievedGoal()
         val newAchievedGoal = oldAchievedGoal.copy(
             calories = oldAchievedGoal.calories.plus(achievedGoal.calories).formatToTwoHouses(),

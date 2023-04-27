@@ -1,7 +1,7 @@
 package com.example.dietplan.repositories
 
 import android.util.Log
-import com.example.dietplan.DataState
+import com.example.dietplan.domain.model.DataState
 import com.example.dietplan.data.local.Dao
 import com.example.dietplan.data.local.Meal
 import com.example.dietplan.data.model.AchievedGoal
@@ -67,12 +67,12 @@ class MealRepositoryImpl @Inject constructor(private val database: Dao, private 
         }
     }
 
-    override suspend fun saveDailyGoal(dailyGoal: DailyGoal): DataState<Boolean> {
+    override suspend fun saveDailyGoal(dailyGoal: DailyGoal): com.example.dietplan.domain.model.DataState<Boolean> {
         return withContext(Dispatchers.IO) {
             try {
                 database.insertDailyGoal(dailyGoal)
-                DataState.Success(true)
-            } catch (e: Exception) { DataState.Error(e) }
+                com.example.dietplan.domain.model.DataState.Success(true)
+            } catch (e: Exception) { com.example.dietplan.domain.model.DataState.Error(e) }
         }
     }
 
@@ -86,23 +86,23 @@ class MealRepositoryImpl @Inject constructor(private val database: Dao, private 
         }
     }
 
-    override suspend fun updateDailyGoal(dailyGoal: DailyGoal): DataState<Boolean> {
+    override suspend fun updateDailyGoal(dailyGoal: DailyGoal): com.example.dietplan.domain.model.DataState<Boolean> {
         return withContext(Dispatchers.IO) {
             try {
                 database.updateDailyGoal(dailyGoal)
-                DataState.Success(true)
+                com.example.dietplan.domain.model.DataState.Success(true)
             } catch (e: Exception) {
-                DataState.Error(e)
+                com.example.dietplan.domain.model.DataState.Error(e)
             }
         }
     }
 
-    override suspend fun saveAchievedGoal(achievedGoal: AchievedGoal): DataState<Boolean> {
+    override suspend fun saveAchievedGoal(achievedGoal: AchievedGoal): com.example.dietplan.domain.model.DataState<Boolean> {
         return withContext(Dispatchers.IO) {
             try {
                 database.insertAchievedGoal(achievedGoal)
-                DataState.Success(true)
-            } catch (e: Exception) { DataState.Error(e) }
+                com.example.dietplan.domain.model.DataState.Success(true)
+            } catch (e: Exception) { com.example.dietplan.domain.model.DataState.Error(e) }
         }
     }
 
@@ -116,13 +116,13 @@ class MealRepositoryImpl @Inject constructor(private val database: Dao, private 
         }
     }
 
-    override suspend fun updateAchievedGoal(achievedGoal: AchievedGoal): DataState<Boolean> {
+    override suspend fun updateAchievedGoal(achievedGoal: AchievedGoal): com.example.dietplan.domain.model.DataState<Boolean> {
         return withContext(Dispatchers.IO) {
             try {
                 database.updateAchievedGoal(achievedGoal)
-                DataState.Success(true)
+                com.example.dietplan.domain.model.DataState.Success(true)
             } catch (e: Exception) {
-                DataState.Error(e)
+                com.example.dietplan.domain.model.DataState.Error(e)
             }
         }
     }

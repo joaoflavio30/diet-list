@@ -18,3 +18,7 @@ enableFeaturePreview("VERSION_CATALOGS")
 rootProject.name = "DietPlan"
 include ':app'
 
+include ':feature:authentication'
+include ':component:authentication'
+include ':component:authentication:data'
+include ':component:authentication:domain'

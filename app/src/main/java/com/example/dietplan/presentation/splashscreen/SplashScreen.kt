@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.dietplan.DataState
+import com.example.dietplan.domain.model.DataState
 import com.example.dietplan.R
 import com.example.dietplan.databinding.FragmentSplashScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,9 +53,9 @@ class SplashScreen : Fragment(), SplashScreenContract.SplashScreenFragment {
     override fun signInSuccessObserver() {
         viewModel.signInSuccess.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is DataState.Success -> navigateToDailyGoalFragment()
-                is DataState.Error -> navigateToSignInFragment()
-                is DataState.Loading -> navigateToSignInFragment()
+                is com.example.dietplan.domain.model.DataState.Success -> navigateToDailyGoalFragment()
+                is com.example.dietplan.domain.model.DataState.Error -> navigateToSignInFragment()
+                is com.example.dietplan.domain.model.DataState.Loading -> navigateToSignInFragment()
             }
         }
     }

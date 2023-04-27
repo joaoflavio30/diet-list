@@ -1,6 +1,6 @@
 package com.example.dietplan.di
 
-import com.example.dietplan.FirebaseAuthRepository
+import com.example.dietplan.domain.repository.FirebaseAuthRepository
 import com.example.dietplan.domain.usecase.CheckUserAuthSignedInUseCase
 import com.example.dietplan.domain.usecase.SignInUseCase
 import com.example.dietplan.domain.usecase.SignInWithGoogleUseCase
@@ -17,15 +17,18 @@ object DomainModule {
 
     @Provides
     @Singleton
-    fun providesSignUpUseCase(authRepository: FirebaseAuthRepository): SignUpUseCase = SignUpUseCase(authRepository)
+    fun providesSignUpUseCase(authRepository: FirebaseAuthRepository): SignUpUseCase =
+        SignUpUseCase(authRepository)
 
     @Provides
     @Singleton
-    fun providesSignInUseCase(authRepository: FirebaseAuthRepository): SignInUseCase = SignInUseCase(authRepository)
+    fun providesSignInUseCase(authRepository: FirebaseAuthRepository): SignInUseCase =
+        SignInUseCase(authRepository)
 
     @Provides
     @Singleton
-    fun providesSignInWithGoogleUseCase(authRepository: FirebaseAuthRepository): SignInWithGoogleUseCase = SignInWithGoogleUseCase(authRepository)
+    fun providesSignInWithGoogleUseCase(authRepository: FirebaseAuthRepository): SignInWithGoogleUseCase =
+        SignInWithGoogleUseCase(authRepository)
 
     @Provides
     @Singleton

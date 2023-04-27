@@ -1,0 +1,21 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.example.dietplan.data'
+    compileSdk rootProject.ext.sdkVersion
+
+
+}
+
+dependencies {
+    implementation libs.firebaseAuthKtx
+    kapt libs.hiltCompiler
+    implementation libs.hiltAndroid
+
+    implementation project(':component:authentication:domain')
+}

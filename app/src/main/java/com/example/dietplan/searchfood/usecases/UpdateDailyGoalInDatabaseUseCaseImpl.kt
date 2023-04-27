@@ -1,11 +1,11 @@
 package com.example.dietplan.searchfood.usecases
 
-import com.example.dietplan.DataState
+import com.example.dietplan.domain.model.DataState
 import com.example.dietplan.data.model.DailyGoal
 import com.example.dietplan.repositories.MealRepository
 
 class UpdateDailyGoalInDatabaseUseCaseImpl(private val repository: MealRepository): UpdateDailyGoalInDatabaseUseCase {
-    override suspend fun execute(dailyGoal: DailyGoal): DataState<Boolean> {
+    override suspend fun execute(dailyGoal: DailyGoal): com.example.dietplan.domain.model.DataState<Boolean> {
         return repository.updateDailyGoal(dailyGoal)
     }
 }

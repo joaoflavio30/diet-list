@@ -1,6 +1,6 @@
 package com.example.dietplan.repositories
 
-import com.example.dietplan.DataState
+import com.example.dietplan.domain.model.DataState
 import com.example.dietplan.data.local.Meal
 import com.example.dietplan.data.model.AchievedGoal
 import com.example.dietplan.data.model.DailyGoal
@@ -20,15 +20,15 @@ interface MealRepository {
 
     suspend fun saveMealInDatabase(meal: Meal)
 
-    suspend fun saveDailyGoal(dailyGoal: DailyGoal): DataState<Boolean>
+    suspend fun saveDailyGoal(dailyGoal: DailyGoal): com.example.dietplan.domain.model.DataState<Boolean>
 
     suspend fun getDailyGoal(): DailyGoal
 
-    suspend fun updateDailyGoal(dailyGoal: DailyGoal): DataState<Boolean>
+    suspend fun updateDailyGoal(dailyGoal: DailyGoal): com.example.dietplan.domain.model.DataState<Boolean>
 
-    suspend fun saveAchievedGoal(achievedGoal: AchievedGoal): DataState<Boolean>
+    suspend fun saveAchievedGoal(achievedGoal: AchievedGoal): com.example.dietplan.domain.model.DataState<Boolean>
 
     suspend fun getAchievedGoal(): AchievedGoal
 
-    suspend fun updateAchievedGoal(achievedGoal: AchievedGoal): DataState<Boolean>
+    suspend fun updateAchievedGoal(achievedGoal: AchievedGoal): com.example.dietplan.domain.model.DataState<Boolean>
 }

@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dietplan.DataState
+import com.example.dietplan.domain.model.DataState
 import com.example.dietplan.data.local.Meal
 import com.example.dietplan.data.model.AchievedGoal
 import com.example.dietplan.data.model.DailyGoal
@@ -70,7 +70,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    override suspend fun incWater(): DataState<Boolean> {
+    override suspend fun incWater(): com.example.dietplan.domain.model.DataState<Boolean> {
         return addWaterUseCase.execute()
     }
 
