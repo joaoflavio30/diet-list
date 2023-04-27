@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -17,7 +17,6 @@ import com.example.dietplan.* // ktlint-disable no-wildcard-imports
 import com.example.dietplan.databinding.FragmentHomeBinding
 import com.example.dietplan.extensions.formatCurrentVsTotal
 import com.example.dietplan.extensions.highlightAView
-import com.example.dietplan.searchfood.viewmodel.SearchViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +28,7 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: SearchViewModel by activityViewModels()
+    private val viewModel: HomeViewModel by viewModels()
 
     @Inject
     lateinit var myDialog: MyDialog

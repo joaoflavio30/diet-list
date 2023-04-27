@@ -37,7 +37,7 @@ interface SearchContract {
 
         fun saveRemoteDataInDatabase(meal: Meal)
 
-        suspend fun incWater(): com.example.dietplan.domain.model.DataState<Boolean>
+        suspend fun incWater(): DataState<Boolean>
 
         fun submitDailyDiet(nutrients: DailyGoal)
 
