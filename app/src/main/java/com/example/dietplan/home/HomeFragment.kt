@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.dietplan.*
+import com.example.dietplan.* // ktlint-disable no-wildcard-imports
 import com.example.dietplan.databinding.FragmentHomeBinding
 import com.example.dietplan.extensions.formatCurrentVsTotal
 import com.example.dietplan.extensions.highlightAView
