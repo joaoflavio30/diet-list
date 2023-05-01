@@ -1,6 +1,5 @@
 package com.joaoflaviofreitas.dietplan.feature.search
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +9,6 @@ import com.joaoflaviofreitas.dietplan.component.food.domain.model.Meal // ktlint
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.RequestFood
 import com.joaoflaviofreitas.dietplan.component.food.domain.usecase.*
 import com.joaoflaviofreitas.dietplan.feature.common.utils.formatPropertiesWithTwoDecimalPlaces
-import com.joaoflaviofreitas.dietplan.feature.common.utils.formatToTwoHouses // ktlint-disable no-wildcard-imports
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

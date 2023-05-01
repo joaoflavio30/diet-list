@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/dailyGoalFragment"
-        android:name="com.joaoflaviofreitas.dietplan.ui.dailygoal.DailyGoalFragment"
+        android:name="com.joaoflaviofreitas.dietplan.feature.dailygoal.DailyGoalFragment"
         android:label="fragment_daily_goal"
         tools:layout="@layout/fragment_daily_goal">
         <action

@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.ui.dailygoal
+package com.joaoflaviofreitas.dietplan.feature.dailygoal
 
 import android.content.Context
 import android.os.Bundle
@@ -8,13 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.joaoflaviofreitas.dietplan.R
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.DailyGoal
-import com.joaoflaviofreitas.dietplan.databinding.FragmentDailyGoalBinding
-import com.joaoflaviofreitas.dietplan.feature.search.SearchViewModel
+import com.joaoflaviofreitas.dietplan.feature.dailygoal.databinding.FragmentDailyGoalBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +20,7 @@ class DailyGoalFragment : Fragment(), DailyGoalContract.DailyGoalFragment {
     private var _binding: FragmentDailyGoalBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: SearchViewModel by activityViewModels()
+    private val viewModel: DailyGoalViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
