@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.dietplan'
+    namespace 'com.joaoflaviofreitas.dietplan'
     compileSdk rootProject.ext.sdkVersion
 
     defaultConfig {
-        applicationId "com.example.dietplan"
+        applicationId "com.joaoflaviofreitas.dietplan"
         minSdk rootProject.ext.minSdkVersion
         targetSdk rootProject.ext.targetVersion
         versionCode 1
@@ -80,5 +80,10 @@ dependencies {
 
     implementation project(':component:authentication:data')
     implementation project(':component:authentication:domain')
+    implementation project(':component:food:data')
+    implementation project(':component:food:domain')
     implementation project(':feature:authentication')
+    implementation project(':feature:home')
+    implementation project(':feature:search')
+    implementation project(':feature:common')
 }

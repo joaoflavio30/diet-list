@@ -4,14 +4,13 @@ plugins {
 }
 
 android {
-    namespace 'com.example.dietplan.domain'
+    namespace 'com.joaoflaviofreitas.dietplan.component.authentication.domain'
     compileSdk rootProject.ext.sdkVersion
 
 
 }
 
 dependencies {
-
 
     implementation libs.firebaseAuthKtx
 }

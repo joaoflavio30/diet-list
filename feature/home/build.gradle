@@ -1,11 +1,14 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
-    namespace 'com.example.dietplan.home'
+    namespace 'com.joaoflaviofreitas.dietplan.feature.home'
     compileSdk rootProject.ext.sdkVersion
+    defaultConfig {  minSdk rootProject.ext.minSdkVersion }
 
     viewBinding {
         enabled = true
@@ -13,6 +16,19 @@ android {
 }
 
 dependencies {
+    implementation libs.hiltAndroid
+    kapt libs.hiltCompiler
+    implementation libs.androidxConstraintLayout
 
+    implementation libs.circleImageView
+    implementation libs.androidMaterial
 
+    implementation libs.bundles.navigation
+    implementation libs.firebaseStorageKtx
+    implementation libs.firebaseAuthKtx
+    implementation libs.glide
+    kapt libs.glideCompiler
+
+    implementation project(':component:food:domain')
+    implementation project(':feature:common')
 }

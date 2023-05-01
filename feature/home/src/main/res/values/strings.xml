@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="date">Saturday, 18 January</string>
+    <string name="calories_count">%1$s cal</string>
+    <string name="protein_numb">%1$s<font color="#808080" size="10">/%2$s</font></string>
+    <string name="water_numb">%1$s<font color="#808080" size="10">/%2$s litres</font></string>
+    <string name="dialog_title">Qual refeição ?</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="snack">Snack</string>
+    <string name="dinner">Dinner</string>
+</resources>

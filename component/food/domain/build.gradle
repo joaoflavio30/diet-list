@@ -1,0 +1,24 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.joaoflaviofreitas.dietplan.component.food.domain'
+    compileSdk rootProject.ext.sdkVersion
+
+}
+
+dependencies {
+    implementation libs.androidxRoomKtx
+    kapt libs.roomCompiler
+
+    implementation libs.hiltAndroid
+    kapt libs.hiltCompiler
+
+    implementation libs.retrofit
+
+
+}

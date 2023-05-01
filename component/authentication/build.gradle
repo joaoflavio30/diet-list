@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.dietplan.authentication'
+    namespace 'com.joaoflaviofreitas.dietplan.component.authentication'
     compileSdk rootProject.ext.sdkVersion
 
 

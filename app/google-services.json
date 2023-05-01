@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:335865405389:android:437fbaaf063ef9c5892e84",
+        "mobilesdk_app_id": "1:335865405389:android:003266dc58266aad892e84",
         "android_client_info": {
-          "package_name": "com.example.dietplan"
+          "package_name": "com.joaoflaviofreitas.dietplan"
         }
       },
       "oauth_client": [
         {
-          "client_id": "335865405389-0q4ug5fppl9l0c7c2p0o29at4im91pv4.apps.googleusercontent.com",
+          "client_id": "335865405389-8tmlmn4tfg566jd8d8i0g6npp8gvhp9r.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

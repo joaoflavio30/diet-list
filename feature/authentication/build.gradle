@@ -6,8 +6,12 @@ plugins {
 }
 
 android {
-    namespace 'com.example.dietplan.authentication'
+    namespace 'com.joaoflaviofreitas.dietplan.feature.authentication'
     compileSdk rootProject.ext.sdkVersion
+
+    defaultConfig {
+        minSdk rootProject.ext.minSdkVersion
+    }
 
     viewBinding{
         enabled = true
@@ -23,10 +27,15 @@ dependencies {
     implementation libs.androidxConstraintLayout
     implementation libs.androidxCoreKtx
     implementation libs.androidxLifecycle
-    implementation libs.bundles.navigation
-    implementation libs.playServicesAuth
-    implementation libs.firebaseAuthKtx
 
+    implementation libs.bundles.navigation
+
+    implementation libs.playServicesAuth
+
+    implementation libs.firebaseAuthKtx
+    implementation libs.firebaseUiAuth
+    implementation libs.firebaseBom
+    
     implementation project(':component:authentication:domain')
 
 }
