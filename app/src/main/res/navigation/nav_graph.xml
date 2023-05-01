@@ -73,7 +73,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/splashScreen"
-        android:name="com.joaoflaviofreitas.dietplan.presentation.splashscreen.SplashScreen"
+        android:name="com.joaoflaviofreitas.dietplan.feature.splash.SplashScreen"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen">
         <action

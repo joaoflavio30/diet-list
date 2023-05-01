@@ -1,0 +1,24 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.joaoflaviofreitas.dietplan.feature.splash'
+    compileSdk rootProject.ext.sdkVersion
+
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+
+    implementation libs.hiltAndroid
+    kapt libs.hiltCompiler
+
+    implementation libs.bundles.navigation
+    implementation project(':component:authentication:domain')
+}

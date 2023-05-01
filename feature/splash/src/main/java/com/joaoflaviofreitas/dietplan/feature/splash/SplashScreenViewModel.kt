@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.presentation.splashscreen
+package com.joaoflaviofreitas.dietplan.feature.splash
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +10,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashScreenViewModel @Inject constructor(private val checkUserAuthSignedInUseCase: CheckUserAuthSignedInUseCase) : ViewModel(), SplashScreenContract.SplashScreenViewModel {
+class SplashScreenViewModel @Inject constructor(private val checkUserAuthSignedInUseCase: CheckUserAuthSignedInUseCase) :
+    ViewModel(),
+    SplashScreenContract.SplashScreenViewModel {
 
     private val _signInSuccess = MutableLiveData<DataState<Boolean>>()
     val signInSuccess get() = _signInSuccess

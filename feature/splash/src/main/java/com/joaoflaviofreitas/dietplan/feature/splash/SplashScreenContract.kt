@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.presentation.splashscreen
+package com.joaoflaviofreitas.dietplan.feature.splash
 
 interface SplashScreenContract {
 

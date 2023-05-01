@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.presentation.splashscreen
+package com.joaoflaviofreitas.dietplan.feature.splash
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,9 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.joaoflaviofreitas.dietplan.R
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
-import com.joaoflaviofreitas.dietplan.databinding.FragmentSplashScreenBinding
+import com.joaoflaviofreitas.dietplan.feature.splash.databinding.FragmentSplashScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
@@ -55,7 +54,7 @@ class SplashScreen : Fragment(), SplashScreenContract.SplashScreenFragment {
         viewModel.signInSuccess.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is DataState.Success -> navigateToDailyGoalFragment()
-                is DataState.Error -> { Log.d("tag","${result.exception}")
+                is DataState.Error -> { Log.d("tag", "${result.exception}")
                     navigateToSignInFragment()
                 }
                 is DataState.Loading -> {}

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.splashscreen.SplashScreen">
+    tools:context=".feature.splash.SplashScreen">
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_baseline_free_breakfast_24"
+        android:src="@drawable/ic_launcher_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
