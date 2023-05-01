@@ -9,7 +9,7 @@
         android:id="@+id/registerFragment"
         android:name="com.joaoflaviofreitas.dietplan.feature.authentication.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -18,7 +18,7 @@
         android:id="@+id/loginFragment"
         android:name="com.joaoflaviofreitas.dietplan.feature.authentication.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -33,7 +33,7 @@
         android:id="@+id/homeFragment"
         android:name="com.joaoflaviofreitas.dietplan.feature.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -45,19 +45,14 @@
             app:destination="@id/profileFragment" />
     </fragment>
     <fragment
-        android:id="@+id/dietFragment"
-        android:name="com.joaoflaviofreitas.dietplan.home.DietFragment"
-        android:label="fragment_diet"
-        tools:layout="@layout/fragment_diet" />
-    <fragment
         android:id="@+id/searchFragment"
         android:name="com.joaoflaviofreitas.dietplan.feature.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <argument
             android:name="meal_type"
-            app:argType="string"
-            android:defaultValue='""' />
+            android:defaultValue='""'
+            app:argType="string" />
         <action
             android:id="@+id/action_searchFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -66,7 +61,7 @@
         android:id="@+id/dailyGoalFragment"
         android:name="com.joaoflaviofreitas.dietplan.ui.dailygoal.DailyGoalFragment"
         android:label="fragment_daily_goal"
-        tools:layout="@layout/fragment_daily_goal" >
+        tools:layout="@layout/fragment_daily_goal">
         <action
             android:id="@+id/action_dailyGoalFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -80,7 +75,7 @@
         android:id="@+id/splashScreen"
         android:name="com.joaoflaviofreitas.dietplan.presentation.splashscreen.SplashScreen"
         android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen" >
+        tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/action_splashScreen_to_loginFragment"
             app:destination="@id/loginFragment" />
