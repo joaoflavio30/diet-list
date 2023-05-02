@@ -1,45 +1,36 @@
-package com.joaoflaviofreitas.dietplan
+package com.joaoflaviofreitas.dietplan.feature.profile
 
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.joaoflaviofreitas.dietplan.databinding.FragmentProfileBinding
-import com.joaoflaviofreitas.dietplan.feature.home.FirebaseImageUploader
-import com.joaoflaviofreitas.dietplan.feature.search.SearchViewModel
+import com.joaoflaviofreitas.dietplan.feature.profile.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
-    private val viewModel: SearchViewModel by activityViewModels()
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let { nonNullUri ->
-            firebaseImageUploader.uploadImageToFirebaseStorage(
-                nonNullUri,
-                successCallback = { uri ->
-                    Glide.with(this).load(uri).into(binding.imgProfile)
-                },
-                errorCallback = { exception ->
-                    Log.e("TAG", "Error loading image from Firebase Storage", exception)
-                },
-            )
-//            viewModel.bindUriProfileImg(uri.toString())
-        }
-    }
+//    private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+//        uri?.let { nonNullUri ->
+//            firebaseImageUploader.uploadImageToFirebaseStorage(
+//                nonNullUri,
+//                successCallback = { uri ->
+//                    Glide.with(this).load(uri).into(binding.imgProfile)
+//                },
+//                errorCallback = { exception ->
+//                    Log.e("TAG", "Error loading image from Firebase Storage", exception)
+//                },
+//            )
+// //            viewModel.bindUriProfileImg(uri.toString())
+//        }
+//    }
 
-    @Inject
-    lateinit var firebaseImageUploader: FirebaseImageUploader
+//    @Inject
+//    lateinit var firebaseImageUploader: FirebaseImageUploader
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,7 +63,7 @@ class ProfileFragment : Fragment() {
                 // Lógica para tirar uma foto
             }
             1 -> {
-                pickImage.launch("image/*")
+//                pickImage.launch("image/*")
             }
         }
     }

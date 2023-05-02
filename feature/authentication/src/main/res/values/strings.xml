@@ -3,4 +3,12 @@
     <string name="sign_up">Sign Up</string>
     <string name="back">Back</string>
     <string name="your_web_client_id">335865405389-8tmlmn4tfg566jd8d8i0g6npp8gvhp9r.apps.googleusercontent.com</string>
+    <string name="forgot_your_account_password_restore">Forgot your account password? Restore!</string>
+    <string name="welcome">Welcome</string>
+    <string name="sign_in_in_your_account">Sign in in your account!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="restore_password">Restore Password</string>
+    <string name="email">Email</string>
+    <string name="restore">Restore</string>
 </resources>

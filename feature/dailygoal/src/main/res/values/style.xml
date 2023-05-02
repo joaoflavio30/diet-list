@@ -10,4 +10,9 @@
         <item name="android:drawablePadding">20dp</item>
 
     </style>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+        <!-- Adicione esta linha -->
+        <item name="colorAccent">@color/white</item>
+    </style>
 </resources>

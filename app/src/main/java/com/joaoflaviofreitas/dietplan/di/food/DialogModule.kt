@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.di
+package com.joaoflaviofreitas.dietplan.di.food
 
 import android.app.Activity
 import androidx.fragment.app.Fragment

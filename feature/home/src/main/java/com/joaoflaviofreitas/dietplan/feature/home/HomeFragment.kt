@@ -60,14 +60,10 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
     override fun onClickMenuItem() {
         binding.bottomMenu.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.page_2 -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+                R.id.page_1 -> {
                     return@setOnItemSelectedListener true
                 }
-                R.id.page_4 -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_dailyGoalFragment)
-                    return@setOnItemSelectedListener true
-                }
+
                 R.id.page_5 -> {
                     findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
                     return@setOnItemSelectedListener true

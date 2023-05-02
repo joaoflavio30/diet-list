@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.authentication.LoginFragment">
+    tools:context="com.joaoflaviofreitas.dietplan.feature.authentication.LoginFragment">
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progress_circular"
@@ -22,16 +22,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="80dp"
-        android:text="Bem Vindo"
-        android:textSize="30dp"/>
+        android:text="@string/welcome"
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/subtext_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/welcome_text"
-        android:text="Logue na sua conta"
-        android:textSize="16dp"
+        android:text="@string/sign_in_in_your_account"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"/>
@@ -82,7 +82,7 @@
     android:layout_height="wrap_content"
     app:layout_constraintStart_toStartOf="@id/layout_password"
     app:layout_constraintTop_toBottomOf="@id/layout_password"
-    android:paddingBottom="50dp">
+    >
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/checkbox"
@@ -94,17 +94,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lembre-me" />
+</LinearLayout>
 
     <TextView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/forgot_password"
+        app:layout_constraintTop_toBottomOf="@id/btn_login"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Esqueceu sua senha?"
-        android:layout_marginLeft="70dp"/>
-
-</LinearLayout>
+        android:text="@string/forgot_your_account_password_restore" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/register"
+
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -133,12 +137,12 @@
         android:text="Login"/>
 
     <LinearLayout
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:id="@+id/linear_layout_divider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/btn_login"
+        app:layout_constraintTop_toBottomOf="@id/forgot_password"
         android:gravity="center_vertical">
 
         <View
@@ -164,30 +168,19 @@
     </LinearLayout>
 
 
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/google_login"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="40dp"
-        android:paddingVertical="5dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/linear_layout_divider"
-        app:cornerRadius="20dp"
-        android:text="Login com Google"/>
-
     <com.google.android.gms.common.SignInButton
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout_divider"
         android:id="@+id/sign_in_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="50dp"
+       app:layout_constraintBottom_toBottomOf="parent"
         app:buttonSize="standard"
         android:text="Login"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"
+        android:layout_marginBottom="40dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

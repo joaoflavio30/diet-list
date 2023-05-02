@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_loginFragment_to_dailyGoalFragment"
             app:destination="@id/dailyGoalFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_restorePasswordFragment"
+            app:destination="@id/restorePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -68,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.joaoflaviofreitas.dietplan.ProfileFragment"
+        android:name="com.joaoflaviofreitas.dietplan.feature.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
@@ -86,4 +89,8 @@
             android:id="@+id/action_splashScreen_to_dailyGoalFragment"
             app:destination="@id/dailyGoalFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/restorePasswordFragment"
+        android:name="com.joaoflaviofreitas.dietplan.feature.authentication.RestorePasswordFragment"
+        android:label="RestorePasswordFragment" />
 </navigation>

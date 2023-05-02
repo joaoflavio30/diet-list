@@ -82,7 +82,7 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
     }
 
     override fun setOnClickListener() {
-        binding.googleLogin.setOnClickListener {
+        binding.signInButton.setOnClickListener {
             val signInIntent = googleSingInClient.signInIntent
             launcher.launch(signInIntent)
         }
@@ -94,6 +94,8 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
                 signInSuccessObserver()
             }
         }
+
+        binding.forgotPassword.setOnClickListener { navigateToRestorePasswordFragment() }
 
         binding.register.setOnClickListener { navigateToSignUp() }
     }
@@ -114,13 +116,13 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
     override fun showProgressBarSignIn() {
         binding.progressCircular.visibility = View.VISIBLE
         binding.btnLogin.visibility = View.INVISIBLE
-        binding.googleLogin.visibility = View.INVISIBLE
+        binding.signInButton.visibility = View.INVISIBLE
     }
 
     override fun hideProgressBarSignIn() {
         binding.progressCircular.visibility = View.INVISIBLE
         binding.btnLogin.visibility = View.VISIBLE
-        binding.googleLogin.visibility = View.VISIBLE
+        binding.signInButton.visibility = View.VISIBLE
     }
 
     override fun showToastLengthLong(text: String) {
@@ -167,5 +169,9 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
 
     override fun navigateToDailyGoalFragment() {
         findNavController().navigate(R.id.action_loginFragment_to_dailyGoalFragment)
+    }
+
+    override fun navigateToRestorePasswordFragment() {
+        findNavController().navigate(R.id.action_loginFragment_to_restorePasswordFragment)
     }
 }

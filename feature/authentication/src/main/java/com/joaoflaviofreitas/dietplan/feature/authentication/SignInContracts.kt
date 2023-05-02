@@ -31,6 +31,8 @@ interface SignInContracts {
         fun progressBarSignInObserver()
 
         fun navigateToDailyGoalFragment()
+
+        fun navigateToRestorePasswordFragment()
     }
 
     interface SignInViewModel {

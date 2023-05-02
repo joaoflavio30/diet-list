@@ -1,0 +1,38 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.joaoflaviofreitas.dietplan.feature.profile'
+    compileSdk rootProject.ext.sdkVersion
+
+    defaultConfig {
+        minSdk rootProject.ext.minSdkVersion
+    }
+
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation libs.bundles.navigation
+
+    implementation libs.hiltAndroid
+    kapt libs.hiltCompiler
+
+    implementation libs.glide
+    annotationProcessor libs.glideCompiler
+
+    implementation libs.androidMaterial
+
+    implementation libs.androidxConstraintLayout
+    implementation libs.androidxCoreKtx
+
+    implementation libs.circleImageView
+
+    implementation project(':feature:common')
+}

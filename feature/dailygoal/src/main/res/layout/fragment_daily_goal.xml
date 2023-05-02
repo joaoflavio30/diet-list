@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature.dailygoal.DailyGoalFragment">
+    tools:context="com.joaoflaviofreitas.dietplan.feature.dailygoal.DailyGoalFragment">
 
 
     <TextView
@@ -38,7 +38,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/protein_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:hint="@string/protein" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -62,7 +63,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/carb_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:hint="@string/carbohydrate" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -86,7 +88,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/fat_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:hint="@string/fat" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -110,7 +113,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/calories_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:hint="@string/calories" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -134,7 +138,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/water_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:hint="@string/water" />
 
 
     </com.google.android.material.textfield.TextInputLayout>

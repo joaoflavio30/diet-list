@@ -1,10 +1,7 @@
-package com.joaoflaviofreitas.dietplan.di
+package com.joaoflaviofreitas.dietplan.di.auth
 
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.repository.FirebaseAuthRepository
-import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.CheckUserAuthSignedInUseCase
-import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.SignInUseCase
-import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.SignInWithGoogleUseCase
-import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.SignUpUseCase
+import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,4 +31,8 @@ object DomainModule {
     @Singleton
     fun providesCheckUserAuthSignedInUseCase(authRepository: FirebaseAuthRepository): CheckUserAuthSignedInUseCase =
         CheckUserAuthSignedInUseCase(authRepository)
+
+    @Provides
+    @Singleton
+    fun providesRestorePasswordByEmail(authRepository: FirebaseAuthRepository): RestorePasswordByEmailUseCase = RestorePasswordByEmailUseCase(authRepository)
 }

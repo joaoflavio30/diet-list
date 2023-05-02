@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.searchfood.di
+package com.joaoflaviofreitas.dietplan.di.food
 
 import com.joaoflaviofreitas.dietplan.component.food.domain.repository.MealRepository
 import com.joaoflaviofreitas.dietplan.component.food.domain.usecase.* // ktlint-disable no-wildcard-imports

@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.di
+package com.joaoflaviofreitas.dietplan.di.auth
 
 import com.joaoflaviofreitas.dietplan.feature.home.FirebaseImageUploader
 import dagger.Module

@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.searchfood.di
+package com.joaoflaviofreitas.dietplan.di.food
 
 import android.content.Context
 import androidx.room.Room
