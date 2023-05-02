@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.feature.authentication
+package com.joaoflaviofreitas.dietplan.feature.authentication.signout
 
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.UserAuth
 

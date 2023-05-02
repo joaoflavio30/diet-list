@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.joaoflaviofreitas.dietplan.feature.authentication.LoginFragment">
+    tools:context="com.joaoflaviofreitas.dietplan.feature.authentication.signin.LoginFragment">
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progress_circular"

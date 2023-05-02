@@ -10,7 +10,7 @@ import com.joaoflaviofreitas.dietplan.feature.profile.databinding.FragmentProfil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
@@ -42,9 +42,7 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.imgProfile.setOnClickListener {
-            showPictureDialog()
-        }
+        setOnClickListener()
     }
 
     private fun showPictureDialog() {
@@ -65,6 +63,12 @@ class ProfileFragment : Fragment() {
             1 -> {
 //                pickImage.launch("image/*")
             }
+        }
+    }
+
+    override fun setOnClickListener() {
+        binding.imgProfile.setOnClickListener {
+            showPictureDialog()
         }
     }
 }

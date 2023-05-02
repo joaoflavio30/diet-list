@@ -30,4 +30,5 @@ dependencies {
     implementation libs.bundles.navigation
 
     implementation project(':component:food:domain')
+    implementation project(':feature:common')
 }

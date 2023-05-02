@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.feature.authentication
+package com.joaoflaviofreitas.dietplan.feature.authentication.restorepassword
 
 import android.os.Bundle
 import android.util.Patterns

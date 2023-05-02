@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.feature.authentication
+package com.joaoflaviofreitas.dietplan.feature.authentication.signout
 
 import android.os.Bundle
 import android.util.Patterns
@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.UserAuth
+import com.joaoflaviofreitas.dietplan.feature.authentication.R
 import com.joaoflaviofreitas.dietplan.feature.authentication.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

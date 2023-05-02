@@ -16,8 +16,6 @@ interface HomeContract {
 
         fun viewWaterMetrics()
 
-        fun onClickMenuItem()
-
         fun loadImage()
 
         fun bindCurrentDate()

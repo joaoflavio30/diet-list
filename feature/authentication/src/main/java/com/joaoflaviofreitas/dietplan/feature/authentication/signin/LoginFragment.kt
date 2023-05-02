@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.feature.authentication
+package com.joaoflaviofreitas.dietplan.feature.authentication.signin
 
 import android.app.Activity.RESULT_OK
 import android.os.Bundle
@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.GoogleAuthProvider
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.UserAuth
+import com.joaoflaviofreitas.dietplan.feature.authentication.R
 import com.joaoflaviofreitas.dietplan.feature.authentication.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -30,9 +30,6 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
     private val viewModel: HomeViewModel by viewModels()
 
     @Inject
-    lateinit var myDialog: MyDialog
-
-    @Inject
     lateinit var firebaseImageUploader: FirebaseImageUploader
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,24 +52,6 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListener()
         bindData()
-    }
-
-    override fun onClickMenuItem() {
-        binding.bottomMenu.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.page_1 -> {
-                    return@setOnItemSelectedListener true
-                }
-
-                R.id.page_5 -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
-                    return@setOnItemSelectedListener true
-                }
-                else -> {
-                    return@setOnItemSelectedListener false
-                }
-            }
-        }
     }
 
     override fun viewWaterMetrics() {
@@ -116,13 +95,9 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
     }
 
     override fun setOnClickListener() {
-        binding.fab.setOnClickListener {
-            myDialog.show()
-        }
         binding.waterMetric.setOnClickListener {
             showDialog()
         }
-        onClickMenuItem()
     }
 
     override fun navigateToSearchFragment() {

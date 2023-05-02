@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.joaoflaviofreitas.dietplan.feature.authentication.RegisterFragment"
+        android:name="com.joaoflaviofreitas.dietplan.feature.authentication.signout.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.joaoflaviofreitas.dietplan.feature.authentication.LoginFragment"
+        android:name="com.joaoflaviofreitas.dietplan.feature.authentication.signin.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -73,7 +73,11 @@
         android:id="@+id/profileFragment"
         android:name="com.joaoflaviofreitas.dietplan.feature.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/splashScreen"
         android:name="com.joaoflaviofreitas.dietplan.feature.splash.SplashScreen"
@@ -91,6 +95,6 @@
     </fragment>
     <fragment
         android:id="@+id/restorePasswordFragment"
-        android:name="com.joaoflaviofreitas.dietplan.feature.authentication.RestorePasswordFragment"
+        android:name="com.joaoflaviofreitas.dietplan.feature.authentication.restorepassword.RestorePasswordFragment"
         android:label="RestorePasswordFragment" />
 </navigation>

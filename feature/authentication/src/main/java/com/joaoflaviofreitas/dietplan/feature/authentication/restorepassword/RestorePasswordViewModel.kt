@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.feature.authentication
+package com.joaoflaviofreitas.dietplan.feature.authentication.restorepassword
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +10,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RestorePasswordViewModel @Inject constructor(private val restorePasswordByEmailUseCase: RestorePasswordByEmailUseCase): ViewModel(), RestoreContract.RestorePasswordViewModel {
+class RestorePasswordViewModel @Inject constructor(private val restorePasswordByEmailUseCase: RestorePasswordByEmailUseCase): ViewModel(),
+    RestoreContract.RestorePasswordViewModel {
 
     private val _progressBarRestore = MutableLiveData<Boolean>()
     val progressBarRestore get() = _progressBarRestore

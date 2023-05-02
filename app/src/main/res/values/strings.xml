@@ -26,5 +26,7 @@ Today
     <string name="continue_button_text">Continue</string>
     <string name="welcome_message">Welcome User!</string>
     <string name="sinopse_app">Make this app your daily food plan to lead a healthy life</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
 </resources>
 
