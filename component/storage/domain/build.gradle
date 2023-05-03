@@ -1,0 +1,16 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.joaoflaviofreitas.dietplan.component.storage.domain'
+    compileSdk rootProject.ext.sdkVersion
+
+}
+
+dependencies {
+    implementation libs.firebaseAuthKtx
+    implementation libs.firebaseUiStorage
+
+}

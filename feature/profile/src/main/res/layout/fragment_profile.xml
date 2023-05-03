@@ -47,33 +47,16 @@
         app:layout_constraintTop_toBottomOf="@id/img_profile">
 
         <com.google.android.material.textfield.TextInputEditText
+           android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="5dp"
-        app:startIconDrawable="@drawable/ic_baseline_person_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_email">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/username" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/edit_email_and_username_btn"
-        app:layout_constraintTop_toBottomOf="@id/layout_username"
+        app:layout_constraintTop_toBottomOf="@id/layout_email"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="40dp"
         android:layout_height="wrap_content"
@@ -95,6 +78,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
+            android:id="@+id/input_password"
             android:inputType="textPassword"
             android:layout_height="wrap_content"
             android:hint="@string/change_password" />

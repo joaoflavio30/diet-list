@@ -17,7 +17,7 @@ interface FirebaseAuthRepository {
 
     suspend fun restorePasswordByEmail(email: String): DataState<Boolean>
 
-    suspend fun changePassword(currentUser: FirebaseUser, password: String): DataState<Boolean>
+    suspend fun changePassword(credential: AuthCredential, password: String): DataState<Boolean>
 
-    suspend fun changeEmail(currentUser: FirebaseUser, email: String): DataState<Boolean>
+    suspend fun changeEmail(credential: AuthCredential, email: String): DataState<Boolean>
 }

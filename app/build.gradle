@@ -80,6 +80,8 @@ dependencies {
 
     implementation project(':component:authentication:data')
     implementation project(':component:authentication:domain')
+    implementation project(':component:storage:data')
+    implementation project(':component:storage:domain')
     implementation project(':component:food:data')
     implementation project(':component:food:domain')
     implementation project(':feature:authentication')

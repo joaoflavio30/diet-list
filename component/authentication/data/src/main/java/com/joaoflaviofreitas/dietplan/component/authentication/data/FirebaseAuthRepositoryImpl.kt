@@ -113,13 +113,14 @@ class FirebaseAuthRepositoryImpl @Inject constructor(private val auth: FirebaseA
     }
 
     override suspend fun changePassword(
-        currentUser: FirebaseUser,
+        credential: AuthCredential,
         password: String,
     ): DataState<Boolean> {
         return withContext(Dispatchers.IO) {
-            DataState.Loading
             try {
-                currentUser.updatePassword(password)
+                DataState.Loading
+                auth.currentUser!!.reauthenticate(credential)
+                auth.currentUser!!.updatePassword(password).await()
                 DataState.Success(true)
             } catch (e: FirebaseAuthException) {
                 DataState.Error(e)
@@ -127,12 +128,18 @@ class FirebaseAuthRepositoryImpl @Inject constructor(private val auth: FirebaseA
         }
     }
 
-    override suspend fun changeEmail(currentUser: FirebaseUser, email: String): DataState<Boolean> {
+    override suspend fun changeEmail(credential: AuthCredential, email: String): DataState<Boolean> {
         return withContext(Dispatchers.IO) {
-            DataState.Loading
             try {
-                currentUser.updatePassword(email)
-                DataState.Success(true)
+                DataState.Loading
+                val oldEmail = auth.currentUser!!.email
+                auth.currentUser!!.reauthenticate(credential).await()
+                auth.currentUser!!.updateEmail(email).await()
+                if (auth.currentUser!!.email != oldEmail) {
+                    DataState.Success(true)
+                } else {
+                    DataState.Error(Exception("Error in change email"))
+                }
             } catch (e: FirebaseAuthException) {
                 DataState.Error(e)
             }

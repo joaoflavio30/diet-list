@@ -2,6 +2,7 @@
 navVersion = "2.5.3"
 firebaseAuthVersion = "21.1.0"
 firebaseStorageVersion = "20.1.0"
+firebaseUiStorageVersion = "7.2.0"
 coreKtxVersion = "1.7.0"
 appCompatVersion = "1.6.1"
 materialVersion = "1.8.0"
@@ -31,6 +32,7 @@ androidxNavigationFragmentKtx = {module = "androidx.navigation:navigation-fragme
 androidxNavigationUiKtx = {module = "androidx.navigation:navigation-ui-ktx", version.ref = "navVersion"}
 firebaseAuthKtx = {module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthVersion"}
 firebaseStorageKtx = {module = "com.google.firebase:firebase-storage-ktx", version.ref = "firebaseStorageVersion"}
+firebaseUiStorage = {module = "com.firebaseui:firebase-ui-storage", version.ref = "firebaseUiStorageVersion"}
 androidxCoreKtx = {module = "androidx.core:core-ktx" , version.ref = "coreKtxVersion"}
 androidMaterial = {module = "com.google.android.material:material", version.ref = "materialVersion"}
 androidxConstraintLayout = {module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayoutVersion"}

@@ -35,4 +35,12 @@ object DomainModule {
     @Provides
     @Singleton
     fun providesRestorePasswordByEmail(authRepository: FirebaseAuthRepository): RestorePasswordByEmailUseCase = RestorePasswordByEmailUseCase(authRepository)
+
+    @Provides
+    @Singleton
+    fun providesChangeEmailUseCase(authRepository: FirebaseAuthRepository) = ChangeEmailUseCase(authRepository)
+
+    @Provides
+    @Singleton
+    fun providesChangePasswordUseCase(authRepository: FirebaseAuthRepository) = ChangePasswordUseCase(authRepository)
 }

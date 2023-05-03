@@ -11,4 +11,5 @@
     <string name="restore_password">Restore Password</string>
     <string name="email">Email</string>
     <string name="restore">Restore</string>
+    <string name="password">Password</string>
 </resources>
