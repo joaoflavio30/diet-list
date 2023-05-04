@@ -5,6 +5,6 @@ import com.joaoflaviofreitas.dietplan.component.storage.domain.FirebaseStorageRe
 
 class SaveImageProfileUseCaseImpl(private val firebaseStorageRepository: FirebaseStorageRepository): SaveImageProfileUseCase {
     override suspend fun execute(uri: String): DataState<String> {
-      return  firebaseStorageRepository.saveImageProfile(uri)
+        return firebaseStorageRepository.saveImageProfile(uri)
     }
 }

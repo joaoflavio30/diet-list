@@ -26,6 +26,7 @@ androidxRoomKtxVersion = "2.5.0"
 kotlinVersion = "1.7.20"
 gradleVersion = "7.3.1"
 androidXLifecycleVersion = "2.5.1"
+cropImageVersion = "4.5.0"
 
 [libraries]
 androidxNavigationFragmentKtx = {module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
@@ -60,6 +61,7 @@ androidxLifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", versi
 androidxLifecycleLivedataKtx = {module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidXLifecycleVersion"}
 androidxLifecycleViewmodelKtx = {module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidXLifecycleVersion"}
 androidxLifecycleNavigationNavigationSafeArgs = {module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navVersion"}
+cropImage = {module = "com.vanniktech:android-image-cropper", version.ref = "cropImageVersion"}
 
 
 

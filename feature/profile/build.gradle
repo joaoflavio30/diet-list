@@ -36,6 +36,9 @@ dependencies {
 
     implementation libs.firebaseAuthKtx
 
+    implementation libs.cropImage
+
+
     implementation project(':feature:common')
     implementation project(':component:storage:domain')
     implementation project(':component:authentication:domain')

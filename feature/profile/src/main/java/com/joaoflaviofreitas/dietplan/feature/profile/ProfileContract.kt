@@ -1,7 +1,6 @@
 package com.joaoflaviofreitas.dietplan.feature.profile
 
 import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.FirebaseUser
 
 interface ProfileContract {
 
@@ -15,6 +14,8 @@ interface ProfileContract {
 
         fun changeEmail(credential: AuthCredential)
 
+        fun changePassword(credential: AuthCredential)
+
         fun observeEmailChangeSuccess()
 
         fun observePasswordChangeSuccess()
@@ -22,6 +23,10 @@ interface ProfileContract {
         fun showToastLengthLong(text: String)
 
         fun bindFields()
+
+        fun changeEmailOrPasswordWithAuthenticationUser(changeEmailOrPassword: String)
+
+        fun navigateToProfileImageFragment()
     }
 
     interface ProfileViewModel {
@@ -29,5 +34,7 @@ interface ProfileContract {
         fun changeEmail(credential: AuthCredential, email: String)
 
         fun changePassword(credential: AuthCredential, password: String)
+
+        fun saveProfileImageInFirebaseStorage(uri: String)
     }
 }

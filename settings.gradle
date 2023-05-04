@@ -5,6 +5,12 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven { url "https://jitpack.io"}
+        jcenter(){
+            content{
+                includeModule("com.theartofdev.edmodo","android-image-cropper")
+            }
+        }
     }
 }
 dependencyResolutionManagement {
@@ -12,6 +18,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://jitpack.io"}
+        jcenter(){
+            content{
+                includeModule("com.theartofdev.edmodo","android-image-cropper")
+            }
+        }
     }
 }
 enableFeaturePreview("VERSION_CATALOGS")
@@ -34,3 +46,4 @@ include ':feature:profile'
 include ':component:storage'
 include ':component:storage:data'
 include ':component:storage:domain'
+include ':feature:profileimage'

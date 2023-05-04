@@ -51,6 +51,7 @@ dependencies {
     implementation libs.circleImageView
     implementation libs.androidxWorkRuntimeKtx
 
+    implementation libs.cropImage
 
     testImplementation libs.junit
     androidTestImplementation libs.androidxJunit

@@ -77,6 +77,9 @@
         <action
             android:id="@+id/action_profileFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_profileImageFragment"
+            app:destination="@id/profileImageFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashScreen"
@@ -97,4 +100,12 @@
         android:id="@+id/restorePasswordFragment"
         android:name="com.joaoflaviofreitas.dietplan.feature.authentication.restorepassword.RestorePasswordFragment"
         android:label="RestorePasswordFragment" />
+    <fragment
+        android:id="@+id/profileImageFragment"
+        android:name="com.joaoflaviofreitas.dietplan.feature.profile.ProfileImageFragment"
+        android:label="ProfileImageFragment" >
+        <action
+            android:id="@+id/action_profileImageFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
 </navigation>

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="action_profileFragment_to_homeFragment" type="id" />
+    <item name="action_profileImageFragment_to_profileFragment" type="id" />
+    <item name="action_profileFragment_to_profileImageFragment" type="id" />
 </resources>

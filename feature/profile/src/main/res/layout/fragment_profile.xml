@@ -16,6 +16,7 @@
         android:background="@color/red"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:transitionName="imageView"
         android:id="@+id/img_profile"
         android:layout_width="142dp"
         android:layout_height="142dp"
@@ -26,14 +27,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/container_1" />
 
-    <ImageView
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:elevation="10dp"
-        android:layout_margin="15dp"
-        android:src="@drawable/ic_baseline_add_circle_24"
-        app:layout_constraintBottom_toBottomOf="@id/img_profile"
-        app:layout_constraintEnd_toEndOf="@id/img_profile" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_email"
@@ -55,7 +48,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/edit_email_and_username_btn"
+        android:id="@+id/edit_email_btn"
         app:layout_constraintTop_toBottomOf="@id/layout_email"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="40dp"
@@ -74,7 +67,7 @@
         app:startIconDrawable="@drawable/ic_baseline_lock_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_email_and_username_btn">
+        app:layout_constraintTop_toBottomOf="@id/edit_email_btn">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

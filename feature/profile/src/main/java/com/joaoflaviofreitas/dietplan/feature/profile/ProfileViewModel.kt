@@ -1,5 +1,6 @@
 package com.joaoflaviofreitas.dietplan.feature.profile
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,6 +8,7 @@ import com.google.firebase.auth.AuthCredential
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.ChangeEmailUseCase
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.ChangePasswordUseCase
+import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.SaveImageProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,10 +17,12 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val changeEmailUseCase: ChangeEmailUseCase,
     private val changePasswordUseCase: ChangePasswordUseCase,
+    private val saveImageProfileUseCase: SaveImageProfileUseCase,
+
 ) : ViewModel(), ProfileContract.ProfileViewModel {
 
     private val _changeSuccessObserver = MutableLiveData<DataState<Boolean>>()
-    val changeSuccessObserver = _changeSuccessObserver
+    val changeSuccessObserver: LiveData<DataState<Boolean>> = _changeSuccessObserver
 
     override fun changeEmail(credential: AuthCredential, email: String) {
         viewModelScope.launch {
@@ -39,4 +43,11 @@ class ProfileViewModel @Inject constructor(
             }
         }
     }
+
+    override fun saveProfileImageInFirebaseStorage(uri: String) {
+        viewModelScope.launch {
+            saveImageProfileUseCase.execute(uri)
+        }
+    }
+
 }
