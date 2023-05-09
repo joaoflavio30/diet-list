@@ -64,7 +64,7 @@ dependencies {
     implementation libs.coroutinesAndroid
     implementation libs.firebaseStorage
     implementation libs.glide
-    annotationProcessor libs.glideCompiler
+    kapt libs.glideCompiler
     implementation libs.playServicesFitness
 
     implementation libs.hiltAndroid

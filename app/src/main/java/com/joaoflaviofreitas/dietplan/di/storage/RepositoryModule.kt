@@ -3,6 +3,7 @@ package com.joaoflaviofreitas.dietplan.di.storage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.joaoflaviofreitas.dietplan.component.storage.data.FirebaseStorageRepositoryImpl
+import com.joaoflaviofreitas.dietplan.component.storage.domain.FirebaseStorageRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,5 +20,5 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providesFirebaseStorageRepository(auth: FirebaseAuth, storage: FirebaseStorage) = FirebaseStorageRepositoryImpl(auth, storage)
+    fun providesFirebaseStorageRepository(auth: FirebaseAuth, storage: FirebaseStorage): FirebaseStorageRepository = FirebaseStorageRepositoryImpl(auth, storage)
 }

@@ -25,7 +25,7 @@ dependencies {
     kapt libs.hiltCompiler
 
     implementation libs.glide
-    annotationProcessor libs.glideCompiler
+    kapt libs.glideCompiler
 
     implementation libs.androidMaterial
 
@@ -35,6 +35,10 @@ dependencies {
     implementation libs.circleImageView
 
     implementation libs.firebaseAuthKtx
+    implementation libs.firebaseStorageKtx
+    implementation libs.firebaseUiStorage
+    implementation libs.firebaseBom
+
 
     implementation libs.cropImage
 

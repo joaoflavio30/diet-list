@@ -19,9 +19,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
 import com.joaoflaviofreitas.dietplan.feature.profile.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,26 +58,12 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
     @Inject
     lateinit var auth: FirebaseAuth
 
+    @Inject
+    lateinit var storage: FirebaseStorage
+
     private val viewModel: ProfileViewModel by activityViewModels()
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-//    private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-//        uri?.let { nonNullUri ->
-//            firebaseImageUploader.uploadImageToFirebaseStorage(
-//                nonNullUri,
-//                successCallback = { uri ->
-//                    Glide.with(this).load(uri).into(binding.imgProfile)
-//                },
-//                errorCallback = { exception ->
-//                    Log.e("TAG", "Error loading image from Firebase Storage", exception)
-//                },
-//            )
-// //            viewModel.bindUriProfileImg(uri.toString())
-//        }
-//    }
-
-//    @Inject
-//    lateinit var firebaseImageUploader: FirebaseImageUploader
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -227,9 +215,22 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
 
     override fun bindFields() {
         binding.inputEmail.setText(auth.currentUser!!.email.toString())
+        bindProfileImage()
     }
 
-    fun checkIfUserHasPermission(): Boolean {
+    private fun bindProfileImage() {
+        val imageView = binding.imgProfile
+        val storageRef = storage.reference.child("profile_images/${auth.currentUser?.uid}/profile.jpg")
+        viewModel.profileImage.observe(viewLifecycleOwner) { result ->
+            Glide.with(requireActivity()).load(storageRef).into(imageView)
+            if (result.isEmpty()) {
+                Log.d("teste", result)
+                Glide.with(requireContext()).clear(imageView)
+            }
+        }
+    }
+
+    override fun checkIfUserHasPermission(): Boolean {
         return when {
             ContextCompat.checkSelfPermission(
                 requireContext(),

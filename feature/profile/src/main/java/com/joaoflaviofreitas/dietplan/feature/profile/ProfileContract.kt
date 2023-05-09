@@ -1,5 +1,6 @@
 package com.joaoflaviofreitas.dietplan.feature.profile
 
+import android.net.Uri
 import com.google.firebase.auth.AuthCredential
 
 interface ProfileContract {
@@ -27,6 +28,8 @@ interface ProfileContract {
         fun changeEmailOrPasswordWithAuthenticationUser(changeEmailOrPassword: String)
 
         fun navigateToProfileImageFragment()
+
+        fun checkIfUserHasPermission(): Boolean
     }
 
     interface ProfileViewModel {
@@ -35,6 +38,12 @@ interface ProfileContract {
 
         fun changePassword(credential: AuthCredential, password: String)
 
-        fun saveProfileImageInFirebaseStorage(uri: String)
+        fun saveProfileImageInFirebaseStorage(uri: Uri?)
+
+        fun deleteProfileImageInFirebaseStorage()
+
+        fun saveProfileImageLiveData(uri: String)
+
+        fun deleteProfileImageLiveData()
     }
 }

@@ -12,5 +12,7 @@ interface ProfileImageContract {
         fun setOnClickListeners()
 
         fun navigateToProfileFragment()
+
+        fun bindImage()
     }
 }

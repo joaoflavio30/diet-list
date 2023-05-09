@@ -2,20 +2,24 @@ package com.joaoflaviofreitas.dietplan.feature.profile
 
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class DialogEditProfileImage(context: Context, fragment: Fragment, cropImageLauncher: ActivityResultLauncher<CropImageContractOptions>) : Dialog(context) {
+class DialogEditProfileImage(context: Context, fragment: Fragment, cropImageLauncher: ActivityResultLauncher<CropImageContractOptions>, viewModel: ProfileViewModel, imageView: ImageView) : Dialog(context) {
 
     init {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -34,7 +38,11 @@ class DialogEditProfileImage(context: Context, fragment: Fragment, cropImageLaun
         val btnCancel = findViewById<Button>(R.id.btn_cancel)
 
         btnDelete.setOnClickListener {
-            // Ação do botão Delete Photo
+            if (imageView.drawable != null) {
+                viewModel.deleteProfileImageInFirebaseStorage()
+            }
+            viewModel.deleteProfileImageLiveData()
+            imageView.setImageResource(0)
             dismiss()
         }
 
@@ -45,6 +53,7 @@ class DialogEditProfileImage(context: Context, fragment: Fragment, cropImageLaun
 
         btnChoosePhoto.setOnClickListener {
             setupCropImage(cropImageLauncher)
+
             dismiss()
         }
 
@@ -53,7 +62,7 @@ class DialogEditProfileImage(context: Context, fragment: Fragment, cropImageLaun
             dismiss()
         }
     }
-    private fun setupCropImage(cropImageLauncher: ActivityResultLauncher<CropImageContractOptions>){
+    private fun setupCropImage(cropImageLauncher: ActivityResultLauncher<CropImageContractOptions>) {
         val cropImageOptions = CropImageOptions()
         cropImageOptions.cropShape = CropImageView.CropShape.OVAL
         cropImageOptions.fixAspectRatio = true

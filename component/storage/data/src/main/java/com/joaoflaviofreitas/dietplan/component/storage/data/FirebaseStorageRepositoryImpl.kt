@@ -1,6 +1,7 @@
 package com.joaoflaviofreitas.dietplan.component.storage.data
 
 import android.net.Uri
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.joaoflaviofreitas.dietplan.component.storage.domain.DataState
@@ -14,20 +15,24 @@ import javax.inject.Inject
 class FirebaseStorageRepositoryImpl @Inject constructor(private val auth: FirebaseAuth, private val storage: FirebaseStorage):
     FirebaseStorageRepository {
 
-    override suspend fun saveImageProfile(uri: String): DataState<String> {
+    override suspend fun saveImageProfile(uri: Uri?): DataState<Uri?> {
         return withContext(Dispatchers.IO) {
-            DataState.Loading
             try {
-                val imageProfileUri = Uri.parse(uri)
-                val storageRef = FirebaseStorage.getInstance().reference.child("/${auth.currentUser?.uid}/profile.jpg")
-                val uploadTask = storageRef.putFile(imageProfileUri).await()
-
-                if (uploadTask.uploadSessionUri != null) {
-                    DataState.Success(uploadTask.uploadSessionUri.toString())
-                } else {
-                    DataState.Error(Exception("Error in upload the profile image"))
+                DataState.Loading
+                if (uri != null) {
+                    val storageRef = storage.reference.child("profile_images/${auth.currentUser?.uid}/profile.jpg")
+                    val uploadTask = storageRef.putFile(uri).await()
+                    if (uploadTask.metadata != null) {
+                        Log.d("erro", "nao teve erro: ${uploadTask.uploadSessionUri}")
+                        DataState.Success(uploadTask.uploadSessionUri)
+                    } else {
+                        Log.d("erro", "caiu no else")
+                        DataState.Error(Exception("Error in upload the profile image"))
+                    }
                 }
+                DataState.Error(Exception("uri = null"))
             } catch (e: FileNotFoundException) {
+                Log.d("erro", "caiu no catch: $e")
                 DataState.Error(e)
             }
         }
@@ -35,11 +40,10 @@ class FirebaseStorageRepositoryImpl @Inject constructor(private val auth: Fireba
 
     override suspend fun deleteImageProfile(): DataState<Boolean> {
         return withContext(Dispatchers.IO) {
-            DataState.Loading
-            try {
-                val storageReference = storage.getReference("/${auth.currentUser?.uid}/profile.jpg")
-                storageReference.delete().await()
-                if (!storageReference.downloadUrl.isSuccessful) {
+            try { DataState.Loading
+                val storageRef = storage.reference.child("profile_images/${auth.currentUser?.uid}/profile.jpg")
+                storageRef.delete().await()
+                if (!storageRef.downloadUrl.isSuccessful) {
                     DataState.Success(true)
                 } else {
                     DataState.Error(Exception("Error in delete profile image from the firebase storage"))
