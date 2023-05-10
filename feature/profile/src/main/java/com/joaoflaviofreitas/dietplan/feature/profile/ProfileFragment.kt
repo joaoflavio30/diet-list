@@ -2,10 +2,10 @@ package com.joaoflaviofreitas.dietplan.feature.profile
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +20,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.signature.ObjectKey
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -77,7 +78,6 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setOnClickListener()
         bindFields()
-        Log.d("profilefragment", "email: ${auth.currentUser!!.email}")
     }
 
     private fun openImage() {
@@ -140,7 +140,8 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
         // Crie um EditText para a senha
         val passwordEditText = EditText(context)
         passwordEditText.hint = "Type your password"
-        passwordEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        passwordEditText.inputType =
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
 
 // Crie um AlertDialog com o EditText e os botões "OK" e "Cancelar"
         val builder = AlertDialog.Builder(context)
@@ -171,7 +172,12 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
         val extras = FragmentNavigatorExtras(
             binding.imgProfile to "imageView",
         )
-        findNavController().navigate(R.id.action_profileFragment_to_profileImageFragment, null, null, extras)
+        findNavController().navigate(
+            R.id.action_profileFragment_to_profileImageFragment,
+            null,
+            null,
+            extras,
+        )
     }
 
     override fun changeEmail(credential: AuthCredential) {
@@ -187,13 +193,16 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
     override fun observeEmailChangeSuccess() {
         viewModel.changeSuccessObserver.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is DataState.Success -> { lifecycleScope.launch(Dispatchers.Main) {
-                    showToastLengthLong("Email changed successfully")
+                is DataState.Success -> {
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        showToastLengthLong("Email changed successfully")
+                    }
                 }
+                is DataState.Error -> {
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        showToastLengthLong("Error in changing email: ${result.exception}")
+                    }
                 }
-                is DataState.Error -> { lifecycleScope.launch(Dispatchers.Main) {
-                    showToastLengthLong("Error in changing email: ${result.exception}")
-                } }
                 is DataState.Loading -> {}
             }
         }
@@ -202,8 +211,12 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
     override fun observePasswordChangeSuccess() {
         viewModel.changeSuccessObserver.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is DataState.Success -> { showToastLengthLong("Password changed successfully") }
-                is DataState.Error -> { showToastLengthLong("Error in changing password") }
+                is DataState.Success -> {
+                    showToastLengthLong("Password changed successfully")
+                }
+                is DataState.Error -> {
+                    showToastLengthLong("Error in changing password")
+                }
                 is DataState.Loading -> {}
             }
         }
@@ -219,15 +232,12 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
     }
 
     private fun bindProfileImage() {
+        val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val signature = ObjectKey(sharedPreferences.getLong("updated_image_in_cache", 0))
         val imageView = binding.imgProfile
-        val storageRef = storage.reference.child("profile_images/${auth.currentUser?.uid}/profile.jpg")
-        viewModel.profileImage.observe(viewLifecycleOwner) { result ->
-            Glide.with(requireActivity()).load(storageRef).into(imageView)
-            if (result.isEmpty()) {
-                Log.d("teste", result)
-                Glide.with(requireContext()).clear(imageView)
-            }
-        }
+        val storageRef =
+            storage.reference.child("profile_images/${auth.currentUser?.uid}/profile.jpg")
+        Glide.with(requireContext()).load(storageRef).placeholder(R.drawable.ic_baseline_account_circle_24).signature(signature).into(imageView)
     }
 
     override fun checkIfUserHasPermission(): Boolean {

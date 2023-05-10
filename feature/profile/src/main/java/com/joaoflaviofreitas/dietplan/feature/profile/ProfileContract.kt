@@ -45,5 +45,7 @@ interface ProfileContract {
         fun saveProfileImageLiveData(uri: String)
 
         fun deleteProfileImageLiveData()
+
+        suspend fun getMetadataOfProfileImage(): Long
     }
 }

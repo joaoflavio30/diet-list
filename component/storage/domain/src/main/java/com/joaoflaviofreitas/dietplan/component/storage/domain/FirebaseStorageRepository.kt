@@ -7,4 +7,6 @@ interface FirebaseStorageRepository {
     suspend fun saveImageProfile(uri: Uri?): DataState<Uri?>
 
     suspend fun deleteImageProfile(): DataState<Boolean>
+
+    suspend fun getMetadataOfImage(): Long
 }

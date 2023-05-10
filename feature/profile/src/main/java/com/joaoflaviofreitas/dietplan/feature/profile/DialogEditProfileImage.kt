@@ -1,5 +1,6 @@
 package com.joaoflaviofreitas.dietplan.feature.profile
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
@@ -19,6 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@SuppressLint("UseCompatLoadingForDrawables")
 class DialogEditProfileImage(context: Context, fragment: Fragment, cropImageLauncher: ActivityResultLauncher<CropImageContractOptions>, viewModel: ProfileViewModel, imageView: ImageView) : Dialog(context) {
 
     init {
@@ -38,11 +40,17 @@ class DialogEditProfileImage(context: Context, fragment: Fragment, cropImageLaun
         val btnCancel = findViewById<Button>(R.id.btn_cancel)
 
         btnDelete.setOnClickListener {
-            if (imageView.drawable != null) {
-                viewModel.deleteProfileImageInFirebaseStorage()
+            viewModel.deleteProfileImageInFirebaseStorage()
+            CoroutineScope(Dispatchers.Main).launch {
+                Glide.get(context).clearMemory()
+                CoroutineScope(Dispatchers.IO).launch {
+                    Glide.get(context).clearDiskCache()
+                }
             }
-            viewModel.deleteProfileImageLiveData()
-            imageView.setImageResource(0)
+            val sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            val value = System.currentTimeMillis()
+            sharedPreferences.edit().putLong("updated_image_in_cache", value).apply()
+            imageView.setImageResource(R.drawable.ic_baseline_account_circle_24)
             dismiss()
         }
 
@@ -53,7 +61,12 @@ class DialogEditProfileImage(context: Context, fragment: Fragment, cropImageLaun
 
         btnChoosePhoto.setOnClickListener {
             setupCropImage(cropImageLauncher)
-
+            CoroutineScope(Dispatchers.Main).launch {
+                Glide.get(context).clearMemory()
+                CoroutineScope(Dispatchers.IO).launch {
+                    Glide.get(context).clearDiskCache()
+                }
+            }
             dismiss()
         }
 

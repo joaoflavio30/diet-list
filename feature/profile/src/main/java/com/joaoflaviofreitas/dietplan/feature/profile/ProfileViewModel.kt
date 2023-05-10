@@ -10,6 +10,7 @@ import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.Data
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.ChangeEmailUseCase
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.ChangePasswordUseCase
 import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.DeleteImageProfileUseCase
+import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.GetMetadataOfProfileImageUseCase
 import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.SaveImageProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -21,6 +22,7 @@ class ProfileViewModel @Inject constructor(
     private val changePasswordUseCase: ChangePasswordUseCase,
     private val saveImageProfileUseCase: SaveImageProfileUseCase,
     private val deleteImageProfileUseCase: DeleteImageProfileUseCase,
+    private val getMetadataOfProfileImageUseCase: GetMetadataOfProfileImageUseCase,
 
 ) : ViewModel(), ProfileContract.ProfileViewModel {
 
@@ -75,5 +77,9 @@ class ProfileViewModel @Inject constructor(
 
     override fun deleteProfileImageLiveData() {
         _profileImage.postValue("")
+    }
+
+    override suspend fun getMetadataOfProfileImage(): Long {
+        return getMetadataOfProfileImageUseCase.execute()
     }
 }

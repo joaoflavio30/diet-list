@@ -2,8 +2,10 @@ package com.joaoflaviofreitas.dietplan.component.storage.data
 
 import android.net.Uri
 import android.util.Log
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageException
 import com.joaoflaviofreitas.dietplan.component.storage.domain.DataState
 import com.joaoflaviofreitas.dietplan.component.storage.domain.FirebaseStorageRepository
 import kotlinx.coroutines.Dispatchers
@@ -42,14 +44,26 @@ class FirebaseStorageRepositoryImpl @Inject constructor(private val auth: Fireba
         return withContext(Dispatchers.IO) {
             try { DataState.Loading
                 val storageRef = storage.reference.child("profile_images/${auth.currentUser?.uid}/profile.jpg")
-                storageRef.delete().await()
+                if(storageRef.parent != null) storageRef.delete().await()
                 if (!storageRef.downloadUrl.isSuccessful) {
                     DataState.Success(true)
                 } else {
                     DataState.Error(Exception("Error in delete profile image from the firebase storage"))
                 }
-            } catch (e: FileNotFoundException) {
+            } catch (e: StorageException) {
                 DataState.Error(e)
+            }
+        }
+    }
+
+    override suspend fun getMetadataOfImage(): Long {
+        return withContext(Dispatchers.IO) {
+            try {
+                val storageRef = storage.reference.child("profile_images/${auth.currentUser?.uid}/profile.jpg")
+                val metaData = storageRef.metadata.await()
+                metaData.updatedTimeMillis
+            } catch (e: FirebaseException) {
+                throw e
             }
         }
     }

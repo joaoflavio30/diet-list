@@ -1,9 +1,9 @@
 package com.joaoflaviofreitas.dietplan.feature.profile
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.transition.TransitionInflater
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.signature.ObjectKey
 import com.canhub.cropper.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.joaoflaviofreitas.dietplan.feature.profile.databinding.FragmentProfileImageBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,10 +38,15 @@ class ProfileImageFragment : Fragment(), ProfileImageContract.ProfileImageFragme
 
     private val cropImageLauncher = registerForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
-            val imageCropped = Uri.parse(result.getUriFilePath(requireContext(), false))
-            binding.profileImg.setImageURI(imageCropped)
+            CoroutineScope(Dispatchers.Main).launch {
+                Glide.get(requireContext()).clearMemory()
+                CoroutineScope(Dispatchers.IO).launch {
+                    Glide.get(requireContext()).clearDiskCache()
+                }
+            }
+            binding.profileImg.setImageURI(Uri.parse(result.getUriFilePath(requireContext(), false)))
             viewModel.saveProfileImageInFirebaseStorage(result.uriContent)
-            viewModel.saveProfileImageLiveData(result.uriContent.toString())
+            bindSharedPreferencesForUpdateGlideCache()
         }
     }
 
@@ -58,17 +67,10 @@ class ProfileImageFragment : Fragment(), ProfileImageContract.ProfileImageFragme
         bindImage()
     }
 
-    override fun cropImage(data: Uri?) {
-    }
-
-    override fun deleteUserImageView() {
-        binding.profileImg.setImageResource(0)
-    }
-
     override fun setOnClickListeners() {
         binding.edit.setOnClickListener {
             DialogEditProfileImage(
-                requireActivity(),
+                requireContext(),
                 this,
                 cropImageLauncher,
                 viewModel,
@@ -85,14 +87,19 @@ class ProfileImageFragment : Fragment(), ProfileImageContract.ProfileImageFragme
     }
 
     override fun bindImage() {
+        val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val signature = ObjectKey(sharedPreferences.getLong("updated_image_in_cache", 0))
         val imageView = binding.profileImg
-        val storageRef = storage.reference.child("profile_images/${auth.currentUser?.uid}/profile.jpg")
-        viewModel.profileImage.observe(viewLifecycleOwner) { result ->
-            Glide.with(requireActivity()).load(storageRef).into(imageView)
-            if (result.isEmpty()) {
-                Log.d("teste", result)
-                Glide.with(requireContext()).clear(imageView)
-            }
-        }
+        val storageRef =
+            storage.reference.child("profile_images/${auth.currentUser?.uid}/profile.jpg")
+        Glide.with(requireContext()).load(storageRef).placeholder(R.drawable.ic_baseline_account_circle_24).signature(signature).into(imageView)
+    }
+
+    private fun bindSharedPreferencesForUpdateGlideCache() {
+        val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val value = System.currentTimeMillis()
+        editor.putLong("updated_image_in_cache", value)
+        editor.apply()
     }
 }
