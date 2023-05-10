@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.feature.profile;
+package com.joaoflaviofreitas.dietplan.feature.profile.glide;
 
 import android.content.Context;
 

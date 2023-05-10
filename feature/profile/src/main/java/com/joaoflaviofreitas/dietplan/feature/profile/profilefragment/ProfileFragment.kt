@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.feature.profile
+package com.joaoflaviofreitas.dietplan.feature.profile.profilefragment
 
 import android.Manifest
 import android.app.AlertDialog
@@ -26,10 +26,11 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
+import com.joaoflaviofreitas.dietplan.feature.profile.ProfileViewModel
+import com.joaoflaviofreitas.dietplan.feature.profile.R
 import com.joaoflaviofreitas.dietplan.feature.profile.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.NonCancellable.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

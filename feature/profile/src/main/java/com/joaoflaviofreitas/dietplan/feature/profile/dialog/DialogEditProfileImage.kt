@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.feature.profile
+package com.joaoflaviofreitas.dietplan.feature.profile.dialog
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -16,6 +16,8 @@ import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
+import com.joaoflaviofreitas.dietplan.feature.profile.ProfileViewModel
+import com.joaoflaviofreitas.dietplan.feature.profile.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

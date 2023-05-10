@@ -12,6 +12,7 @@ import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.Ch
 import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.DeleteImageProfileUseCase
 import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.GetMetadataOfProfileImageUseCase
 import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.SaveImageProfileUseCase
+import com.joaoflaviofreitas.dietplan.feature.profile.profilefragment.ProfileContract
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

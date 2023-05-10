@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.feature.profile
+package com.joaoflaviofreitas.dietplan.feature.profile.profileimagefragment
 
 import android.content.Context
 import android.net.Uri
@@ -15,7 +15,10 @@ import com.bumptech.glide.signature.ObjectKey
 import com.canhub.cropper.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
+import com.joaoflaviofreitas.dietplan.feature.profile.ProfileViewModel
+import com.joaoflaviofreitas.dietplan.feature.profile.R
 import com.joaoflaviofreitas.dietplan.feature.profile.databinding.FragmentProfileImageBinding
+import com.joaoflaviofreitas.dietplan.feature.profile.dialog.DialogEditProfileImage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

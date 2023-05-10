@@ -19,6 +19,8 @@ interface HomeContract {
         fun loadImage()
 
         fun bindCurrentDate()
+
+        fun bindProfileImage()
     }
     interface HomeViewModel {
         suspend fun getAchievedGoal(): AchievedGoal

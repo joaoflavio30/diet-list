@@ -1,5 +1,4 @@
-package com.joaoflaviofreitas.dietplan.feature.profile
-
+package com.joaoflaviofreitas.dietplan.feature.profile.profileimagefragment
 
 interface ProfileImageContract {
 

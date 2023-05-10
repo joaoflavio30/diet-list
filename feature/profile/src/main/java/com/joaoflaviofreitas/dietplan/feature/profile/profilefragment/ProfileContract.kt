@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.feature.profile
+package com.joaoflaviofreitas.dietplan.feature.profile.profilefragment
 
 import android.net.Uri
 import com.google.firebase.auth.AuthCredential

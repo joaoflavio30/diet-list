@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.joaoflaviofreitas.dietplan.feature.profile.ProfileFragment"
+        android:name="com.joaoflaviofreitas.dietplan.feature.profile.profilefragment.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -102,7 +102,7 @@
         android:label="RestorePasswordFragment" />
     <fragment
         android:id="@+id/profileImageFragment"
-        android:name="com.joaoflaviofreitas.dietplan.feature.profile.ProfileImageFragment"
+        android:name="com.joaoflaviofreitas.dietplan.feature.profile.profileimagefragment.ProfileImageFragment"
         android:label="ProfileImageFragment" >
         <action
             android:id="@+id/action_profileImageFragment_to_profileFragment"

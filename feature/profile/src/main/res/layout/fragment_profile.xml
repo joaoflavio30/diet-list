@@ -6,7 +6,7 @@
     android:id="@+id/profile_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.joaoflaviofreitas.dietplan.feature.profile.ProfileFragment">
+    tools:context="com.joaoflaviofreitas.dietplan.feature.profile.profilefragment.ProfileFragment">
 
     <View
         android:id="@+id/container_1"

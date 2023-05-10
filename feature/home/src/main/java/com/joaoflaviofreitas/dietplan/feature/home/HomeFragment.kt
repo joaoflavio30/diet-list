@@ -1,6 +1,7 @@
 package com.joaoflaviofreitas.dietplan.feature.home
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,9 +10,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.signature.ObjectKey
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import com.joaoflaviofreitas.dietplan.feature.common.utils.formatCurrentVsTotal
 import com.joaoflaviofreitas.dietplan.feature.common.utils.highlightAView
 import com.joaoflaviofreitas.dietplan.feature.home.databinding.FragmentHomeBinding
@@ -30,15 +32,11 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
     private val viewModel: HomeViewModel by viewModels()
 
     @Inject
-    lateinit var firebaseImageUploader: FirebaseImageUploader
+    lateinit var auth: FirebaseAuth
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycleScope.launch(Dispatchers.IO) {
-            Glide.with(this@HomeFragment).load("profile_images/${FirebaseAuth.getInstance().currentUser?.uid}").preload()
-            loadImage()
-        }
-    }
+    @Inject
+    lateinit var storage: FirebaseStorage
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -94,6 +92,15 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
         binding.date.text = currentDate
     }
 
+    override fun bindProfileImage() {
+        val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val signature = ObjectKey(sharedPreferences.getLong("updated_image_in_cache", 0))
+        val imageView = binding.profileImg
+        val storageRef =
+            storage.reference.child("profile_images/${auth.currentUser?.uid}/profile.jpg")
+        Glide.with(requireContext()).load(storageRef).placeholder(R.drawable.ic_baseline_account_circle_24).signature(signature).into(imageView)
+    }
+
     override fun setOnClickListener() {
         binding.waterMetric.setOnClickListener {
             showDialog()
@@ -105,6 +112,7 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
     }
 
     override fun bindData() {
+        bindProfileImage()
         bindCurrentDate()
         lifecycleScope.launch(Dispatchers.Main) {
             val dailyDiet = viewModel.getDailyDiet()
