@@ -56,6 +56,20 @@ class FirebaseAuthRepositoryImpl @Inject constructor(private val auth: FirebaseA
         }
     }
 
+    override fun signOut(): DataState<Boolean> {
+        return try {
+            DataState.Loading
+            auth.signOut()
+            if (auth.currentUser == null) {
+                DataState.Success(true)
+            } else {
+                DataState.Error(Exception("Failed In SignOut"))
+            }
+        } catch (e: FirebaseAuthException) {
+            DataState.Error(e)
+        }
+    }
+
     override suspend fun signInWithGoogle(credential: AuthCredential): DataState<FirebaseUser> {
         return withContext(Dispatchers.IO) {
             try {

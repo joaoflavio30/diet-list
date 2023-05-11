@@ -1,7 +1,9 @@
 package com.joaoflaviofreitas.dietplan.feature.profile.profilefragment
 
 import android.net.Uri
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.AuthCredential
+import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
 
 interface ProfileContract {
 
@@ -30,6 +32,10 @@ interface ProfileContract {
         fun navigateToProfileImageFragment()
 
         fun checkIfUserHasPermission(): Boolean
+
+        fun navigateToLoginFragment()
+
+        fun logout()
     }
 
     interface ProfileViewModel {
@@ -47,5 +53,7 @@ interface ProfileContract {
         fun deleteProfileImageLiveData()
 
         suspend fun getMetadataOfProfileImage(): Long
+
+        fun signOut(): DataState<Boolean>
     }
 }

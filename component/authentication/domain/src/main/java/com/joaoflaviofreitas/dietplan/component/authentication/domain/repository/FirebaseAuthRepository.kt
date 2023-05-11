@@ -11,6 +11,8 @@ interface FirebaseAuthRepository {
 
     suspend fun signIn(userAuth: UserAuth): DataState<FirebaseUser>
 
+    fun signOut(): DataState<Boolean>
+
     suspend fun signInWithGoogle(credential: AuthCredential): DataState<FirebaseUser>
 
     suspend fun userIsLogged(): DataState<Boolean>

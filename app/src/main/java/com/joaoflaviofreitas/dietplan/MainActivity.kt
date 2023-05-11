@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     private lateinit var myDialog: MyDialog
+    lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +25,28 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener {
             myDialog.show()
         }
+        setupOnItemBottomMenuListener()
     }
+
+    private fun setupOnItemBottomMenuListener() {
+        navController = navHostFragment.navController
+        binding.bottomMenu.setOnItemSelectedListener { menu ->
+            when (menu.title) {
+                "Home" -> {
+                    navController.navigate(R.id.homeFragment)
+                    true
+                }
+                "Profile" -> {
+                    navController.navigate(R.id.profileFragment)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
     private fun setupNav() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomMenu, navController)
         myDialog = MyDialog(this, navController)

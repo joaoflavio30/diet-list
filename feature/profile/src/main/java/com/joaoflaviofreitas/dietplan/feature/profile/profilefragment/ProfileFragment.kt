@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -134,6 +135,9 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
         }
         binding.editPasswordBtn.setOnClickListener {
             if (checkFieldForPassword()) changeEmailOrPasswordWithAuthenticationUser(PASSWORD)
+        }
+        binding.logoutBtn.setOnClickListener {
+            logout()
         }
     }
 
@@ -271,6 +275,22 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
                 )
                 false
             }
+        }
+    }
+
+    override fun navigateToLoginFragment() {
+        findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+    }
+
+    override fun logout() {
+        Log.d("test", "${auth.currentUser}")
+        when (viewModel.signOut()) {
+            is DataState.Success -> {
+                showToastLengthLong("SignOut Success")
+                navigateToLoginFragment()
+            }
+            is DataState.Error -> showToastLengthLong("Error in try sign-out")
+            is DataState.Loading -> {}
         }
     }
 

@@ -4,4 +4,5 @@
     <item name="action_profileImageFragment_to_profileFragment" type="id" />
     <item name="action_profileFragment_to_profileImageFragment" type="id" />
     <item name="profileImageFragment" type="id" />
+    <item name="action_profileFragment_to_loginFragment" type="id" />
 </resources>

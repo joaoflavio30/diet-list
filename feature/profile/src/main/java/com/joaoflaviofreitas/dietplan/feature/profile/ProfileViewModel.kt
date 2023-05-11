@@ -9,6 +9,7 @@ import com.google.firebase.auth.AuthCredential
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.ChangeEmailUseCase
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.ChangePasswordUseCase
+import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.SignOutUseCase
 import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.DeleteImageProfileUseCase
 import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.GetMetadataOfProfileImageUseCase
 import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.SaveImageProfileUseCase
@@ -24,6 +25,7 @@ class ProfileViewModel @Inject constructor(
     private val saveImageProfileUseCase: SaveImageProfileUseCase,
     private val deleteImageProfileUseCase: DeleteImageProfileUseCase,
     private val getMetadataOfProfileImageUseCase: GetMetadataOfProfileImageUseCase,
+    private val signOutUseCase: SignOutUseCase,
 
 ) : ViewModel(), ProfileContract.ProfileViewModel {
 
@@ -82,5 +84,13 @@ class ProfileViewModel @Inject constructor(
 
     override suspend fun getMetadataOfProfileImage(): Long {
         return getMetadataOfProfileImageUseCase.execute()
+    }
+
+    override fun signOut(): DataState<Boolean> {
+        return when (val result = signOutUseCase.execute()) {
+            is DataState.Success -> DataState.Success(true)
+            is DataState.Error -> DataState.Error(result.exception)
+            is DataState.Loading -> { DataState.Loading }
+        }
     }
 }

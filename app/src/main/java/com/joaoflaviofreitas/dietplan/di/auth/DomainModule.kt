@@ -43,4 +43,8 @@ object DomainModule {
     @Provides
     @Singleton
     fun providesChangePasswordUseCase(authRepository: FirebaseAuthRepository):ChangePasswordUseCase = ChangePasswordUseCaseImpl(authRepository)
+
+    @Provides
+    @Singleton
+    fun providesSignOutUseCase(authRepository: FirebaseAuthRepository):SignOutUseCase = SignOutUseCaseImpl(authRepository)
 }
