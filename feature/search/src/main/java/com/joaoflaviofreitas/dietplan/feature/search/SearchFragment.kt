@@ -36,16 +36,6 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setOnClickListener()
-
-//        super.onViewCreated(view, savedInstanceState)
-//        binding.searchBtn.setOnClickListener {
-//            searchData()
-//        }
-//        binding.btnAdd.setOnClickListener {
-//            insertMeal()
-//            addMealForDatabase()
-//            findNavController().navigate(R.id.homeFragment)
-//        }
     }
 
     override fun setOnClickListener() {

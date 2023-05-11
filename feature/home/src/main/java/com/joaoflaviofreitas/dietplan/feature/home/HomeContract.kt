@@ -16,11 +16,11 @@ interface HomeContract {
 
         fun viewWaterMetrics()
 
-        fun loadImage()
-
         fun bindCurrentDate()
 
         fun bindProfileImage()
+
+        fun checkIfIsNextDayForZeroAchievedGoal()
     }
     interface HomeViewModel {
         suspend fun getAchievedGoal(): AchievedGoal
@@ -28,5 +28,7 @@ interface HomeContract {
         suspend fun getDailyDiet(): DailyGoal
 
         suspend fun incWater(): Boolean
+
+        fun resetAchievedGoal()
     }
 }

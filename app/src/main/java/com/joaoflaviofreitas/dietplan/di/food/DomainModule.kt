@@ -71,4 +71,8 @@ object DomainModule {
     @Singleton
     fun providesAddWaterUseCase(repository: MealRepository): AddWaterUseCase =
         AddWaterUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun providesResetAchievedGoalUseCase(repository: MealRepository): ResetAchievedGoalUseCase = ResetAchievedGoalUseCaseImpl(repository)
 }

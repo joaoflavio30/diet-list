@@ -2,7 +2,6 @@ package com.joaoflaviofreitas.dietplan.feature.authentication.signin
 
 import android.app.Activity.RESULT_OK
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +36,6 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             handleSignInResult(task)
         }
-        Log.d("teste", "$result")
     }
     override fun onCreateView(
         inflater: LayoutInflater,

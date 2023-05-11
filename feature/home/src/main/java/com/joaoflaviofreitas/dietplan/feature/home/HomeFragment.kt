@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.signature.ObjectKey
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
+import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
 import com.joaoflaviofreitas.dietplan.feature.common.utils.formatCurrentVsTotal
 import com.joaoflaviofreitas.dietplan.feature.common.utils.highlightAView
 import com.joaoflaviofreitas.dietplan.feature.home.databinding.FragmentHomeBinding
@@ -21,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -73,19 +75,6 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
         }
     }
 
-    override fun loadImage() {
-//        firebaseImageUploader.
-//        (
-//            "profile_images/${FirebaseAuth.getInstance().currentUser!!.uid}",
-//            successCallback = { uri: Uri ->
-//                Glide.with(this).load(uri).diskCacheStrategy(DiskCacheStrategy.ALL).into(binding.profileImg)
-//            },
-//            errorCallback = { exception ->
-//                Log.e("TAG", "Error loading image from Firebase Storage", exception)
-//            },
-//        )
-    }
-
     override fun bindCurrentDate() {
         val calendar = Calendar.getInstance()
         val currentDate = DateFormat.getDateInstance().format(calendar.time)
@@ -101,6 +90,21 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
         Glide.with(requireContext()).load(storageRef).placeholder(R.drawable.ic_baseline_account_circle_24).signature(signature).into(imageView)
     }
 
+    override fun checkIfIsNextDayForZeroAchievedGoal() {
+        val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val formatDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        val lastDate = sharedPreferences.getString("last_date_reset", null)
+
+        val currentDate = formatDate.format(Date())
+
+        Log.d("teste","${lastDate} ------- $currentDate")
+        if (currentDate != lastDate) {
+            viewModel.resetAchievedGoal()
+            sharedPreferences.edit().putString("last_date_reset", currentDate).apply()
+        }
+    }
+
     override fun setOnClickListener() {
         binding.waterMetric.setOnClickListener {
             showDialog()
@@ -112,6 +116,7 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
     }
 
     override fun bindData() {
+        checkIfIsNextDayForZeroAchievedGoal()
         bindProfileImage()
         bindCurrentDate()
         lifecycleScope.launch(Dispatchers.Main) {
