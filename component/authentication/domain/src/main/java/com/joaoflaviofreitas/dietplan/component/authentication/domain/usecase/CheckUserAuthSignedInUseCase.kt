@@ -1,7 +1,8 @@
 package com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase
 
-import com.joaoflaviofreitas.dietplan.component.authentication.domain.repository.FirebaseAuthRepository
+import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
 
-class CheckUserAuthSignedInUseCase(private val firebaseAuthRepository: FirebaseAuthRepository) {
-    suspend fun execute() = firebaseAuthRepository.userIsLogged()
+interface CheckUserAuthSignedInUseCase {
+
+    suspend fun execute(): DataState<Boolean>
 }

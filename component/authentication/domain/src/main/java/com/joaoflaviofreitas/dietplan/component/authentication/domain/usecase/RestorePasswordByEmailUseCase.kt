@@ -1,8 +1,8 @@
 package com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase
 
-import com.joaoflaviofreitas.dietplan.component.authentication.domain.repository.FirebaseAuthRepository
+import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
 
-class RestorePasswordByEmailUseCase(private val firebaseAuthRepository: FirebaseAuthRepository) {
+interface RestorePasswordByEmailUseCase {
 
-    suspend fun execute(email: String) = firebaseAuthRepository.restorePasswordByEmail(email)
+    suspend fun execute(email: String): DataState<Boolean>
 }

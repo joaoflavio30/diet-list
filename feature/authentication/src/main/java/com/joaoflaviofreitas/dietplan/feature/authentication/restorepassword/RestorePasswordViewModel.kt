@@ -10,7 +10,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RestorePasswordViewModel @Inject constructor(private val restorePasswordByEmailUseCase: RestorePasswordByEmailUseCase): ViewModel(),
+class RestorePasswordViewModel @Inject constructor(private val restorePasswordByEmailUseCase: RestorePasswordByEmailUseCase):
+    ViewModel(),
     RestoreContract.RestorePasswordViewModel {
 
     private val _progressBarRestore = MutableLiveData<Boolean>()

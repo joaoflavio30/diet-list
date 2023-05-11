@@ -15,32 +15,32 @@ object DomainModule {
     @Provides
     @Singleton
     fun providesSignUpUseCase(authRepository: FirebaseAuthRepository): SignUpUseCase =
-        SignUpUseCase(authRepository)
+        SignUpUseCaseImpl(authRepository)
 
     @Provides
     @Singleton
     fun providesSignInUseCase(authRepository: FirebaseAuthRepository): SignInUseCase =
-        SignInUseCase(authRepository)
+        SignInUseCaseImpl(authRepository)
 
     @Provides
     @Singleton
     fun providesSignInWithGoogleUseCase(authRepository: FirebaseAuthRepository): SignInWithGoogleUseCase =
-        SignInWithGoogleUseCase(authRepository)
+        SignInWithGoogleUseCaseImpl(authRepository)
 
     @Provides
     @Singleton
     fun providesCheckUserAuthSignedInUseCase(authRepository: FirebaseAuthRepository): CheckUserAuthSignedInUseCase =
-        CheckUserAuthSignedInUseCase(authRepository)
+        CheckUserAuthSignedInUseCaseImpl(authRepository)
 
     @Provides
     @Singleton
-    fun providesRestorePasswordByEmail(authRepository: FirebaseAuthRepository): RestorePasswordByEmailUseCase = RestorePasswordByEmailUseCase(authRepository)
+    fun providesRestorePasswordByEmail(authRepository: FirebaseAuthRepository): RestorePasswordByEmailUseCase = RestorePasswordByEmailUseCaseImpl(authRepository)
 
     @Provides
     @Singleton
-    fun providesChangeEmailUseCase(authRepository: FirebaseAuthRepository) = ChangeEmailUseCase(authRepository)
+    fun providesChangeEmailUseCase(authRepository: FirebaseAuthRepository): ChangeEmailUseCase = ChangeEmailUseCaseImpl(authRepository)
 
     @Provides
     @Singleton
-    fun providesChangePasswordUseCase(authRepository: FirebaseAuthRepository) = ChangePasswordUseCase(authRepository)
+    fun providesChangePasswordUseCase(authRepository: FirebaseAuthRepository):ChangePasswordUseCase = ChangePasswordUseCaseImpl(authRepository)
 }

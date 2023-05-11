@@ -1,9 +1,9 @@
 package com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase
 
 import com.google.firebase.auth.AuthCredential
-import com.joaoflaviofreitas.dietplan.component.authentication.domain.repository.FirebaseAuthRepository
+import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
 
-class ChangePasswordUseCase(private val firebaseAuthRepository: FirebaseAuthRepository) {
+interface ChangePasswordUseCase {
 
-    suspend fun execute(credential: AuthCredential, password: String) = firebaseAuthRepository.changePassword(credential, password)
+    suspend fun execute(credential: AuthCredential, password: String): DataState<Boolean>
 }
