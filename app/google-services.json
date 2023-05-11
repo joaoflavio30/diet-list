@@ -12,25 +12,15 @@
           "package_name": "com.joaoflaviofreitas.dietplan"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "335865405389-8tmlmn4tfg566jd8d8i0g6npp8gvhp9r.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBndbjLYNBW5WWT5jRtBUUVS7qk_kiGvns"
+          "current_key": "AIzaSyCIO-jjsZGjW1Sv2-MTxF7mTUIvseTNDKg"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "335865405389-0q4ug5fppl9l0c7c2p0o29at4im91pv4.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
