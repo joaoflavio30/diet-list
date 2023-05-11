@@ -22,6 +22,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.signature.ObjectKey
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -137,7 +138,7 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
             if (checkFieldForPassword()) changeEmailOrPasswordWithAuthenticationUser(PASSWORD)
         }
         binding.logoutBtn.setOnClickListener {
-            logout()
+            showDialogForLogout()
         }
     }
 
@@ -292,6 +293,14 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
             is DataState.Error -> showToastLengthLong("Error in try sign-out")
             is DataState.Loading -> {}
         }
+    }
+
+    private fun showDialogForLogout() {
+        MaterialAlertDialogBuilder(requireContext()).setTitle("Are you sure you want to leave?").setPositiveButton("Yes") { _, _ ->
+            logout()
+        }.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }.show()
     }
 
     private fun showInContextUI() {
