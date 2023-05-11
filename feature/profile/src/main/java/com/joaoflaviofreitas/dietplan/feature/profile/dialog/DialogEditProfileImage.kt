@@ -37,7 +37,6 @@ class DialogEditProfileImage(context: Context, fragment: Fragment, cropImageLaun
 
         // Configurando os botões do dialog
         val btnDelete = findViewById<Button>(R.id.btn_delete_photo)
-        val btnTakePhoto = findViewById<Button>(R.id.btn_take_photo)
         val btnChoosePhoto = findViewById<Button>(R.id.btn_choose_photo)
         val btnCancel = findViewById<Button>(R.id.btn_cancel)
 
@@ -53,11 +52,6 @@ class DialogEditProfileImage(context: Context, fragment: Fragment, cropImageLaun
             val value = System.currentTimeMillis()
             sharedPreferences.edit().putLong("updated_image_in_cache", value).apply()
             imageView.setImageResource(R.drawable.ic_baseline_account_circle_24)
-            dismiss()
-        }
-
-        btnTakePhoto.setOnClickListener {
-            // Ação do botão Take Photo
             dismiss()
         }
 

@@ -2,8 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
-    id 'kotlin-parcelize'
-    id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
@@ -44,40 +42,25 @@ dependencies {
 
     implementation libs.bundles.navigation
 
-    implementation libs.firebaseStorageKtx
-    implementation libs.androidxCoreKtx
-    implementation libs.androidMaterial
+
     implementation libs.androidxConstraintLayout
-    implementation libs.circleImageView
-    implementation libs.androidxWorkRuntimeKtx
 
-    implementation libs.cropImage
+    implementation libs.firebaseAuthKtx
 
-    testImplementation libs.junit
-    androidTestImplementation libs.androidxJunit
-    androidTestImplementation libs.espressoCore
+    kapt libs.roomCompiler
+    implementation libs.androidxRoomKtx
 
-    implementation libs.firebaseBom
-    implementation libs.firebaseUiAuth
-    implementation libs.retrofit
+    implementation libs.firebaseStorageKtx
+
     implementation libs.gsonConverter
-    implementation libs.coroutinesAndroid
-    implementation libs.firebaseStorage
-    implementation libs.glide
-    kapt libs.glideCompiler
-    implementation libs.playServicesFitness
+
 
     implementation libs.hiltAndroid
     kapt libs.hiltCompiler
-    implementation libs.hiltWork
 
-    implementation libs.playServicesAuth
 
     implementation libs.androidxCoreKtx
 
-    implementation libs.firebaseAuthKtx
-    implementation libs.androidxRoomKtx
-    kapt libs.roomCompiler
 
     implementation project(':component:authentication:data')
     implementation project(':component:authentication:domain')
