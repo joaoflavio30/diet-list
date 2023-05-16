@@ -5,7 +5,7 @@ import com.joaoflaviofreitas.dietplan.component.food.domain.model.RequestFood
 import com.joaoflaviofreitas.dietplan.component.food.domain.repository.MealRepository
 import javax.inject.Inject
 
-class GetMealByDatabaseUseCaseImpl @Inject constructor(private val repository: MealRepository):
+internal class GetMealByDatabaseUseCaseImpl @Inject constructor(private val repository: MealRepository):
     GetMealByDatabaseUseCase {
     override suspend fun execute(ingredient: RequestFood): Meal? {
         val body = repository.getNutrientsByDatabase(ingredient)

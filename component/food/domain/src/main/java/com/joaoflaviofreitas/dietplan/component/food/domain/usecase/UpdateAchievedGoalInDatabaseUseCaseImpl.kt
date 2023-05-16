@@ -3,7 +3,7 @@ package com.joaoflaviofreitas.dietplan.component.food.domain.usecase
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.repository.MealRepository
 
-class UpdateAchievedGoalInDatabaseUseCaseImpl(private val repository: MealRepository):
+internal class UpdateAchievedGoalInDatabaseUseCaseImpl(private val repository: MealRepository):
     UpdateAchievedGoalInDatabaseUseCase {
     override suspend fun execute(achievedGoal: AchievedGoal): Boolean {
         val oldAchievedGoal = repository.getAchievedGoal(achievedGoal.userEmail!!)

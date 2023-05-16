@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import java.io.FileNotFoundException
 import javax.inject.Inject
 
-class FirebaseStorageRepositoryImpl @Inject constructor(private val auth: FirebaseAuth, private val storage: FirebaseStorage):
+internal class FirebaseStorageRepositoryImpl @Inject constructor(private val auth: FirebaseAuth, private val storage: FirebaseStorage):
     FirebaseStorageRepository {
 
     override suspend fun saveImageProfile(uri: Uri?): DataState<Uri?> {

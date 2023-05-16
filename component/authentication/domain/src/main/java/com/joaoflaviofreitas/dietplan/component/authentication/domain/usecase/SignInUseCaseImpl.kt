@@ -5,7 +5,7 @@ import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.Data
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.UserAuth
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.repository.FirebaseAuthRepository
 
-class SignInUseCaseImpl(private val firebaseAuthRepository: FirebaseAuthRepository): SignInUseCase {
+internal class SignInUseCaseImpl(private val firebaseAuthRepository: FirebaseAuthRepository): SignInUseCase {
     override suspend fun execute(userAuth: UserAuth): DataState<FirebaseUser> {
         return firebaseAuthRepository.signIn(userAuth)
     }

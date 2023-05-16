@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Response
 import javax.inject.Inject
 
-class MealRepositoryImpl @Inject constructor(private val database: Dao, private val remoteData: Api):
+internal class MealRepositoryImpl @Inject constructor(private val database: Dao, private val remoteData: Api):
     MealRepository {
     override suspend fun getAll(): List<Meal> {
         return withContext(Dispatchers.IO) {

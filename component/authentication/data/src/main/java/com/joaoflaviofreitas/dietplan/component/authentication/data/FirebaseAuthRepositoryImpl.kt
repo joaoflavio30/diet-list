@@ -11,7 +11,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class FirebaseAuthRepositoryImpl @Inject constructor(private val auth: FirebaseAuth) :
+internal class FirebaseAuthRepositoryImpl @Inject constructor(private val auth: FirebaseAuth) :
     FirebaseAuthRepository {
     override suspend fun signUp(userAuth: UserAuth): DataState<FirebaseUser> {
         return withContext(Dispatchers.IO) {
