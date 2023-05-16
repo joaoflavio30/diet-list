@@ -56,6 +56,7 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener 
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        checkIfIsNextDayForZeroAchievedGoal()
         return binding.root
     }
 
@@ -103,19 +104,11 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener 
     }
 
     override fun checkIfIsNextDayForZeroAchievedGoal() {
-        val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val formatDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-
-        val lastDate = sharedPreferences.getString("last_date_reset", null)
 
         val currentDate = formatDate.format(Date())
 
-        Log.d("teste", "$lastDate ------- $currentDate")
-        if (currentDate != lastDate) {
-            Log.d("teste de if", "${auth.currentUser!!.email}")
-            viewModel.resetAchievedGoal(auth.currentUser!!.email!!)
-            sharedPreferences.edit().putString("last_date_reset", currentDate).apply()
-        }
+        viewModel.resetAchievedGoal(auth.currentUser!!.email!!, currentDate)
     }
 
     override fun showToastLengthLong(text: String) {
@@ -133,7 +126,6 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener 
     }
 
     override fun bindData() {
-        checkIfIsNextDayForZeroAchievedGoal()
         bindProfileImage()
         bindCurrentDate()
         lifecycleScope.launch(Dispatchers.Main) {

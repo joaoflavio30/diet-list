@@ -31,6 +31,6 @@ interface HomeContract {
 
         suspend fun incWater(userEmail: String): Boolean
 
-        fun resetAchievedGoal(userEmail: String)
+        fun resetAchievedGoal(userEmail: String, currentDate: String)
     }
 }

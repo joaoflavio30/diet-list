@@ -33,9 +33,9 @@ class HomeViewModel @Inject constructor(
         return addWaterUseCase.execute(userEmail)
     }
 
-    override fun resetAchievedGoal(userEmail: String) {
+    override fun resetAchievedGoal(userEmail: String, currentDate: String) {
         viewModelScope.launch {
-            resetAchievedGoalUseCase.execute(userEmail)
+            resetAchievedGoalUseCase.execute(userEmail, currentDate)
         }
     }
 }

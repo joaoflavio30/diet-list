@@ -18,6 +18,8 @@ import com.joaoflaviofreitas.dietplan.component.food.domain.model.RequestFood
 import com.joaoflaviofreitas.dietplan.feature.search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.text.DateFormat
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -144,13 +146,16 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
     }
 
     override fun saveAchievedGoal() {
+        val calendar = Calendar.getInstance()
+        val currentDate = DateFormat.getDateInstance().format(calendar.time)
         viewModel.searchMeal.observe(viewLifecycleOwner) { meal ->
             val achievedGoal = AchievedGoal(
-                userEmail =auth.currentUser!!.email!!,
+                userEmail = auth.currentUser!!.email!!,
                 calories = meal.calories,
                 protein = meal.protein,
                 carb = meal.carb,
                 fat = meal.fat,
+                date = currentDate
             )
             Log.d("teste A", "$achievedGoal")
             viewModel.updateAchievedGoal(achievedGoal)
