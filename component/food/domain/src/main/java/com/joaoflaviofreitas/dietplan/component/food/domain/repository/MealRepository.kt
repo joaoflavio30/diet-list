@@ -27,5 +27,5 @@ interface MealRepository {
 
     suspend fun updateAchievedGoal(achievedGoal: AchievedGoal): Boolean
 
-    fun dailyGoalExistsByEmail(userEmail: String): Boolean
+    suspend fun dailyGoalExistsByEmail(userEmail: String): Boolean
 }

@@ -44,6 +44,6 @@ interface Dao {
     @Update
     suspend fun updateAchievedGoal(achievedGoal: AchievedGoal)
 
-    @Query("SELECT COUNT(*) FROM daily_goal WHERE user_email = :userEmail")
+    @Query("SELECT EXISTS(SELECT 1 FROM daily_goal WHERE user_email = :userEmail)")
     fun existsByEmail(userEmail: String): Boolean
 }

@@ -58,5 +58,12 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    override fun checkIfUserMakesDailyGoal(userEmail: String): Boolean = checkIfDailyGoalExistsByEmailUseCase.execute(userEmail)
+    override fun checkIfUserMakesDailyGoal(userEmail: String) {
+        viewModelScope.launch {
+            when (val result = checkIfDailyGoalExistsByEmailUseCase.execute(userEmail)) {
+                true -> _checkIfUserMakesDailyGoal.postValue(true)
+                false -> _checkIfUserMakesDailyGoal.postValue(false)
+            }
+        }
+    }
 }

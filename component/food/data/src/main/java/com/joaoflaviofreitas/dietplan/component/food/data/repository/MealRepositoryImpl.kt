@@ -125,11 +125,12 @@ class MealRepositoryImpl @Inject constructor(private val database: Dao, private 
         }
     }
 
-    override fun dailyGoalExistsByEmail(userEmail: String): Boolean {
+    override suspend fun dailyGoalExistsByEmail(userEmail: String): Boolean {
         Log.d("teste", "login do google verificado no banco de dados")
-        return try { database.existsByEmail(userEmail)
-        } catch (e: Exception) {
-            false
-        }
-    }
+        return withContext(Dispatchers.IO) {
+            try { database.existsByEmail(userEmail)
+            } catch (e: Exception) { Log.d("erro", "$e")
+                false
+            }
+        } }
 }

@@ -72,12 +72,13 @@ class SplashScreen : Fragment(), SplashScreenContract.SplashScreenFragment {
     }
 
     override fun checkIfUserMakesDailyGoalObserver() {
-        val result = viewModel.checkIfUserMakesDailyGoal(auth.currentUser?.email!!)
-
-        if (result) {
-            navigateToHomeFragment()
-        } else {
-            navigateToDailyGoalFragment()
+        viewModel.checkIfUserMakesDailyGoal(auth.currentUser!!.email!!.toString())
+        viewModel.checkIfUserMakesDailyGoal.observe(viewLifecycleOwner) { result ->
+            if (result) {
+                navigateToHomeFragment()
+            } else {
+                navigateToDailyGoalFragment()
+            }
         }
     }
 }
