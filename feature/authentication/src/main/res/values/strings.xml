@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="sign_up">Sign Up</string>
     <string name="back">Back</string>
     <string name="your_web_client_id">335865405389-he5bn50sh8fdolbed05oo2v72qt6soha.apps.googleusercontent.com</string>
@@ -11,4 +11,6 @@
     <string name="email">Email</string>
     <string name="restore">Restore</string>
     <string name="password">Password</string>
+    <string name="remember_me" >Remember me</string>
+    <string name="sign_in">Sign In</string>
 </resources>

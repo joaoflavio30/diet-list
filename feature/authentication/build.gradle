@@ -35,6 +35,7 @@ dependencies {
     implementation libs.firebaseAuthKtx
     implementation libs.firebaseUiAuth
     implementation libs.firebaseBom
+
     
     implementation project(':component:authentication:domain')
     implementation project(':component:food:domain')

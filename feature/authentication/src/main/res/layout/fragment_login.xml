@@ -95,7 +95,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lembre-me" />
+        android:text="@string/remember_me" />
 </LinearLayout>
 
     <TextView
@@ -136,7 +136,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/linear_layout_remember_password"
         app:cornerRadius="20dp"
-        android:text="Login"/>
+        android:text="@string/sign_in"/>
 
     <LinearLayout
         android:layout_marginTop="50dp"

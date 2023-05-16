@@ -37,6 +37,12 @@ interface SignInContracts {
         fun navigateToHomeFragment()
 
         fun checkIfUserMakesDailyGoalObserver()
+
+        fun rememberEmailInMemory()
+
+        fun checkUserWantsRememberPassword()
+
+        fun bindRememberedEmail()
     }
 
     interface SignInViewModel {
