@@ -13,4 +13,5 @@
     <string name="cancel">Cancel</string>
     <string name="permission_needed">Permission required</string>
     <string name="permission_camera_and_storage_rationale">To use a profile picture and choose the picture you need to accept these permissions</string>
+    <string name="profile_photo">Profile Photo</string>
 </resources>
