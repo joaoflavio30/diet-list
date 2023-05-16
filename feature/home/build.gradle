@@ -29,6 +29,9 @@ dependencies {
     implementation libs.glide
     kapt libs.glideCompiler
 
+    implementation libs.playServicesFitness
+    implementation libs.playServicesAuth
+
     implementation project(':component:food:domain')
     implementation project(':feature:common')
 }

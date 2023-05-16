@@ -11,8 +11,12 @@ interface SplashScreenContract {
         fun signInSuccessObserver()
 
         fun navigateToDailyGoalFragment()
+
+        fun checkIfUserMakesDailyGoalObserver()
     }
     interface SplashScreenViewModel {
         fun checkUserAuthSignedIn()
+
+        fun checkIfUserMakesDailyGoal(userEmail: String)
     }
 }

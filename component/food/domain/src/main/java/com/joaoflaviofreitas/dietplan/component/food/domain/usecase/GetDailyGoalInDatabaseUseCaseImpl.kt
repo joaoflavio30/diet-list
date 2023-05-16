@@ -5,7 +5,7 @@ import com.joaoflaviofreitas.dietplan.component.food.domain.repository.MealRepos
 
 class GetDailyGoalInDatabaseUseCaseImpl(private val repository: MealRepository):
     GetDailyGoalInDatabaseUseCase {
-    override suspend fun execute(): DailyGoal {
-        return repository.getDailyGoal()
+    override suspend fun execute(userEmail: String): DailyGoal? {
+        return repository.getDailyGoal(userEmail)
     }
 }

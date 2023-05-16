@@ -6,7 +6,7 @@ import com.joaoflaviofreitas.dietplan.component.food.domain.repository.MealRepos
 class UpdateAchievedGoalInDatabaseUseCaseImpl(private val repository: MealRepository):
     UpdateAchievedGoalInDatabaseUseCase {
     override suspend fun execute(achievedGoal: AchievedGoal): Boolean {
-        val oldAchievedGoal = repository.getAchievedGoal()
+        val oldAchievedGoal = repository.getAchievedGoal(achievedGoal.userEmail!!)
         val newAchievedGoal = oldAchievedGoal.copy(
             calories = oldAchievedGoal.calories.plus(achievedGoal.calories),
             protein = oldAchievedGoal.protein.plus(achievedGoal.protein),

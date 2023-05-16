@@ -17,13 +17,15 @@ interface MealRepository {
 
     suspend fun saveDailyGoal(dailyGoal: DailyGoal): Boolean
 
-    suspend fun getDailyGoal(): DailyGoal
+    suspend fun getDailyGoal(userEmail: String): DailyGoal?
 
     suspend fun updateDailyGoal(dailyGoal: DailyGoal): Boolean
 
     suspend fun saveAchievedGoal(achievedGoal: AchievedGoal): Boolean
 
-    suspend fun getAchievedGoal(): AchievedGoal
+    suspend fun getAchievedGoal(userEmail: String): AchievedGoal
 
     suspend fun updateAchievedGoal(achievedGoal: AchievedGoal): Boolean
+
+    suspend fun dailyGoalExistsByEmail(userEmail: String): Boolean
 }

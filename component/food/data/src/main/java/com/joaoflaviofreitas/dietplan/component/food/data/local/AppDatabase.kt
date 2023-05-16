@@ -6,7 +6,7 @@ import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.DailyGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.Meal
 
-@Database(entities = [Meal::class, DailyGoal::class, AchievedGoal::class], version = 3, exportSchema = false)
+@Database(entities = [Meal::class, DailyGoal::class, AchievedGoal::class], version = 12, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun dao(): Dao

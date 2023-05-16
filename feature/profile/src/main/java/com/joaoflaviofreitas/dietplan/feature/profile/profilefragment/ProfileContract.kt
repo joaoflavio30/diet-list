@@ -36,6 +36,10 @@ interface ProfileContract {
         fun navigateToLoginFragment()
 
         fun logout()
+
+        fun checkIfUserIsLoggedWithGoogle(): Boolean
+
+        fun removeTokenOfGoogle()
     }
 
     interface ProfileViewModel {

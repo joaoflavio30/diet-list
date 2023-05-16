@@ -19,6 +19,9 @@ dependencies {
     implementation libs.hiltAndroid
     kapt libs.hiltCompiler
 
+    implementation libs.firebaseAuthKtx
+
     implementation libs.bundles.navigation
     implementation project(':component:authentication:domain')
+    implementation project(':component:food:domain')
 }

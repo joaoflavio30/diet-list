@@ -22,10 +22,13 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.signature.ObjectKey
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.storage.FirebaseStorage
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
 import com.joaoflaviofreitas.dietplan.feature.profile.ProfileViewModel
@@ -297,6 +300,7 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
 
     private fun showDialogForLogout() {
         MaterialAlertDialogBuilder(requireContext()).setTitle("Are you sure you want to leave?").setPositiveButton("Yes") { _, _ ->
+            if (checkIfUserIsLoggedWithGoogle()) removeTokenOfGoogle()
             logout()
         }.setNegativeButton("No") { dialog, _ ->
             dialog.dismiss()
@@ -320,5 +324,19 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
             }
             .create()
             .show()
+    }
+
+    override fun checkIfUserIsLoggedWithGoogle(): Boolean {
+        val isGoogleLoggedIn = auth.currentUser!!.providerData.any { provider ->
+            provider.providerId == GoogleAuthProvider.PROVIDER_ID
+        }
+        return isGoogleLoggedIn
+    }
+
+    override fun removeTokenOfGoogle() {
+        val googleSignInClient = GoogleSignIn.getClient(requireContext(), GoogleSignInOptions.DEFAULT_SIGN_IN)
+        googleSignInClient.revokeAccess().addOnCompleteListener { task ->
+            if (!task.isSuccessful) showToastLengthLong("Error in Revoke the Google access!")
+        }
     }
 }

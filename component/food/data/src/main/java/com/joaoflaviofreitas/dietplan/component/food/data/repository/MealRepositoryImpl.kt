@@ -73,10 +73,10 @@ class MealRepositoryImpl @Inject constructor(private val database: Dao, private 
         }
     }
 
-    override suspend fun getDailyGoal(): DailyGoal {
+    override suspend fun getDailyGoal(userEmail:String): DailyGoal? {
         return withContext(Dispatchers.IO) {
             try {
-                database.getDailyGoal()
+                database.getDailyGoal(userEmail)
             } catch (e: Exception) {
                 throw Exception("Failed to get dailyGoal in database: ${e.message}")
             }
@@ -97,16 +97,17 @@ class MealRepositoryImpl @Inject constructor(private val database: Dao, private 
     override suspend fun saveAchievedGoal(achievedGoal: AchievedGoal): Boolean {
         return withContext(Dispatchers.IO) {
             try {
+                Log.d("teste1", "$achievedGoal")
                 database.insertAchievedGoal(achievedGoal)
                 true
             } catch (e: Exception) { false }
         }
     }
 
-    override suspend fun getAchievedGoal(): AchievedGoal {
+    override suspend fun getAchievedGoal(userEmail: String): AchievedGoal {
         return withContext(Dispatchers.IO) {
             try {
-                database.getAchievedGoal()
+                database.getAchievedGoal(userEmail)
             } catch (e: Exception) {
                 throw Exception("Failed to get achievedGoal in database: ${e.message}")
             }
@@ -118,6 +119,16 @@ class MealRepositoryImpl @Inject constructor(private val database: Dao, private 
             try {
                 database.updateAchievedGoal(achievedGoal)
                 true
+            } catch (e: Exception) {
+                false
+            }
+        }
+    }
+
+    override suspend fun dailyGoalExistsByEmail(userEmail: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            Log.d("teste","login do google verificado no banco de dados")
+            try { database.existsByEmail(userEmail)
             } catch (e: Exception) {
                 false
             }

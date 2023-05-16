@@ -12,16 +12,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.RequestFood
 import com.joaoflaviofreitas.dietplan.feature.search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(), SearchContract.SearchFragment {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     private val viewModel: SearchViewModel by viewModels()
 
@@ -48,7 +53,6 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
                     binding.quantityText.text.toString().toDouble(),
                     radioBtnSelected,
                 )
-                Log.d("Tag", "$request")
                 viewModel.getMeal(request)
                 bindData()
                 progressBarObserver()
@@ -96,8 +100,8 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
 
     override fun progressBarObserver() {
         lifecycleScope.launch {
-            val dailyDiet = viewModel.getDailyDiet()
-            val goalAchieved = viewModel.getAchievedGoal()
+            val dailyDiet = viewModel.getDailyDiet(auth.currentUser!!.email!!)
+            val goalAchieved = viewModel.getAchievedGoal(auth.currentUser!!.email!!)
             viewModel.searchMeal.observe(viewLifecycleOwner) { searchMeal ->
                 Log.d("teste", "${dailyDiet.calories.div(searchMeal.calories)}")
                 binding.progress1.max = dailyDiet.protein.toInt()
@@ -142,6 +146,7 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
     override fun saveAchievedGoal() {
         viewModel.searchMeal.observe(viewLifecycleOwner) { meal ->
             val achievedGoal = AchievedGoal(
+                userEmail =auth.currentUser!!.email!!,
                 calories = meal.calories,
                 protein = meal.protein,
                 carb = meal.carb,

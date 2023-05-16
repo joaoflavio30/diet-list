@@ -36,15 +36,15 @@ interface SearchContract {
 
         fun saveRemoteDataInDatabase(meal: Meal)
 
-        suspend fun incWater(): Boolean
+        suspend fun incWater(userEmail: String): Boolean
 
         fun submitDailyDiet(nutrients: DailyGoal)
 
-        suspend fun getDailyDiet(): DailyGoal
+        suspend fun getDailyDiet(userEmail: String): DailyGoal
 
         fun submitAchievedGoal(achievedGoal: AchievedGoal)
 
-        suspend fun getAchievedGoal(): AchievedGoal
+        suspend fun getAchievedGoal(userEmail: String): AchievedGoal
 
         fun updateAchievedGoal(achievedGoal: AchievedGoal)
     }

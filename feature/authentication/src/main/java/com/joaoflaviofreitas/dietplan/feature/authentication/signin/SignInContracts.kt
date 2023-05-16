@@ -33,11 +33,17 @@ interface SignInContracts {
         fun navigateToDailyGoalFragment()
 
         fun navigateToRestorePasswordFragment()
+
+        fun navigateToHomeFragment()
+
+        fun checkIfUserMakesDailyGoalObserver()
     }
 
     interface SignInViewModel {
         fun signIn(userAuth: UserAuth)
 
         fun signInWithGoogle(credential: AuthCredential)
+
+        fun checkIfUserMakesDailyGoal(userEmail: String)
     }
 }

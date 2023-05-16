@@ -12,7 +12,16 @@
           "package_name": "com.joaoflaviofreitas.dietplan"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "335865405389-hficuffj514ra09f6kbfc16e7bssel40.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.joaoflaviofreitas.dietplan",
+            "certificate_hash": "2c7ca5a88ef596ffcd4e3e33a55221fa336b9d09"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCIO-jjsZGjW1Sv2-MTxF7mTUIvseTNDKg"

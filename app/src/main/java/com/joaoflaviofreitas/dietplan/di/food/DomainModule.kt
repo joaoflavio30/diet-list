@@ -75,4 +75,8 @@ object DomainModule {
     @Provides
     @Singleton
     fun providesResetAchievedGoalUseCase(repository: MealRepository): ResetAchievedGoalUseCase = ResetAchievedGoalUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun providesCheckIfDailyGoalExistsByEmailUseCase(repository: MealRepository): CheckIfDailyGoalExistsByEmailUseCase = CheckIfDailyGoalExistsByEmailUseCaseImpl(repository)
 }

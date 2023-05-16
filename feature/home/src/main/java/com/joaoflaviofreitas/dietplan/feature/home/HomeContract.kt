@@ -21,14 +21,16 @@ interface HomeContract {
         fun bindProfileImage()
 
         fun checkIfIsNextDayForZeroAchievedGoal()
+
+        fun showToastLengthLong(text: String)
     }
     interface HomeViewModel {
-        suspend fun getAchievedGoal(): AchievedGoal
+        suspend fun getAchievedGoal(userEmail: String): AchievedGoal
 
-        suspend fun getDailyDiet(): DailyGoal
+        suspend fun getDailyDiet(userEmail: String): DailyGoal
 
-        suspend fun incWater(): Boolean
+        suspend fun incWater(userEmail: String): Boolean
 
-        fun resetAchievedGoal()
+        fun resetAchievedGoal(userEmail: String)
     }
 }

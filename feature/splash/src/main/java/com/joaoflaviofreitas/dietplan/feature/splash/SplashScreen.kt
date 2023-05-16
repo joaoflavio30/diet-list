@@ -10,10 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
 import com.joaoflaviofreitas.dietplan.feature.splash.databinding.FragmentSplashScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
@@ -22,6 +24,9 @@ class SplashScreen : Fragment(), SplashScreenContract.SplashScreenFragment {
 
     private var _binding: FragmentSplashScreenBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +58,7 @@ class SplashScreen : Fragment(), SplashScreenContract.SplashScreenFragment {
     override fun signInSuccessObserver() {
         viewModel.signInSuccess.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is DataState.Success -> navigateToDailyGoalFragment()
+                is DataState.Success -> checkIfUserMakesDailyGoalObserver()
                 is DataState.Error -> { Log.d("tag", "${result.exception}")
                     navigateToSignInFragment()
                 }
@@ -64,5 +69,16 @@ class SplashScreen : Fragment(), SplashScreenContract.SplashScreenFragment {
 
     override fun navigateToDailyGoalFragment() {
         findNavController().navigate(R.id.action_splashScreen_to_dailyGoalFragment)
+    }
+
+    override fun checkIfUserMakesDailyGoalObserver() {
+        viewModel.checkIfUserMakesDailyGoal(auth.currentUser?.email!!)
+        viewModel.checkIfUserMakesDailyGoal.observe(viewLifecycleOwner) { result ->
+            if (result){
+                navigateToHomeFragment()
+            } else {
+                navigateToDailyGoalFragment()
+            }
+        }
     }
 }

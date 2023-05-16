@@ -68,8 +68,8 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    override suspend fun incWater(): Boolean {
-        return addWaterUseCase.execute()
+    override suspend fun incWater(userEmail: String): Boolean {
+        return addWaterUseCase.execute(userEmail)
     }
 
     override fun submitDailyDiet(nutrients: DailyGoal) {
@@ -78,8 +78,8 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    override suspend fun getDailyDiet(): DailyGoal {
-        return getDailyGoalInDatabaseUseCase.execute()
+    override suspend fun getDailyDiet(userEmail: String): DailyGoal {
+        return getDailyGoalInDatabaseUseCase.execute(userEmail)!!
     }
 
     override fun submitAchievedGoal(achievedGoal: AchievedGoal) {
@@ -88,8 +88,8 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    override suspend fun getAchievedGoal(): AchievedGoal {
-        return getAchievedGoalInDatabaseUseCase.execute()
+    override suspend fun getAchievedGoal(userEmail: String): AchievedGoal {
+        return getAchievedGoalInDatabaseUseCase.execute(userEmail)
     }
 
     override fun updateAchievedGoal(achievedGoal: AchievedGoal) {

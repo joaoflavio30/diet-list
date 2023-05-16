@@ -16,7 +16,7 @@ interface DailyGoalContract {
 
         fun navigateToHomeFragment()
 
-        fun checkIfUserMakeDailyGoal()
+        fun checkIfUserMakesDailyGoal()
 
         fun putTrueForPreferencesOfIfUserMakeDailyGoal()
     }
@@ -25,5 +25,7 @@ interface DailyGoalContract {
         fun submitDailyDiet(nutrients: DailyGoal)
 
         fun submitAchievedGoal(achievedGoal: AchievedGoal)
+
+        fun checkIfUserMakesDailyGoal(userEmail: String)
     }
 }

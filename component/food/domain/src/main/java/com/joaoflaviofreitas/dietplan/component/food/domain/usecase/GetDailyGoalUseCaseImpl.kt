@@ -6,10 +6,10 @@ import com.joaoflaviofreitas.dietplan.component.food.domain.model.Meal
 class GetDailyGoalUseCaseImpl: GetDailyGoalUseCase {
     override fun execute(meal: Meal, dailyGoal: DailyGoal): DailyGoal {
         return DailyGoal(
-            dailyGoal.calories + meal.calories,
-            dailyGoal.protein + meal.protein,
-            dailyGoal.carb + meal.carb,
-            dailyGoal.fat + meal.fat,
+            calories = dailyGoal.calories + meal.calories,
+            protein = dailyGoal.protein + meal.protein,
+            carb = dailyGoal.carb + meal.carb,
+            fat = dailyGoal.fat + meal.fat,
         )
     }
 }

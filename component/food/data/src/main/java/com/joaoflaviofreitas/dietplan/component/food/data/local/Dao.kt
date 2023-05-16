@@ -20,27 +20,30 @@ interface Dao {
     )
     suspend fun findByName(foodName: String): Meal?
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg meals: Meal)
 
     @Delete
     fun delete(meal: Meal)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDailyGoal(vararg dailyGoal: DailyGoal)
 
-    @Query("SELECT * FROM daily_goal")
-    suspend fun getDailyGoal(): DailyGoal
+    @Query("SELECT * FROM daily_goal WHERE user_email = :userEmail")
+    suspend fun getDailyGoal(userEmail: String): DailyGoal?
 
     @Update
     suspend fun updateDailyGoal(dailyGoal: DailyGoal)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAchievedGoal(vararg achievedGoal: AchievedGoal)
 
-    @Query("SELECT * FROM achieved_goal")
-    suspend fun getAchievedGoal(): AchievedGoal
+    @Query("SELECT * FROM achieved_goal WHERE user_email = :userEmail")
+    suspend fun getAchievedGoal(userEmail: String): AchievedGoal
 
     @Update
     suspend fun updateAchievedGoal(achievedGoal: AchievedGoal)
+
+    @Query("SELECT COUNT(*) FROM daily_goal WHERE user_email = :userEmail")
+    fun existsByEmail(userEmail: String): Boolean
 }

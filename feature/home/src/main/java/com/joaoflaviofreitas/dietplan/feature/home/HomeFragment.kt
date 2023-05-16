@@ -2,11 +2,17 @@ package com.joaoflaviofreitas.dietplan.feature.home
 
 import android.app.AlertDialog
 import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -14,7 +20,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.signature.ObjectKey
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
-import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
 import com.joaoflaviofreitas.dietplan.feature.common.utils.formatCurrentVsTotal
 import com.joaoflaviofreitas.dietplan.feature.common.utils.highlightAView
 import com.joaoflaviofreitas.dietplan.feature.home.databinding.FragmentHomeBinding
@@ -27,7 +32,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), HomeContract.HomeFragment {
+class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -38,6 +43,12 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
 
     @Inject
     lateinit var storage: FirebaseStorage
+
+    private var sensorManager: SensorManager? = null
+
+    private var running = false
+
+    private var totalSteps = 0f
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,12 +63,13 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListener()
         bindData()
+        sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
     }
 
     override fun viewWaterMetrics() {
         lifecycleScope.launch(Dispatchers.Main) {
-            val current = viewModel.getAchievedGoal().water.toDouble()
-            val total = viewModel.getDailyDiet().water.toDouble()
+            val current = viewModel.getAchievedGoal(auth.currentUser!!.email!!).water.toDouble()
+            val total = viewModel.getDailyDiet(auth.currentUser!!.email!!).water.toDouble()
             Log.d("tag", "${current.div(total)}")
 
             if (current.div(total) >= 0.33 && current.div(total) < 0.66) {
@@ -98,11 +110,16 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
 
         val currentDate = formatDate.format(Date())
 
-        Log.d("teste","${lastDate} ------- $currentDate")
+        Log.d("teste", "$lastDate ------- $currentDate")
         if (currentDate != lastDate) {
-            viewModel.resetAchievedGoal()
+            Log.d("teste de if", "${auth.currentUser!!.email}")
+            viewModel.resetAchievedGoal(auth.currentUser!!.email!!)
             sharedPreferences.edit().putString("last_date_reset", currentDate).apply()
         }
+    }
+
+    override fun showToastLengthLong(text: String) {
+        Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
     }
 
     override fun setOnClickListener() {
@@ -120,8 +137,8 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
         bindProfileImage()
         bindCurrentDate()
         lifecycleScope.launch(Dispatchers.Main) {
-            val dailyDiet = viewModel.getDailyDiet()
-            val goalAchieved = viewModel.getAchievedGoal()
+            val dailyDiet = viewModel.getDailyDiet(auth.currentUser!!.email!!)
+            val goalAchieved = viewModel.getAchievedGoal(auth.currentUser!!.email!!)
             Log.d("tag", "$dailyDiet")
             binding.protein.text = getString(R.string.protein_numb).formatCurrentVsTotal(
                 goalAchieved.protein.toString(),
@@ -162,12 +179,12 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
                 "Yes",
             ) { dialogInterface, int ->
                 lifecycleScope.launch(Dispatchers.Main) {
-                    Log.d("antes", "${viewModel.getAchievedGoal().water}")
-                    viewModel.incWater()
-                    Log.d("depois", "${viewModel.getAchievedGoal().water}")
+                    Log.d("antes", "${viewModel.getAchievedGoal(auth.currentUser!!.email!!).water}")
+                    viewModel.incWater(auth.currentUser!!.email!!)
+                    Log.d("depois", "${viewModel.getAchievedGoal(auth.currentUser!!.email!!).water}")
                     binding.currentWater.text = getString(R.string.water_numb).formatCurrentVsTotal(
-                        viewModel.getAchievedGoal().water.toString(),
-                        viewModel.getDailyDiet().water.toString(),
+                        viewModel.getAchievedGoal(auth.currentUser!!.email!!).water.toString(),
+                        viewModel.getDailyDiet(auth.currentUser!!.email!!).water.toString(),
                         " liters",
                     )
                     viewWaterMetrics()
@@ -180,5 +197,29 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
         }
         dialog.create()
         dialog.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        running = true
+        handleWithStepSensor()
+    }
+
+    private fun handleWithStepSensor() {
+        val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        if (stepSensor != null) {
+            sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
+            showToastLengthLong("Sensor detected on this device")
+        }
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (running) {
+            totalSteps = event!!.values[0]
+            binding.intoWalk.text = "${totalSteps.toInt()}"
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
     }
 }

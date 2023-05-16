@@ -7,18 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.text.isDigitsOnly
+import androidx.datastore.preferences.core.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.DailyGoal
 import com.joaoflaviofreitas.dietplan.feature.dailygoal.databinding.FragmentDailyGoalBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DailyGoalFragment : Fragment(), DailyGoalContract.DailyGoalFragment {
     private var _binding: FragmentDailyGoalBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     private val viewModel: DailyGoalViewModel by viewModels()
 
@@ -27,7 +33,6 @@ class DailyGoalFragment : Fragment(), DailyGoalContract.DailyGoalFragment {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        checkIfUserMakeDailyGoal()
         _binding = FragmentDailyGoalBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -85,6 +90,7 @@ class DailyGoalFragment : Fragment(), DailyGoalContract.DailyGoalFragment {
 
     override fun submitDailyDiet() {
         val nutrients = DailyGoal(
+            auth.currentUser!!.email!!,
             binding.caloriesText.text.toString().toDouble(),
             binding.proteinText.text.toString().toDouble(),
             binding.carbText.text.toString().toDouble(),
@@ -94,7 +100,7 @@ class DailyGoalFragment : Fragment(), DailyGoalContract.DailyGoalFragment {
         viewModel.submitDailyDiet(nutrients)
 
         // submit too AchievedGoal in Database
-        viewModel.submitAchievedGoal(AchievedGoal())
+        viewModel.submitAchievedGoal(AchievedGoal(userEmail = auth.currentUser!!.email!!))
 
         putTrueForPreferencesOfIfUserMakeDailyGoal()
     }
@@ -107,18 +113,22 @@ class DailyGoalFragment : Fragment(), DailyGoalContract.DailyGoalFragment {
         findNavController().navigate(R.id.action_dailyGoalFragment_to_homeFragment)
     }
 
-    override fun checkIfUserMakeDailyGoal() {
-        val preferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        val isDailyGoalSet = preferences.getBoolean("isDailyGoalSet", false)
-
-        if (isDailyGoalSet) {
-            // Navegar para a tela principal do aplicativo
-            navigateToHomeFragment()
-        }
+    override fun checkIfUserMakesDailyGoal() {
+//        if (auth.currentUser != null) {
+//            Log.d("teste", "escopo do auth != null chamado")
+//            val email = auth.currentUser!!.email!!.toString()
+//            viewModel.checkIfUserMakesDailyGoal(email)
+//        }
+//        viewModel.userMakesDailyGoal.observe(viewLifecycleOwner) { result ->
+//            if (result) {
+//                navigateToHomeFragment()
+//            }
+//            Log.d("teste", "escopo do observe")
+//        }
     }
 
     override fun putTrueForPreferencesOfIfUserMakeDailyGoal() {
-        val editor = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).edit()
+        val editor = requireContext().getSharedPreferences("PrefsOf${auth.currentUser?.email}", Context.MODE_PRIVATE).edit()
         editor.putBoolean("isDailyGoalSet", true)
         editor.apply()
     }

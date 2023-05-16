@@ -21,8 +21,12 @@ android {
 dependencies {
     implementation libs.bundles.navigation
 
+    implementation libs.firebaseAuthKtx
+
     implementation libs.hiltAndroid
     kapt libs.hiltCompiler
+
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     implementation project(':component:food:domain')
 }

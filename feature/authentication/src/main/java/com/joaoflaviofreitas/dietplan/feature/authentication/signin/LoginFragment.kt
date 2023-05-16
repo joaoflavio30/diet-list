@@ -1,7 +1,7 @@
 package com.joaoflaviofreitas.dietplan.feature.authentication.signin
 
-import android.app.Activity.RESULT_OK
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -32,9 +32,12 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
     private val binding get() = _binding!!
     private val viewModel: LoginViewModel by viewModels()
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        Log.d("tag", "$result")
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
             handleSignInResult(task)
+        } catch (e: Exception) {
+            Log.e("Error", e.message ?: "Error in sign in with Google")
         }
     }
     override fun onCreateView(
@@ -104,7 +107,7 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
             when (result) {
                 is DataState.Success -> {
                     showToastLengthLong("Login success!")
-                    navigateToDailyGoalFragment()
+                    checkIfUserMakesDailyGoalObserver()
                 }
                 is DataState.Error -> showToastLengthLong("Failed to login: ${result.exception}")
                 is DataState.Loading -> {}
@@ -138,13 +141,15 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
     }
 
     override fun handleSignInResult(task: Task<GoogleSignInAccount>) {
-        val account = task.getResult(ApiException::class.java)
-        if (account != null) {
+        try {
+            val account = task.getResult(ApiException::class.java)
+            Log.d("chamado2", "teste")
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             viewModel.signInWithGoogle(credential)
-            navigateToDailyGoalFragment()
-        } else {
-            showToastLengthLong("Google failed login")
+            signInSuccessObserver()
+        } catch (e: ApiException) {
+            // Trate a exceção de acordo com suas necessidades
+            Log.e("chamado", "Erro ao fazer login com o Google: ${e.message}")
         }
     }
 
@@ -172,5 +177,20 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
 
     override fun navigateToRestorePasswordFragment() {
         findNavController().navigate(R.id.action_loginFragment_to_restorePasswordFragment)
+    }
+
+    override fun navigateToHomeFragment() {
+        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+    }
+
+    override fun checkIfUserMakesDailyGoalObserver() {
+        viewModel.checkIfUserMakesDailyGoal(binding.loginField.text.toString())
+        viewModel.checkIfUserMakesDailyGoal.observe(viewLifecycleOwner) { result ->
+            if (result) {
+                navigateToHomeFragment()
+            } else {
+                navigateToDailyGoalFragment()
+            }
+        }
     }
 }

@@ -2,5 +2,5 @@ package com.joaoflaviofreitas.dietplan.component.food.domain.usecase
 
 interface ResetAchievedGoalUseCase {
 
-    suspend fun execute()
+    suspend fun execute(userEmail: String)
 }

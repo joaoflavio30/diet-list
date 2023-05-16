@@ -29,6 +29,8 @@ dependencies {
 
     implementation libs.bundles.navigation
 
+    implementation libs.firebaseAuthKtx
+
     implementation project(':component:food:domain')
     implementation project(':feature:common')
 }

@@ -1,11 +1,11 @@
 package com.joaoflaviofreitas.dietplan.feature.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.DailyGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.usecase.*
-import com.joaoflaviofreitas.dietplan.feature.common.utils.formatPropertiesWithTwoDecimalPlaces
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,23 +17,25 @@ class HomeViewModel @Inject constructor(
     private val addWaterUseCase: AddWaterUseCase,
     private val resetAchievedGoalUseCase: ResetAchievedGoalUseCase,
 ): ViewModel(), HomeContract.HomeViewModel {
-    override suspend fun getAchievedGoal(): AchievedGoal {
-        val achievedGoal = getAchievedGoalInDatabaseUseCase.execute()
-        formatPropertiesWithTwoDecimalPlaces(achievedGoal)
+    override suspend fun getAchievedGoal(userEmail: String): AchievedGoal {
+        val achievedGoal = getAchievedGoalInDatabaseUseCase.execute(userEmail)
+        Log.d("teste", "${getAchievedGoalInDatabaseUseCase.execute(userEmail)}")
+//        formatPropertiesWithTwoDecimalPlaces(achievedGoal)
         return achievedGoal
     }
 
-    override suspend fun getDailyDiet(): DailyGoal {
-        return getDailyGoalInDatabaseUseCase.execute()
+    override suspend fun getDailyDiet(userEmail: String): DailyGoal {
+        Log.d("teste", "${getDailyGoalInDatabaseUseCase.execute(userEmail)}")
+        return getDailyGoalInDatabaseUseCase.execute(userEmail)!!
     }
 
-    override suspend fun incWater(): Boolean {
-        return addWaterUseCase.execute()
+    override suspend fun incWater(userEmail: String): Boolean {
+        return addWaterUseCase.execute(userEmail)
     }
 
-    override fun resetAchievedGoal() {
+    override fun resetAchievedGoal(userEmail: String) {
         viewModelScope.launch {
-            resetAchievedGoalUseCase.execute()
+            resetAchievedGoalUseCase.execute(userEmail)
         }
     }
 }

@@ -6,10 +6,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "achieved_goal")
 data class AchievedGoal(
+    @ColumnInfo(name = "user_email") var userEmail: String = "",
     @ColumnInfo(name = "calories") var calories: Double = 0.0,
     @ColumnInfo(name = "protein") var protein: Double = 0.0,
     @ColumnInfo(name = "carb")var carb: Double = 0.0,
     @ColumnInfo(name = "fat")var fat: Double = 0.0,
     @ColumnInfo(name = "water")var water: Int = 0,
-    @PrimaryKey(autoGenerate = false)var id: Int = 1,
+    @PrimaryKey(autoGenerate = true)var id: Int? = null,
 )
