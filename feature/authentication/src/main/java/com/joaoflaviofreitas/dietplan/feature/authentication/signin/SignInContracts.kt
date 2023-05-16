@@ -44,6 +44,6 @@ interface SignInContracts {
 
         fun signInWithGoogle(credential: AuthCredential)
 
-        fun checkIfUserMakesDailyGoal(userEmail: String)
+        fun checkIfUserMakesDailyGoal(userEmail: String): Boolean
     }
 }

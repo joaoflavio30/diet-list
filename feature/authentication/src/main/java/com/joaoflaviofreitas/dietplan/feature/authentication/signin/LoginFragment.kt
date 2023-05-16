@@ -17,12 +17,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.UserAuth
 import com.joaoflaviofreitas.dietplan.feature.authentication.R
 import com.joaoflaviofreitas.dietplan.feature.authentication.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(), SignInContracts.SignInFragment {
@@ -31,6 +33,10 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LoginViewModel by viewModels()
+
+    @Inject
+    lateinit var auth: FirebaseAuth
+
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         Log.d("tag", "$result")
         val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
@@ -184,13 +190,12 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
     }
 
     override fun checkIfUserMakesDailyGoalObserver() {
-        viewModel.checkIfUserMakesDailyGoal(binding.loginField.text.toString())
-        viewModel.checkIfUserMakesDailyGoal.observe(viewLifecycleOwner) { result ->
-            if (result) {
-                navigateToHomeFragment()
-            } else {
-                navigateToDailyGoalFragment()
-            }
+        val result = viewModel.checkIfUserMakesDailyGoal(auth.currentUser!!.email!!.toString())
+
+        if (result) {
+            navigateToHomeFragment()
+        } else {
+            navigateToDailyGoalFragment()
         }
     }
 }

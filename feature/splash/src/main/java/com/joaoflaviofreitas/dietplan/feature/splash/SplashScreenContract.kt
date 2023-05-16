@@ -17,6 +17,6 @@ interface SplashScreenContract {
     interface SplashScreenViewModel {
         fun checkUserAuthSignedIn()
 
-        fun checkIfUserMakesDailyGoal(userEmail: String)
+        fun checkIfUserMakesDailyGoal(userEmail: String): Boolean
     }
 }
