@@ -50,23 +50,23 @@ class DailyGoalFragment : Fragment(), DailyGoalContract.DailyGoalFragment {
         var valid = false
 
         when {
-            protein.isEmpty() || !protein.isDigitsOnly() -> {
+            protein.isEmpty() || !protein.isDigitsOnly() || protein.length > 3 -> {
                 binding.proteinText.setError("Enter Protein!", null)
                 binding.proteinText.requestFocus()
             }
-            carb.isEmpty() || !carb.isDigitsOnly() -> {
+            carb.isEmpty() || !carb.isDigitsOnly() || carb.length > 3 -> {
                 binding.carbText.setError("Enter Carb!", null)
                 binding.carbText.requestFocus()
             }
-            fat.isEmpty() || !fat.isDigitsOnly() -> {
+            fat.isEmpty() || !fat.isDigitsOnly() || fat.length > 3 -> {
                 binding.fatText.setError("Enter Fat!", null)
                 binding.fatText.requestFocus()
             }
-            calories.isEmpty() || !calories.isDigitsOnly() -> {
+            calories.isEmpty() || !calories.isDigitsOnly() || calories.length > 5 -> {
                 binding.caloriesText.setError("Enter Calories!", null)
                 binding.caloriesText.requestFocus()
             }
-            water.isEmpty() || !water.isDigitsOnly() -> {
+            water.isEmpty() || !water.isDigitsOnly() || water.length > 2 -> {
                 binding.waterText.setError("Enter Water!", null)
                 binding.waterText.requestFocus()
             }

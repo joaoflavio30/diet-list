@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.di.storage
+package com.joaoflaviofreitas.dietplan.component.storage.domain.di
 
 import com.joaoflaviofreitas.dietplan.component.storage.domain.FirebaseStorageRepository
 import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.*

@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.di.auth
+package com.joaoflaviofreitas.dietplan.component.authentication.domain.di
 
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.repository.FirebaseAuthRepository
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.*

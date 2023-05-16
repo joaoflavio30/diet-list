@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.di.auth
+package com.joaoflaviofreitas.dietplan.component.authentication.data.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.joaoflaviofreitas.dietplan.component.authentication.data.FirebaseAuthRepositoryImpl

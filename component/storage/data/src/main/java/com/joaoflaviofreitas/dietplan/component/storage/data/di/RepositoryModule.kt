@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.di.storage
+package com.joaoflaviofreitas.dietplan.component.storage.data.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
