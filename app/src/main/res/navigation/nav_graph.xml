@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.joaoflaviofreitas.dietplan.feature.authentication.signout.RegisterFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.authentication.signout.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.joaoflaviofreitas.dietplan.feature.authentication.signin.LoginFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.authentication.signin.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.joaoflaviofreitas.dietplan.feature.home.HomeFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.joaoflaviofreitas.dietplan.feature.search.SearchFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
         <argument
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/dailyGoalFragment"
-        android:name="com.joaoflaviofreitas.dietplan.feature.dailygoal.DailyGoalFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.dailygoal.DailyGoalFragment"
         android:label="fragment_daily_goal"
         tools:layout="@layout/fragment_daily_goal">
         <action
@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.joaoflaviofreitas.dietplan.feature.profile.profilefragment.ProfileFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.profile.profilefragment.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -86,7 +86,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashScreen"
-        android:name="com.joaoflaviofreitas.dietplan.feature.splash.SplashScreen"
+        android:name="com.joaoflaviofreitas.dietplan.ui.splash.SplashScreen"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen">
         <action
@@ -101,11 +101,11 @@
     </fragment>
     <fragment
         android:id="@+id/restorePasswordFragment"
-        android:name="com.joaoflaviofreitas.dietplan.feature.authentication.restorepassword.RestorePasswordFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.authentication.restorepassword.RestorePasswordFragment"
         android:label="RestorePasswordFragment" />
     <fragment
         android:id="@+id/profileImageFragment"
-        android:name="com.joaoflaviofreitas.dietplan.feature.profile.profileimagefragment.ProfileImageFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.profile.profileimagefragment.ProfileImageFragment"
         android:label="ProfileImageFragment" >
         <action
             android:id="@+id/action_profileImageFragment_to_profileFragment"

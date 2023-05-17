@@ -21,14 +21,14 @@
             <option value="$PROJECT_DIR$/component/storage" />
             <option value="$PROJECT_DIR$/component/storage/data" />
             <option value="$PROJECT_DIR$/component/storage/domain" />
-            <option value="$PROJECT_DIR$/feature" />
-            <option value="$PROJECT_DIR$/feature/authentication" />
-            <option value="$PROJECT_DIR$/feature/common" />
-            <option value="$PROJECT_DIR$/feature/dailygoal" />
-            <option value="$PROJECT_DIR$/feature/home" />
-            <option value="$PROJECT_DIR$/feature/profile" />
-            <option value="$PROJECT_DIR$/feature/search" />
-            <option value="$PROJECT_DIR$/feature/splash" />
+            <option value="$PROJECT_DIR$/ui" />
+            <option value="$PROJECT_DIR$/ui/authentication" />
+            <option value="$PROJECT_DIR$/ui/common" />
+            <option value="$PROJECT_DIR$/ui/dailygoal" />
+            <option value="$PROJECT_DIR$/ui/home" />
+            <option value="$PROJECT_DIR$/ui/profile" />
+            <option value="$PROJECT_DIR$/ui/search" />
+            <option value="$PROJECT_DIR$/ui/splash" />
           </set>
         </option>
       </GradleProjectSettings>

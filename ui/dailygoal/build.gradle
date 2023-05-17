@@ -1,0 +1,31 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.joaoflaviofreitas.dietplan.ui.dailygoal'
+    compileSdk rootProject.ext.sdkVersion
+
+    defaultConfig {
+        minSdk rootProject.ext.minSdkVersion
+    }
+    
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation libs.bundles.navigation
+
+    implementation libs.firebaseAuthKtx
+
+    implementation libs.hiltAndroid
+    kapt libs.hiltCompiler
+
+
+    implementation project(':component:food:domain')
+}

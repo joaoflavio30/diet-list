@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.joaoflaviofreitas.dietplan.ui.home.HomeFragment">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/date"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@id/profile_img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/profile_img" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_person_pin_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/count_calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:indicatorSize="180dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_img"
+                app:trackColor="@color/no_active"
+
+                app:trackThickness="8dp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/into_calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calories_count"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="@id/count_calories"
+                app:layout_constraintEnd_toEndOf="@id/count_calories"
+                app:layout_constraintStart_toStartOf="@id/count_calories"
+                app:layout_constraintTop_toTopOf="@id/count_calories" />
+
+            <TextView
+                android:id="@+id/protein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="50dp"
+                android:text="@string/protein_numb"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@id/count_calories"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/count_calories" />
+
+            <ImageView
+                android:id="@+id/img_protein"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/protein"
+                app:layout_constraintBottom_toBottomOf="@id/protein_text"
+                app:layout_constraintStart_toStartOf="@id/protein"
+                app:layout_constraintTop_toBottomOf="@id/protein" />
+
+            <TextView
+                android:id="@+id/protein_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Protein"
+                android:textColor="@color/grey"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@id/img_protein"
+                app:layout_constraintTop_toBottomOf="@id/protein" />
+
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="17dp"
+                android:background="@color/grey"
+                app:layout_constraintBottom_toBottomOf="@id/protein"
+                app:layout_constraintEnd_toStartOf="@id/into_calories"
+                app:layout_constraintStart_toStartOf="@id/count_calories"
+                app:layout_constraintTop_toTopOf="@id/protein" />
+
+            <TextView
+                android:id="@+id/carb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/protein_numb"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@id/count_calories"
+                app:layout_constraintStart_toStartOf="@id/count_calories"
+                app:layout_constraintTop_toTopOf="@id/protein" />
+
+            <ImageView
+                android:id="@+id/img_carb"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/bread"
+                app:layout_constraintBottom_toBottomOf="@id/carb_text"
+                app:layout_constraintStart_toStartOf="@id/carb"
+                app:layout_constraintTop_toBottomOf="@id/carb" />
+
+            <TextView
+                android:id="@+id/carb_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Carb"
+                android:textColor="@color/grey"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@id/img_carb"
+                app:layout_constraintTop_toBottomOf="@id/carb" />
+
+            <TextView
+                android:id="@+id/fat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="@string/protein_numb"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/count_calories"
+                app:layout_constraintTop_toTopOf="@id/protein" />
+
+            <ImageView
+                android:id="@+id/img_fat"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/pizza"
+                app:layout_constraintBottom_toBottomOf="@id/fat_text"
+                app:layout_constraintStart_toStartOf="@id/fat"
+                app:layout_constraintTop_toBottomOf="@id/fat" />
+
+            <TextView
+                android:id="@+id/fat_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Fat"
+                android:textColor="@color/grey"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@id/img_fat"
+                app:layout_constraintTop_toBottomOf="@id/fat" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="17dp"
+                android:background="@color/grey"
+                app:layout_constraintBottom_toBottomOf="@id/protein"
+                app:layout_constraintEnd_toEndOf="@id/count_calories"
+                app:layout_constraintStart_toEndOf="@id/into_calories"
+                app:layout_constraintTop_toTopOf="@id/protein" />
+
+            <TextView
+                android:id="@+id/metrics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Metrics"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/date"
+                app:layout_constraintTop_toBottomOf="@id/protein" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/water_metric"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/metrics">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/title_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:drawableEnd="@drawable/ic_baseline_water_drop_24"
+                        android:text="Water"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/water_view_1"
+                        android:layout_width="3dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:background="@color/no_active"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/water_view_2"
+                        android:layout_width="3dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="15dp"
+                        android:background="@color/no_active"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/water_view_1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <View
+                        android:id="@+id/water_view_3"
+                        android:layout_width="3dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="15dp"
+                        android:background="@color/no_active"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/water_view_1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/water_view_4"
+                        android:layout_width="3dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:background="@color/no_active"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/water_view_2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/water_view_5"
+                        android:layout_width="3dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:background="@color/no_active"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/water_view_3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/water_view_6"
+                        android:layout_width="3dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="15dp"
+                        android:background="@color/no_active"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/water_view_4"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/water_view_7"
+                        android:layout_width="3dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="15dp"
+                        android:background="@color/no_active"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/water_view_5"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/current_water"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/water_numb"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/title_card"
+                        app:layout_constraintTop_toBottomOf="@id/water_view_1" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/walk_metric"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/metrics">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/title_card_walk"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:drawableEnd="@drawable/ic_baseline_directions_walk_24"
+                        android:text="Walk"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/count_walk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:indicatorSize="90dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/title_card_walk"
+                        app:trackColor="@color/red"
+                        app:trackThickness="4dp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/into_walk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="@id/count_walk"
+                        app:layout_constraintEnd_toEndOf="@id/count_walk"
+                        app:layout_constraintStart_toStartOf="@id/count_walk"
+                        app:layout_constraintTop_toTopOf="@id/count_walk" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/into_walk_steps_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="steps left"
+                        android:textColor="@color/grey"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="@id/count_walk"
+                        app:layout_constraintStart_toStartOf="@id/count_walk"
+                        app:layout_constraintTop_toBottomOf="@id/into_walk" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/sleep_metric"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/water_metric">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:id="@+id/title_card_sleep"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:drawableEnd="@drawable/ic_baseline_shield_moon_24"
+                        android:text="Sleep"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="8:00"
+                        android:textColor="@color/red"
+                        android:textSize="25sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/title_card_sleep"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/aerobic_metric"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/water_metric">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:id="@+id/title_card_aerobic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:drawableEnd="@drawable/ic_baseline_shield_moon_24"
+                        android:text="Aerobic"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1:00"
+                        android:textColor="@color/red"
+                        android:textSize="25sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/title_card_aerobic"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <View
+                android:id="@+id/invisible_div"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                app:layout_constraintTop_toBottomOf="@id/aerobic_metric" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
