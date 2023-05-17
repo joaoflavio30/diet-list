@@ -334,6 +334,7 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
     }
 
     override fun removeTokenOfGoogle() {
+        requireContext().getSharedPreferences("MyPrefsOfEmail", Context.MODE_PRIVATE).edit().clear().apply()
         val googleSignInClient = GoogleSignIn.getClient(requireContext(), GoogleSignInOptions.DEFAULT_SIGN_IN)
         googleSignInClient.revokeAccess().addOnCompleteListener { task ->
             if (!task.isSuccessful) showToastLengthLong("Error in Revoke the Google access!")

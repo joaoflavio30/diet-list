@@ -45,14 +45,7 @@ dependencies {
 
     implementation libs.androidxConstraintLayout
 
-    implementation libs.firebaseAuthKtx
 
-    kapt libs.roomCompiler
-    implementation libs.androidxRoomKtx
-
-    implementation libs.firebaseStorageKtx
-
-    implementation libs.gsonConverter
 
 
     implementation libs.hiltAndroid

@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.ui.authentication.signout
+package com.joaoflaviofreitas.dietplan.ui.authentication.signup
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

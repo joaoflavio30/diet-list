@@ -5,4 +5,5 @@
     <item name="action_loginFragment_to_homeFragment" type="id" />
     <item name="action_loginFragment_to_dailyGoalFragment" type="id" />
     <item name="action_loginFragment_to_restorePasswordFragment" type="id" />
+    <item name="loginFragment" type="id" />
 </resources>

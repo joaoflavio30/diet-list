@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -117,6 +118,7 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
                     showToastLengthLong("Login success!")
                     checkUserWantsRememberPassword()
                     checkIfUserMakesDailyGoalObserver()
+                    requireActivity().supportFragmentManager.popBackStack(R.id.loginFragment, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 }
                 is DataState.Error -> showToastLengthLong("Failed to login: ${result.exception}")
                 is DataState.Loading -> {}

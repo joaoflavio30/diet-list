@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.ui.authentication.signout
+package com.joaoflaviofreitas.dietplan.ui.authentication.signup
 
 import android.os.Bundle
 import android.util.Patterns
@@ -88,7 +88,7 @@ class RegisterFragment : Fragment(), SignUpContract.SignUpFragment {
                 signUpSuccessObserver()
             }
         }
-        binding.login.setOnClickListener { navigateToSignIn() }
+        binding.login.setOnClickListener { navigateToPopBackStack() }
     }
 
     override fun progressBarSignUpObserver() {

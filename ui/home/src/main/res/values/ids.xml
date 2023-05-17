@@ -3,5 +3,6 @@
     <item name="action_homeFragment_to_searchFragment" type="id" />
     <item name="action_homeFragment_to_dailyGoalFragment" type="id" />
     <item name="action_homeFragment_to_profileFragment" type="id" />
+    <item name="splashScreen" type="id" />
 
 </resources>
