@@ -40,7 +40,7 @@ Além disso, o aplicativo utiliza os princípios do Clean Architecture, que prom
 
 O aplicativo é dividido em módulos para melhorar a escalabilidade, manutenção e reutilização de código. Cada módulo representa uma funcionalidade específica e pode ser desenvolvido e testado de forma independente.
 
-Estou usando no meu app um padrão de Modularização por Camada + Recurso (Layer + Feature)
+Estou usando no meu app um padrão de Modularização por Camada + Recurso (Layer + Feature ou Modularização por Componente)
 
 ![image](https://github.com/joaoflavio30/diet-list/assets/111129857/ffd3e5d8-2a64-4e85-882a-d6bff58182d7)
 
