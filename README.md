@@ -14,14 +14,15 @@ Esse é um app a qual o usuario bota suas metas diarias(calorias,proteina,carboi
 ## Tecnologias Utilizadas
 
 
-* [Retrofit](http://www.dropwizard.io/1.0.2/docs/) - O framework usado para fazer requisições HTTP de forma mais simples e eficiente
-* [Room](https://maven.apache.org/) - Para pesistencia de dados
-* [Firebase Authentication](https://rometools.github.io/rome/) - Usada para login e registro
-* [Firebase Storage](https://rometools.github.io/rome/) - Usada para armazenar na nuvem a imagem de perfil do usuario
+* [Retrofit]() - O framework usado para fazer requisições HTTP de forma mais simples e eficiente
+* [Room]() - Para pesistencia de dados
+* [Firebase Authentication]() - Usada para login e registro
+* [Firebase Storage]() - Usada para armazenar na nuvem a imagem de perfil do usuario
 * [Hilt]() - Para Injeção de dependências
 * [Edaman Api](https://www.edamam.com/) - Api utilizada para extrair informações nutricionais de alimentos
 * [Navigation Component]() - para navegação entre fragments
 * [Coroutines]() - Para escrever código assincrono de forma mais simples e concisa
+* [Android Image Cropper](https://github.com/CanHub/Android-Image-Cropper) - Para cortar a imagem de perfil do usuario
 
 ## Arquitetura
 
