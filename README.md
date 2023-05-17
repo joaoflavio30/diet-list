@@ -38,7 +38,7 @@ Além disso, o aplicativo utiliza os princípios do Clean Architecture, que prom
 
 ## Modularização
 
-O aplicativo é dividido em módulos para melhorar a escalabilidade, manutenção e reutilização de código. Cada módulo representa uma funcionalidade específica e pode ser desenvolvido e testado de forma independente.
+O aplicativo é dividido em módulos para melhorar a escalabilidade, manutenção e reutilização de código.
 
 Estou usando no meu app um padrão de Modularização por Camada + Recurso (Layer + Feature ou Modularização por Componente)
 
