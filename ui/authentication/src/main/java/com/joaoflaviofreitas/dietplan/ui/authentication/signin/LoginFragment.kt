@@ -53,6 +53,9 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        if (auth.currentUser != null) {
+            checkIfUserMakesDailyGoalObserver()
+        }
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -5,7 +5,7 @@ import com.joaoflaviofreitas.dietplan.component.food.domain.repository.MealRepos
 
 internal class ResetAchievedGoalUseCaseImpl(private val repository: MealRepository): ResetAchievedGoalUseCase {
     override suspend fun execute(userEmail: String, currentDate: String) {
-        if (repository.getAchievedGoal(userEmail).date != currentDate) {
+        if (repository.dailyGoalExistsByEmail(userEmail) && repository.getAchievedGoal(userEmail).date != currentDate) {
             repository.updateAchievedGoal(AchievedGoal(userEmail, id = repository.getAchievedGoal(userEmail).id, date = currentDate))
         }
     }

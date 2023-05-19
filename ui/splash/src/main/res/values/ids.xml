@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="action_splashScreen_to_dailyGoalFragment" type="id" />
-    <item name="action_splashScreen_to_homeFragment" type="id" />
-    <item name="action_splashScreen_to_loginFragment" type="id" />
-    <item name="splashScreen" type="id" />
-</resources>

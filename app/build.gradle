@@ -51,9 +51,11 @@ dependencies {
     implementation libs.hiltAndroid
     kapt libs.hiltCompiler
 
+    implementation "androidx.core:core-splashscreen:1.0.0-alpha01"
+
 
     implementation libs.androidxCoreKtx
-
+    implementation libs.firebaseAuthKtx
 
     implementation project(':component:authentication:data')
     implementation project(':component:authentication:domain')
@@ -65,7 +67,6 @@ dependencies {
     implementation project(':ui:home')
     implementation project(':ui:search')
     implementation project(':ui:common')
-    implementation project(':ui:splash')
     implementation project(':ui:dailygoal')
     implementation project(':ui:profile')
 }

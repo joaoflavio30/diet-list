@@ -1,6 +1,7 @@
 package com.joaoflaviofreitas.dietplan.ui.authentication.signup
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +38,6 @@ class RegisterFragment : Fragment(), SignUpContract.SignUpFragment {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setOnClickListener()
         progressBarSignUpObserver()
-        signUpSuccessObserver()
     }
 
     override fun checkFields(): Boolean {
@@ -104,7 +104,10 @@ class RegisterFragment : Fragment(), SignUpContract.SignUpFragment {
     override fun signUpSuccessObserver() {
         viewModel.signUpSuccess.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is DataState.Success -> { showToastLengthLong("Sign up success!") }
+                is DataState.Success -> { showToastLengthLong("Sign up success!")
+                    Log.d("teste","${auth.currentUser}")
+                    navigateToSignIn()
+                }
                 is DataState.Loading -> {}
                 is DataState.Error -> { showToastLengthLong("User register false: ${result.exception}") }
             }

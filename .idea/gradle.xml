@@ -28,7 +28,6 @@
             <option value="$PROJECT_DIR$/ui/home" />
             <option value="$PROJECT_DIR$/ui/profile" />
             <option value="$PROJECT_DIR$/ui/search" />
-            <option value="$PROJECT_DIR$/ui/splash" />
           </set>
         </option>
       </GradleProjectSettings>

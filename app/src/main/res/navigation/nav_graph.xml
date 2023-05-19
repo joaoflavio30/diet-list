@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashScreen">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/registerFragment"
@@ -30,12 +30,14 @@
         <action
             android:id="@id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment"
-            app:popUpTo="@id/splashScreen"
+            app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true"
            />
         <action
             android:id="@+id/action_loginFragment_to_dailyGoalFragment"
             app:destination="@id/dailyGoalFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"
             />
         <action
             android:id="@+id/action_loginFragment_to_restorePasswordFragment"
@@ -78,6 +80,8 @@
         <action
             android:id="@+id/action_dailyGoalFragment_to_homeFragment"
             app:destination="@id/homeFragment"
+            app:popUpTo="@id/dailyGoalFragment"
+            app:popUpToInclusive="true"
             />
     </fragment>
     <fragment
@@ -97,24 +101,6 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true"
             />
-    </fragment>
-    <fragment
-        android:id="@+id/splashScreen"
-        android:name="com.joaoflaviofreitas.dietplan.ui.splash.SplashScreen"
-        android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen">
-        <action
-            android:id="@+id/action_splashScreen_to_loginFragment"
-            app:destination="@id/loginFragment"
-            />
-        <action
-            android:id="@+id/action_splashScreen_to_homeFragment"
-            app:destination="@id/homeFragment"
-         />
-        <action
-            android:id="@+id/action_splashScreen_to_dailyGoalFragment"
-            app:destination="@id/dailyGoalFragment"
-          />
     </fragment>
     <fragment
         android:id="@+id/restorePasswordFragment"

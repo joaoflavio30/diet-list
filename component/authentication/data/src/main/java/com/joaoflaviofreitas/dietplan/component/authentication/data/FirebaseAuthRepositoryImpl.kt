@@ -16,9 +16,13 @@ internal class FirebaseAuthRepositoryImpl @Inject constructor(private val auth: 
     override suspend fun signUp(userAuth: UserAuth): DataState<FirebaseUser> {
         return withContext(Dispatchers.IO) {
             try {
+                Log.d("freitas", "antes de criar : ${auth.currentUser} ---- auth.currentUser!= null ->${auth.currentUser != null}")
                 val result = auth.createUserWithEmailAndPassword(userAuth.email, userAuth.password).await()
+                Log.d("freitas", "depois de criar : ${auth.currentUser?.email} ---- auth.currentUser!= null ->${auth.currentUser != null}")
                 Log.d("TAG", "sucess ${result.user}")
                 if (result.user != null) {
+                    auth.signOut()
+                    Log.d("freitas", "depois do result.user : ${auth.currentUser} ---- auth.currentUser!= null ->${auth.currentUser != null}")
                     DataState.Success(result.user!!)
                 } else { Log.d("TAG", "sucess ${result.user}")
                     DataState.Error(Exception("FirebaseAuth Error"))

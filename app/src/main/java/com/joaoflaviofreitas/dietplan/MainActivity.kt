@@ -3,6 +3,7 @@ package com.joaoflaviofreitas.dietplan
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupNav()
@@ -27,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         }
         setupOnItemBottomMenuListener()
     }
-
     private fun setupOnItemBottomMenuListener() {
         navController = navHostFragment.navController
         binding.bottomMenu.setOnItemSelectedListener { menu ->
