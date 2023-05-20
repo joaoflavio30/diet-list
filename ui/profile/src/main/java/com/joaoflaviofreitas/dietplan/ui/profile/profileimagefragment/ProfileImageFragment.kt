@@ -1,7 +1,6 @@
 package com.joaoflaviofreitas.dietplan.ui.profile.profileimagefragment
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
@@ -47,7 +46,7 @@ class ProfileImageFragment : Fragment(), ProfileImageContract.ProfileImageFragme
                     Glide.get(requireContext()).clearDiskCache()
                 }
             }
-            binding.profileImg.setImageURI(Uri.parse(result.getUriFilePath(requireContext(), false)))
+            binding.profileImg.setImageURI(result.uriContent)
             viewModel.saveProfileImageInFirebaseStorage(result.uriContent)
             bindSharedPreferencesForUpdateGlideCache()
         }

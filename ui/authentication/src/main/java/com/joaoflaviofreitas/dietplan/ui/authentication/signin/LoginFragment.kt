@@ -26,6 +26,7 @@ import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.User
 import com.joaoflaviofreitas.dietplan.ui.authentication.R
 import com.joaoflaviofreitas.dietplan.ui.authentication.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
