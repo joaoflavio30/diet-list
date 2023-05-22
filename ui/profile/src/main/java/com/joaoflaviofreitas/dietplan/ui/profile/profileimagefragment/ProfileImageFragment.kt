@@ -45,8 +45,8 @@ class ProfileImageFragment : Fragment(), ProfileImageContract.ProfileImageFragme
                 CoroutineScope(Dispatchers.IO).launch {
                     Glide.get(requireContext()).clearDiskCache()
                 }
+                binding.profileImg.setImageURI(result.uriContent)
             }
-            binding.profileImg.setImageURI(result.uriContent)
             viewModel.saveProfileImageInFirebaseStorage(result.uriContent)
             bindSharedPreferencesForUpdateGlideCache()
         }

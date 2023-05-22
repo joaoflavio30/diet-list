@@ -27,6 +27,7 @@ kotlinVersion = "1.7.20"
 gradleVersion = "7.3.1"
 androidXLifecycleVersion = "2.5.1"
 cropImageVersion = "4.5.0"
+splashScreenVersion = "1.0.0-alpha01"
 
 [libraries]
 androidxNavigationFragmentKtx = {module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
@@ -62,6 +63,7 @@ androidxLifecycleLivedataKtx = {module = "androidx.lifecycle:lifecycle-livedata-
 androidxLifecycleViewmodelKtx = {module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidXLifecycleVersion"}
 androidxLifecycleNavigationNavigationSafeArgs = {module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navVersion"}
 cropImage = {module = "com.vanniktech:android-image-cropper", version.ref = "cropImageVersion"}
+splashScreen = {module = "androidx.core:core-splashscreen", version.ref = "splashScreenVersion"}
 
 
 
