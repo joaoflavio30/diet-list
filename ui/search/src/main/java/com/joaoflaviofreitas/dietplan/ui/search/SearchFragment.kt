@@ -155,7 +155,7 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
                 protein = meal.protein,
                 carb = meal.carb,
                 fat = meal.fat,
-                date = currentDate
+                date = currentDate,
             )
             Log.d("teste A", "$achievedGoal")
             viewModel.updateAchievedGoal(achievedGoal)

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.DailyGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.usecase.*
+import com.joaoflaviofreitas.dietplan.ui.common.utils.formatPropertiesWithTwoDecimalPlaces
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,11 +17,12 @@ class HomeViewModel @Inject constructor(
     private val getDailyGoalInDatabaseUseCase: GetDailyGoalInDatabaseUseCase,
     private val addWaterUseCase: AddWaterUseCase,
     private val resetAchievedGoalUseCase: ResetAchievedGoalUseCase,
+    private val addAerobicAsDoneUseCase: AddAerobicAsDoneUseCase,
 ): ViewModel(), HomeContract.HomeViewModel {
     override suspend fun getAchievedGoal(userEmail: String): AchievedGoal {
         val achievedGoal = getAchievedGoalInDatabaseUseCase.execute(userEmail)
         Log.d("teste", "${getAchievedGoalInDatabaseUseCase.execute(userEmail)}")
-//        formatPropertiesWithTwoDecimalPlaces(achievedGoal)
+        formatPropertiesWithTwoDecimalPlaces(achievedGoal)
         return achievedGoal
     }
 
@@ -37,5 +39,9 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             resetAchievedGoalUseCase.execute(userEmail, currentDate)
         }
+    }
+
+    override suspend fun addAerobicAsDone(userEmail: String): Boolean {
+        return addAerobicAsDoneUseCase.execute(userEmail)
     }
 }

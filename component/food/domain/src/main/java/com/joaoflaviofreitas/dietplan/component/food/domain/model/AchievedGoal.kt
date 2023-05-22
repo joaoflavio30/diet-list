@@ -13,5 +13,6 @@ data class AchievedGoal(
     @ColumnInfo(name = "fat")var fat: Double = 0.0,
     @ColumnInfo(name = "water")var water: Int = 0,
     @ColumnInfo(name = "current_date")var date: String = "",
+    @ColumnInfo(name = "aerobic")var aerobic: Boolean = false,
     @PrimaryKey(autoGenerate = true)var id: Int? = null,
 )

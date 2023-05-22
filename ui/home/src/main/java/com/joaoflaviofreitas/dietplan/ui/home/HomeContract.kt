@@ -12,7 +12,7 @@ interface HomeContract {
 
         fun bindData()
 
-        fun showDialog()
+        fun showWaterDialog()
 
         fun viewWaterMetrics()
 
@@ -23,6 +23,10 @@ interface HomeContract {
         fun checkIfIsNextDayForZeroAchievedGoal()
 
         fun showToastLengthLong(text: String)
+
+        fun showAerobicDialog()
+
+        fun viewAerobicMetrics()
     }
     interface HomeViewModel {
         suspend fun getAchievedGoal(userEmail: String): AchievedGoal
@@ -32,5 +36,7 @@ interface HomeContract {
         suspend fun incWater(userEmail: String): Boolean
 
         fun resetAchievedGoal(userEmail: String, currentDate: String)
+
+        suspend fun addAerobicAsDone(userEmail: String): Boolean
     }
 }

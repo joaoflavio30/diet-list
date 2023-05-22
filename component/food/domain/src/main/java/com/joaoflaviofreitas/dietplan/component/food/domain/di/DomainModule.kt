@@ -79,4 +79,8 @@ object DomainModule {
     @Provides
     @Singleton
     fun providesCheckIfDailyGoalExistsByEmailUseCase(repository: MealRepository): CheckIfDailyGoalExistsByEmailUseCase = CheckIfDailyGoalExistsByEmailUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun providesAddAerobicAsDoneUseCase(repository: MealRepository): AddAerobicAsDoneUseCase = AddAerobicAsDoneUseCaseImpl(repository)
 }

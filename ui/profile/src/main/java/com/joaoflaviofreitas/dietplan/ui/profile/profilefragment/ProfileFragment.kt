@@ -48,8 +48,6 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
                 it.value == true
             }
             if (granted) {
-                // A permissão foi concedida pelo usuário.
-                // Faça algo aqui.
                 navigateToProfileImageFragment()
             } else {
                 // A permissão foi negada pelo usuário.

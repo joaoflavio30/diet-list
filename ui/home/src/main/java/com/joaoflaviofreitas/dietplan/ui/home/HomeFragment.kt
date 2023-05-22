@@ -114,9 +114,48 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener 
         Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
     }
 
+    override fun showAerobicDialog() {
+        val dialog = requireActivity().let {
+            AlertDialog.Builder(it)
+        }
+        dialog.setMessage("Did you make your aerobic of the day?")
+        dialog.apply {
+            setPositiveButton(
+                "Yes",
+            ) { dialogInterface, int ->
+                lifecycleScope.launch(Dispatchers.Main) {
+                    viewModel.addAerobicAsDone(auth.currentUser!!.email!!)
+                    binding.aerobicContent?.text = getString(R.string.done)
+                }
+            }
+                .setNegativeButton(
+                    "No",
+                    null,
+                )
+        }
+        if (binding.aerobicContent?.text == getString(R.string.not_done)) {
+            dialog.create()
+            dialog.show()
+        }
+    }
+
+    override fun viewAerobicMetrics() {
+        lifecycleScope.launch(Dispatchers.Main) {
+            val aerobic = viewModel.getAchievedGoal(auth.currentUser!!.email!!).aerobic
+            if (aerobic) {
+                binding.aerobicContent?.text = getString(R.string.done)
+            } else {
+                binding.aerobicContent?.text = getString(R.string.not_done)
+            }
+        }
+    }
+
     override fun setOnClickListener() {
         binding.waterMetric.setOnClickListener {
-            showDialog()
+            showWaterDialog()
+        }
+        binding.aerobicMetric.setOnClickListener {
+            showAerobicDialog()
         }
     }
 
@@ -157,10 +196,11 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener 
             binding.countCalories.setProgress(goalAchieved.calories.toInt(), true)
 
             viewWaterMetrics()
+            viewAerobicMetrics()
         }
     }
 
-    override fun showDialog() {
+    override fun showWaterDialog() {
         val dialog = requireActivity().let {
             AlertDialog.Builder(it)
         }

@@ -447,17 +447,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="15dp"
-                        android:drawableEnd="@drawable/ic_baseline_shield_moon_24"
-                        android:text="Aerobic"
+                        android:drawableEnd="@drawable/ic_baseline_directions_run_24"
+                        android:text="@string/aerobic"
                         android:textColor="@color/black"
                         android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/aerobic_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1:00"
+                        android:text="@string/not_done"
                         android:textColor="@color/red"
                         android:textSize="25sp"
                         app:layout_constraintBottom_toBottomOf="parent"
