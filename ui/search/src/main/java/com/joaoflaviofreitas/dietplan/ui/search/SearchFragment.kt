@@ -1,7 +1,6 @@
 package com.joaoflaviofreitas.dietplan.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +13,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
+import com.joaoflaviofreitas.dietplan.component.food.domain.model.DailyGoal
+import com.joaoflaviofreitas.dietplan.component.food.domain.model.Meal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.RequestFood
 import com.joaoflaviofreitas.dietplan.ui.search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.DateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -32,6 +33,17 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
 
     private val viewModel: SearchViewModel by viewModels()
 
+    private lateinit var achievedGoal: AchievedGoal
+    private lateinit var dailyGoal: DailyGoal
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.getAchievedGoal(auth.currentUser!!.email!!)
+            viewModel.getDailyDiet(auth.currentUser!!.email!!)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,7 +54,13 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setOnClickListener()
+        viewModel.loadAchievedGoal.observe(viewLifecycleOwner) { achieved ->
+            achievedGoal = achieved
+            viewModel.loadDailyGoal.observe(viewLifecycleOwner) { daily ->
+                dailyGoal = daily
+                setOnClickListener()
+            }
+        }
     }
 
     override fun setOnClickListener() {
@@ -102,19 +120,16 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
 
     override fun progressBarObserver() {
         lifecycleScope.launch {
-            val dailyDiet = viewModel.getDailyDiet(auth.currentUser!!.email!!)
-            val goalAchieved = viewModel.getAchievedGoal(auth.currentUser!!.email!!)
             viewModel.searchMeal.observe(viewLifecycleOwner) { searchMeal ->
-                Log.d("teste", "${dailyDiet.calories.div(searchMeal.calories)}")
-                binding.progress1.max = dailyDiet.protein.toInt()
-                binding.progress2.max = dailyDiet.carb.toInt()
-                binding.progress3.max = dailyDiet.fat.toInt()
-                binding.progress4.max = dailyDiet.calories.toInt()
+                binding.progress1.max = dailyGoal.protein.toInt()
+                binding.progress2.max = dailyGoal.carb.toInt()
+                binding.progress3.max = dailyGoal.fat.toInt()
+                binding.progress4.max = dailyGoal.calories.toInt()
 
-                binding.progress1.setProgress(searchMeal.protein.toInt().plus(goalAchieved.protein.toInt()), true)
-                binding.progress2.setProgress(searchMeal.carb.toInt().plus(goalAchieved.carb.toInt()), true)
-                binding.progress3.setProgress(searchMeal.fat.toInt().plus(goalAchieved.fat.toInt()), true)
-                binding.progress4.setProgress(searchMeal.calories.toInt().plus(goalAchieved.calories.toInt()), true)
+                binding.progress1.setProgress(searchMeal.protein.toInt().plus(achievedGoal.protein.toInt()), true)
+                binding.progress2.setProgress(searchMeal.carb.toInt().plus(achievedGoal.carb.toInt()), true)
+                binding.progress3.setProgress(searchMeal.fat.toInt().plus(achievedGoal.fat.toInt()), true)
+                binding.progress4.setProgress(searchMeal.calories.toInt().plus(achievedGoal.calories.toInt()), true)
             }
         }
     }
@@ -146,19 +161,20 @@ class SearchFragment : Fragment(), SearchContract.SearchFragment {
     }
 
     override fun saveAchievedGoal() {
-        val calendar = Calendar.getInstance()
-        val currentDate = DateFormat.getDateInstance().format(calendar.time)
         viewModel.searchMeal.observe(viewLifecycleOwner) { meal ->
-            val achievedGoal = AchievedGoal(
-                userEmail = auth.currentUser!!.email!!,
+            val mealForIncrement = Meal(
                 calories = meal.calories,
                 protein = meal.protein,
                 carb = meal.carb,
                 fat = meal.fat,
-                date = currentDate,
             )
-            Log.d("teste A", "$achievedGoal")
-            viewModel.updateAchievedGoal(achievedGoal)
+            viewModel.updateAchievedGoal(mealForIncrement, achievedGoal)
+        }
+    }
+
+    override fun achievedGoalObserver() {
+        viewModel.goalAchieved.observe(viewLifecycleOwner) {
+            achievedGoal = it
         }
     }
 }

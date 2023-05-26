@@ -8,7 +8,7 @@ import com.joaoflaviofreitas.dietplan.component.food.domain.model.DailyGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.Meal // ktlint-disable no-wildcard-imports
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.RequestFood
 import com.joaoflaviofreitas.dietplan.component.food.domain.usecase.*
-import com.joaoflaviofreitas.dietplan.ui.common.utils.formatPropertiesWithTwoDecimalPlaces
+import com.joaoflaviofreitas.dietplan.ui.common.utils.ext.formatPropertiesWithTwoDecimalPlaces
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,11 +32,20 @@ class SearchViewModel @Inject constructor(
     private val _searchMeal = MutableLiveData<Meal>()
     val searchMeal get() = _searchMeal
 
-    private val _goalAchieved = MutableLiveData(DailyGoal())
+    private val _goalAchieved = MutableLiveData(AchievedGoal())
     val goalAchieved get() = _goalAchieved
 
     private val _dailyDiet = MutableLiveData<DailyGoal>()
     val dailyDiet get() = _dailyDiet
+
+    val loadAchievedGoal: MutableLiveData<AchievedGoal> by lazy {
+        MutableLiveData<AchievedGoal>()
+    }
+
+    val loadDailyGoal: MutableLiveData<DailyGoal> by lazy {
+        MutableLiveData<DailyGoal>()
+    }
+
     override suspend fun isPossibleToFetchDataOffline(ingredient: RequestFood): Boolean {
         return checkIfHaveDataInDatabaseUseCase.execute(ingredient.foodName)
     }
@@ -52,10 +61,6 @@ class SearchViewModel @Inject constructor(
             }
         }
     }
-    override fun incrementNutrientsToDailyDiet(meal: Meal, dailyGoal: DailyGoal) {
-        val daily = getDailyGoalUseCase.execute(meal, dailyGoal)
-        _goalAchieved.postValue(daily)
-    }
 
     override fun resetDailyDietWhenMidnight() {
         viewModelScope.launch {
@@ -68,33 +73,34 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    override suspend fun incWater(userEmail: String): Boolean {
-        return addWaterUseCase.execute(userEmail)
-    }
-
     override fun submitDailyDiet(nutrients: DailyGoal) {
         viewModelScope.launch {
             saveDailyGoalInDatabaseUseCase.execute(nutrients)
         }
     }
 
-    override suspend fun getDailyDiet(userEmail: String): DailyGoal {
-        return getDailyGoalInDatabaseUseCase.execute(userEmail)!!
+    override suspend fun getDailyDiet(userEmail: String) {
+        viewModelScope.launch {
+            loadDailyGoal.postValue(getDailyGoalInDatabaseUseCase.execute(userEmail))
+        }
     }
 
     override fun submitAchievedGoal(achievedGoal: AchievedGoal) {
         viewModelScope.launch {
+            formatPropertiesWithTwoDecimalPlaces(achievedGoal)
             saveAchievedGoalInDatabaseUseCase.execute(achievedGoal)
         }
     }
 
-    override suspend fun getAchievedGoal(userEmail: String): AchievedGoal {
-        return getAchievedGoalInDatabaseUseCase.execute(userEmail)
+    override suspend fun getAchievedGoal(userEmail: String) {
+        viewModelScope.launch {
+            loadAchievedGoal.postValue(getAchievedGoalInDatabaseUseCase.execute(userEmail))
+        }
     }
 
-    override fun updateAchievedGoal(achievedGoal: AchievedGoal) {
+    override fun updateAchievedGoal(meal: Meal, achievedGoal: AchievedGoal) {
         viewModelScope.launch {
-            updateAchievedGoalInDatabaseUseCase.execute(achievedGoal)
+            updateAchievedGoalInDatabaseUseCase.execute(meal, achievedGoal)
         }
     }
 }

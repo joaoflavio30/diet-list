@@ -1,4 +1,4 @@
-package com.joaoflaviofreitas.dietplan.ui.common.utils // ktlint-disable filename
+package com.joaoflaviofreitas.dietplan.ui.common.utils.ext // ktlint-disable filename
 
 import android.graphics.Color
 import android.text.Spannable
@@ -62,4 +62,3 @@ fun formatPropertiesWithTwoDecimalPlaces(obj: Any) {
         }
     }
 }
-

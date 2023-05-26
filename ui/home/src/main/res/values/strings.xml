@@ -12,4 +12,5 @@
     <string name="aerobic">Aerobic</string>
     <string name="not_done">Not done</string>
     <string name="done">Done</string>
+    <string name="adjust_diet">Adjust diet</string>
 </resources>

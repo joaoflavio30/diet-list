@@ -16,9 +16,9 @@ interface DailyGoalContract {
 
         fun navigateToHomeFragment()
 
-        fun checkIfUserMakesDailyGoal()
-
         fun putTrueForPreferencesOfIfUserMakeDailyGoal()
+
+        fun checkIfExistsAchievedGoalAndNavigateToHomeFragment()
     }
 
     interface DailyGoalViewModel {
@@ -26,6 +26,6 @@ interface DailyGoalContract {
 
         fun submitAchievedGoal(achievedGoal: AchievedGoal)
 
-        fun checkIfUserMakesDailyGoal(userEmail: String)
+        fun checkIfExistsAchievedGoal(userEmail: String)
     }
 }

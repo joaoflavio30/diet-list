@@ -5,6 +5,7 @@ import androidx.room.Dao
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.DailyGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.Meal
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface Dao {
@@ -39,11 +40,17 @@ interface Dao {
     suspend fun insertAchievedGoal(vararg achievedGoal: AchievedGoal)
 
     @Query("SELECT * FROM achieved_goal WHERE user_email = :userEmail")
-    suspend fun getAchievedGoal(userEmail: String): AchievedGoal
+    fun getAchievedGoal(userEmail: String): AchievedGoal
 
     @Update
     suspend fun updateAchievedGoal(achievedGoal: AchievedGoal)
 
     @Query("SELECT EXISTS(SELECT 1 FROM daily_goal WHERE user_email = :userEmail)")
     fun existsByEmail(userEmail: String): Boolean
+
+    @Query("SELECT EXISTS(SELECT 1 FROM achieved_goal WHERE user_email = :userEmail)")
+    fun achievedGoalExistsByEmail(userEmail: String): Boolean
+
+    @Query("DELETE FROM daily_goal WHERE user_email = :userEmail")
+    suspend fun deleteDailyGoal(userEmail: String)
 }

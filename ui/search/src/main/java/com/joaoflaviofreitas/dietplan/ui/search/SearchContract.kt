@@ -24,28 +24,26 @@ interface SearchContract {
         fun navigateToHomeFragment()
 
         fun saveAchievedGoal()
+
+        fun achievedGoalObserver()
     }
     interface SearchViewModel {
         suspend fun isPossibleToFetchDataOffline(ingredient: RequestFood): Boolean
 
         fun getMeal(ingredient: RequestFood)
 
-        fun incrementNutrientsToDailyDiet(meal: Meal, dailyGoal: DailyGoal)
-
         fun resetDailyDietWhenMidnight()
 
         fun saveRemoteDataInDatabase(meal: Meal)
 
-        suspend fun incWater(userEmail: String): Boolean
-
         fun submitDailyDiet(nutrients: DailyGoal)
 
-        suspend fun getDailyDiet(userEmail: String): DailyGoal
+        suspend fun getDailyDiet(userEmail: String)
 
         fun submitAchievedGoal(achievedGoal: AchievedGoal)
 
-        suspend fun getAchievedGoal(userEmail: String): AchievedGoal
+        suspend fun getAchievedGoal(userEmail: String)
 
-        fun updateAchievedGoal(achievedGoal: AchievedGoal)
+        fun updateAchievedGoal(meal: Meal, achievedGoal: AchievedGoal)
     }
 }

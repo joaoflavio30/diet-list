@@ -315,118 +315,6 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/walk_metric"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="30dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/metrics">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/title_card_walk"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
-                        android:drawableEnd="@drawable/ic_baseline_directions_walk_24"
-                        android:text="Walk"
-                        android:textColor="@color/black"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.progressindicator.CircularProgressIndicator
-                        android:id="@+id/count_walk"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:indicatorSize="90dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/title_card_walk"
-                        app:trackColor="@color/red"
-                        app:trackThickness="4dp" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/into_walk"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        app:layout_constraintBottom_toBottomOf="@id/count_walk"
-                        app:layout_constraintEnd_toEndOf="@id/count_walk"
-                        app:layout_constraintStart_toStartOf="@id/count_walk"
-                        app:layout_constraintTop_toTopOf="@id/count_walk" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/into_walk_steps_left"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="steps left"
-                        android:textColor="@color/grey"
-                        android:textSize="10sp"
-                        app:layout_constraintEnd_toEndOf="@id/count_walk"
-                        app:layout_constraintStart_toStartOf="@id/count_walk"
-                        app:layout_constraintTop_toBottomOf="@id/into_walk" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/sleep_metric"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/water_metric">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                    <TextView
-                        android:id="@+id/title_card_sleep"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
-                        android:drawableEnd="@drawable/ic_baseline_shield_moon_24"
-                        android:text="Sleep"
-                        android:textColor="@color/black"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="8:00"
-                        android:textColor="@color/red"
-                        android:textSize="25sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@id/title_card_sleep"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/aerobic_metric"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
@@ -435,7 +323,7 @@
                 app:cardCornerRadius="20dp"
                 app:cardElevation="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/water_metric">
+                app:layout_constraintTop_toBottomOf="@id/metrics">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -470,6 +358,15 @@
 
 
             </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/adjust_diet_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/adjust_diet"
+                app:layout_constraintTop_toBottomOf="@id/aerobic_metric"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_margin="50dp" />
 
             <View
                 android:id="@+id/invisible_div"

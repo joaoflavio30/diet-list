@@ -12,9 +12,9 @@ interface HomeContract {
 
         fun bindData()
 
-        fun showWaterDialog()
+        fun showWaterDialog(achievedGoal: AchievedGoal, dailyGoal: DailyGoal)
 
-        fun viewWaterMetrics()
+        fun viewWaterMetrics(achievedGoal: AchievedGoal, dailyGoal: DailyGoal)
 
         fun bindCurrentDate()
 
@@ -26,16 +26,24 @@ interface HomeContract {
 
         fun showAerobicDialog()
 
-        fun viewAerobicMetrics()
+        fun viewAerobicMetrics(achievedGoal: AchievedGoal)
+
+        fun showAdjustDietDialog()
+
+        fun navigateToDailyGoalFragment()
+
+        fun achievedGoalObserver()
     }
     interface HomeViewModel {
-        suspend fun getAchievedGoal(userEmail: String): AchievedGoal
+        suspend fun getAchievedGoal(userEmail: String)
 
-        suspend fun getDailyDiet(userEmail: String): DailyGoal
+        suspend fun getDailyDiet(userEmail: String)
 
-        suspend fun incWater(userEmail: String): Boolean
+        suspend fun incWater(userEmail: String, achievedGoal: AchievedGoal): Boolean
 
-        fun resetAchievedGoal(userEmail: String, currentDate: String)
+        suspend fun resetAchievedGoal(userEmail: String, currentDate: String, achievedGoal: AchievedGoal)
+
+        fun resetDailyGoal(userEmail: String)
 
         suspend fun addAerobicAsDone(userEmail: String): Boolean
     }

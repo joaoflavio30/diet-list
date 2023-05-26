@@ -44,7 +44,6 @@ dependencies {
 
     implementation libs.playServicesAuth
 
-    implementation project(':ui:common')
     implementation project(':component:storage:domain')
     implementation project(':component:authentication:domain')
 }

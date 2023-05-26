@@ -2,9 +2,6 @@
     <string name="app_name">DietPlan</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="facebook_app_id">126305273718013</string>
-    <string name="fb_login_protocol_scheme">fb1234</string>
-    <string name="facebook_client_token">89aab7570688e4936733300d3758ae1f</string>
     <string name="protein_numb">%1$s<font color="#808080" size="10">/%2$s</font></string>
 
     <string name="protein">Protein</string>

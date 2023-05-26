@@ -83,4 +83,12 @@ object DomainModule {
     @Provides
     @Singleton
     fun providesAddAerobicAsDoneUseCase(repository: MealRepository): AddAerobicAsDoneUseCase = AddAerobicAsDoneUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun providesCheckIfHaveAchievedGoalInDatabaseUseCase(repository: MealRepository): CheckIfHaveAchievedGoalInDatabaseUseCase = CheckIfHaveAchievedGoalInDatabaseUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun providesResetDailyGoalUseCase(repository: MealRepository): ResetDailyGoalUseCase = ResetDailyGoalUseCaseImpl(repository)
 }

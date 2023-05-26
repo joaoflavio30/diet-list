@@ -115,13 +115,11 @@ internal class MealRepositoryImpl @Inject constructor(private val database: Dao,
     }
 
     override suspend fun updateAchievedGoal(achievedGoal: AchievedGoal): Boolean {
-        return withContext(Dispatchers.IO) {
-            try {
-                database.updateAchievedGoal(achievedGoal)
-                true
-            } catch (e: Exception) {
-                false
-            }
+        return try {
+            database.updateAchievedGoal(achievedGoal)
+            true
+        } catch (e: Exception) {
+            false
         }
     }
 
@@ -129,8 +127,27 @@ internal class MealRepositoryImpl @Inject constructor(private val database: Dao,
         Log.d("teste", "login do google verificado no banco de dados")
         return withContext(Dispatchers.IO) {
             try { database.existsByEmail(userEmail)
-            } catch (e: Exception) { Log.d("erro", "$e")
+            } catch (e: Exception) { Log.d("error", "$e")
                 false
             }
         } }
+
+    override suspend fun achievedGoalExistsByEmail(userEmail: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            try {
+                database.achievedGoalExistsByEmail(userEmail)
+            } catch (e: Exception) { Log.d("error", "$e")
+                false
+            }
+        }
+    }
+
+    override suspend fun resetDailyGoal(userEmail: String) {
+        return withContext(Dispatchers.IO) {
+            try {
+                database.deleteDailyGoal(userEmail)
+            } catch (e: Exception) { Log.d("error", "$e")
+            }
+        }
+    }
 }

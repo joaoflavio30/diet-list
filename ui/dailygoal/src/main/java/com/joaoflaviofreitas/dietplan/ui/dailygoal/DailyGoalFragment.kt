@@ -80,7 +80,6 @@ class DailyGoalFragment : Fragment(), DailyGoalContract.DailyGoalFragment {
         binding.submitBtn.setOnClickListener {
             if (checkFields()) {
                 submitDailyDiet()
-                navigateToHomeFragment()
             } else {
                 showToastLengthLong("Put the fields correctly")
             }
@@ -99,7 +98,7 @@ class DailyGoalFragment : Fragment(), DailyGoalContract.DailyGoalFragment {
         viewModel.submitDailyDiet(nutrients)
 
         // submit too AchievedGoal in Database
-        viewModel.submitAchievedGoal(AchievedGoal(userEmail = auth.currentUser!!.email!!))
+        checkIfExistsAchievedGoalAndNavigateToHomeFragment()
 
         putTrueForPreferencesOfIfUserMakeDailyGoal()
     }
@@ -112,23 +111,17 @@ class DailyGoalFragment : Fragment(), DailyGoalContract.DailyGoalFragment {
         findNavController().navigate(R.id.action_dailyGoalFragment_to_homeFragment)
     }
 
-    override fun checkIfUserMakesDailyGoal() {
-//        if (auth.currentUser != null) {
-//            Log.d("teste", "escopo do auth != null chamado")
-//            val email = auth.currentUser!!.email!!.toString()
-//            viewModel.checkIfUserMakesDailyGoal(email)
-//        }
-//        viewModel.userMakesDailyGoal.observe(viewLifecycleOwner) { result ->
-//            if (result) {
-//                navigateToHomeFragment()
-//            }
-//            Log.d("teste", "escopo do observe")
-//        }
-    }
-
     override fun putTrueForPreferencesOfIfUserMakeDailyGoal() {
         val editor = requireContext().getSharedPreferences("PrefsOf${auth.currentUser?.email}", Context.MODE_PRIVATE).edit()
         editor.putBoolean("isDailyGoalSet", true)
         editor.apply()
+    }
+
+    override fun checkIfExistsAchievedGoalAndNavigateToHomeFragment() {
+        viewModel.checkIfExistsAchievedGoal(auth.currentUser!!.email!!)
+        viewModel.userMakesAchievedGoal.observe(viewLifecycleOwner) { result ->
+            if (!result) viewModel.submitAchievedGoal(AchievedGoal(userEmail = auth.currentUser!!.email!!))
+            navigateToHomeFragment()
+        }
     }
 }

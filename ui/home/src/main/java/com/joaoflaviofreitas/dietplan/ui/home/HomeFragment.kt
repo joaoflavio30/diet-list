@@ -2,10 +2,6 @@ package com.joaoflaviofreitas.dietplan.ui.home
 
 import android.app.AlertDialog
 import android.content.Context
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,12 +11,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.signature.ObjectKey
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
-import com.joaoflaviofreitas.dietplan.ui.common.utils.formatCurrentVsTotal
-import com.joaoflaviofreitas.dietplan.ui.common.utils.highlightAView
+import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
+import com.joaoflaviofreitas.dietplan.component.food.domain.model.DailyGoal
+import com.joaoflaviofreitas.dietplan.ui.common.utils.ext.formatCurrentVsTotal
+import com.joaoflaviofreitas.dietplan.ui.common.utils.ext.highlightAView
 import com.joaoflaviofreitas.dietplan.ui.home.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +30,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener {
+class HomeFragment : Fragment(), HomeContract.HomeFragment {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -43,11 +42,19 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener 
     @Inject
     lateinit var storage: FirebaseStorage
 
-    private var sensorManager: SensorManager? = null
+    private lateinit var dailyGoal: DailyGoal
+    private lateinit var achievedGoal: AchievedGoal
 
-    private var running = false
+    private val formatDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    private val currentDate = formatDate.format(Date())
 
-    private var totalSteps = 0f
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.getAchievedGoal(auth.currentUser!!.email!!)
+            viewModel.getDailyDiet(auth.currentUser!!.email!!)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,35 +62,37 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener 
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        checkIfIsNextDayForZeroAchievedGoal()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListener()
-        bindData()
-        sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        viewModel.loadAchievedGoal.observe(viewLifecycleOwner) { achieved ->
+            achievedGoal = achieved
+            viewModel.loadDailyGoal.observe(viewLifecycleOwner) { daily ->
+                dailyGoal = daily
+                bindData()
+            }
+        }
     }
 
-    override fun viewWaterMetrics() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            val current = viewModel.getAchievedGoal(auth.currentUser!!.email!!).water.toDouble()
-            val total = viewModel.getDailyDiet(auth.currentUser!!.email!!).water.toDouble()
-            Log.d("tag", "${current.div(total)}")
+    override fun viewWaterMetrics(achievedGoal: AchievedGoal, dailyGoal: DailyGoal) {
+        val current = achievedGoal.water.toDouble()
+        val total = dailyGoal.water.toDouble()
+        Log.d("tag", "${current.div(total)}")
 
-            if (current.div(total) >= 0.33 && current.div(total) < 0.66) {
-                binding.waterView2.highlightAView()
-            }
-            if (current.div(total) >= 0.66 && current.div(total) < 1.0) {
-                binding.waterView2.highlightAView()
-                binding.waterView1.highlightAView()
-            }
-            if (current.div(total) >= 1.0) {
-                binding.waterView2.highlightAView()
-                binding.waterView1.highlightAView()
-                binding.waterView3.highlightAView()
-            }
+        if (current.div(total) >= 0.33 && current.div(total) < 0.66) {
+            binding.waterView2.highlightAView()
+        }
+        if (current.div(total) >= 0.66 && current.div(total) < 1.0) {
+            binding.waterView2.highlightAView()
+            binding.waterView1.highlightAView()
+        }
+        if (current.div(total) >= 1.0) {
+            binding.waterView2.highlightAView()
+            binding.waterView1.highlightAView()
+            binding.waterView3.highlightAView()
         }
     }
 
@@ -103,11 +112,9 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener 
     }
 
     override fun checkIfIsNextDayForZeroAchievedGoal() {
-        val formatDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-
-        val currentDate = formatDate.format(Date())
-
-        viewModel.resetAchievedGoal(auth.currentUser!!.email!!, currentDate)
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.resetAchievedGoal(auth.currentUser!!.email!!, currentDate, achievedGoal)
+        }
     }
 
     override fun showToastLengthLong(text: String) {
@@ -122,7 +129,7 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener 
         dialog.apply {
             setPositiveButton(
                 "Yes",
-            ) { dialogInterface, int ->
+            ) { _, _ ->
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.addAerobicAsDone(auth.currentUser!!.email!!)
                     binding.aerobicContent?.text = getString(R.string.done)
@@ -139,9 +146,9 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener 
         }
     }
 
-    override fun viewAerobicMetrics() {
+    override fun viewAerobicMetrics(achievedGoal: AchievedGoal) {
         lifecycleScope.launch(Dispatchers.Main) {
-            val aerobic = viewModel.getAchievedGoal(auth.currentUser!!.email!!).aerobic
+            val aerobic = achievedGoal.aerobic
             if (aerobic) {
                 binding.aerobicContent?.text = getString(R.string.done)
             } else {
@@ -152,73 +159,28 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener 
 
     override fun setOnClickListener() {
         binding.waterMetric.setOnClickListener {
-            showWaterDialog()
+            showWaterDialog(achievedGoal, dailyGoal)
         }
         binding.aerobicMetric.setOnClickListener {
             showAerobicDialog()
         }
-    }
-
-    override fun navigateToSearchFragment() {
-        navigateToSearchFragment()
-    }
-
-    override fun bindData() {
-        bindProfileImage()
-        bindCurrentDate()
-        lifecycleScope.launch(Dispatchers.Main) {
-            val dailyDiet = viewModel.getDailyDiet(auth.currentUser!!.email!!)
-            val goalAchieved = viewModel.getAchievedGoal(auth.currentUser!!.email!!)
-            Log.d("tag", "$dailyDiet")
-            binding.protein.text = getString(R.string.protein_numb).formatCurrentVsTotal(
-                goalAchieved.protein.toString(),
-                dailyDiet.protein.toString(),
-                " g",
-            )
-            binding.carb.text = getString(R.string.protein_numb).formatCurrentVsTotal(
-                goalAchieved.carb.toString(),
-                dailyDiet.carb.toString(),
-                " g",
-            )
-            binding.fat.text = getString(R.string.protein_numb).formatCurrentVsTotal(
-                goalAchieved.fat.toString(),
-                dailyDiet.fat.toString(),
-                " g",
-            )
-            binding.currentWater.text = getString(R.string.protein_numb).formatCurrentVsTotal(
-                goalAchieved.water.toString(),
-                dailyDiet.water.toString(),
-                " liters",
-            )
-            binding.intoCalories.text =
-                getString(R.string.calories_count, goalAchieved.calories.toString())
-            binding.countCalories.setMax(dailyDiet.calories.toInt())
-            binding.countCalories.setProgress(goalAchieved.calories.toInt(), true)
-
-            viewWaterMetrics()
-            viewAerobicMetrics()
+        binding.adjustDietBtn?.setOnClickListener {
+            showAdjustDietDialog()
         }
     }
 
-    override fun showWaterDialog() {
+    override fun showAdjustDietDialog() {
         val dialog = requireActivity().let {
             AlertDialog.Builder(it)
         }
-        dialog.setMessage("did you drink 1 liter of water?")
+        dialog.setMessage("Did you re-make your diet plan?")
         dialog.apply {
             setPositiveButton(
                 "Yes",
-            ) { dialogInterface, int ->
+            ) { _, _ ->
                 lifecycleScope.launch(Dispatchers.Main) {
-                    Log.d("antes", "${viewModel.getAchievedGoal(auth.currentUser!!.email!!).water}")
-                    viewModel.incWater(auth.currentUser!!.email!!)
-                    Log.d("depois", "${viewModel.getAchievedGoal(auth.currentUser!!.email!!).water}")
-                    binding.currentWater.text = getString(R.string.water_numb).formatCurrentVsTotal(
-                        viewModel.getAchievedGoal(auth.currentUser!!.email!!).water.toString(),
-                        viewModel.getDailyDiet(auth.currentUser!!.email!!).water.toString(),
-                        " liters",
-                    )
-                    viewWaterMetrics()
+                    viewModel.resetDailyGoal(auth.currentUser!!.email!!)
+                    navigateToDailyGoalFragment()
                 }
             }
                 .setNegativeButton(
@@ -230,27 +192,81 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment, SensorEventListener 
         dialog.show()
     }
 
-    override fun onResume() {
-        super.onResume()
-        running = true
-        handleWithStepSensor()
+    override fun navigateToDailyGoalFragment() {
+        findNavController().navigate(R.id.action_homeFragment_to_dailyGoalFragment)
     }
 
-    private fun handleWithStepSensor() {
-        val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-        if (stepSensor != null) {
-            sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
-            showToastLengthLong("Sensor detected on this device")
+    override fun achievedGoalObserver() {
+        viewModel.loadAchievedGoal.observe(viewLifecycleOwner) {
+            achievedGoal = it
         }
     }
 
-    override fun onSensorChanged(event: SensorEvent?) {
-        if (running) {
-            totalSteps = event!!.values[0]
-            binding.intoWalk.text = "${totalSteps.toInt()}"
-        }
+    override fun navigateToSearchFragment() {
+        navigateToSearchFragment()
     }
 
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+    override fun bindData() {
+        bindProfileImage()
+        if (achievedGoal.date != currentDate) {
+            achievedGoal = AchievedGoal(userEmail = achievedGoal.userEmail, id = achievedGoal.id)
+            checkIfIsNextDayForZeroAchievedGoal()
+        }
+        bindCurrentDate()
+        binding.protein.text = getString(R.string.protein_numb).formatCurrentVsTotal(
+            achievedGoal.protein.toString(),
+            dailyGoal.protein.toString(),
+            " g",
+        )
+        binding.carb.text = getString(R.string.protein_numb).formatCurrentVsTotal(
+            achievedGoal.carb.toString(),
+            dailyGoal.carb.toString(),
+            " g",
+        )
+        binding.fat.text = getString(R.string.protein_numb).formatCurrentVsTotal(
+            achievedGoal.fat.toString(),
+            dailyGoal.fat.toString(),
+            " g",
+        )
+        binding.currentWater.text = getString(R.string.protein_numb).formatCurrentVsTotal(
+            achievedGoal.water.toString(),
+            dailyGoal.water.toString(),
+            " liters",
+        )
+        binding.intoCalories.text =
+            getString(R.string.calories_count, achievedGoal.calories.toString())
+        binding.countCalories.max = dailyGoal.calories.toInt()
+        binding.countCalories.setProgress(achievedGoal.calories.toInt(), true)
+
+        viewWaterMetrics(achievedGoal, dailyGoal)
+        viewAerobicMetrics(achievedGoal)
+    }
+
+    override fun showWaterDialog(achievedGoal: AchievedGoal, dailyGoal: DailyGoal) {
+        val dialog = requireActivity().let {
+            AlertDialog.Builder(it)
+        }
+        dialog.setMessage("did you drink 1 liter of water?")
+        dialog.apply {
+            setPositiveButton(
+                "Yes",
+            ) { _, _ ->
+                lifecycleScope.launch(Dispatchers.Main) {
+                    viewModel.incWater(auth.currentUser!!.email!!, achievedGoal)
+                    binding.currentWater.text = getString(R.string.water_numb).formatCurrentVsTotal(
+                        achievedGoal.water.toString(),
+                        dailyGoal.water.toString(),
+                        " liters",
+                    )
+                    viewWaterMetrics(achievedGoal, dailyGoal)
+                }
+            }
+                .setNegativeButton(
+                    "No",
+                    null,
+                )
+        }
+        dialog.create()
+        dialog.show()
     }
 }

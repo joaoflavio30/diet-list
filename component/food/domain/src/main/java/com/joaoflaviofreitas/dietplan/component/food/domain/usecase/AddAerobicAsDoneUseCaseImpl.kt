@@ -1,6 +1,7 @@
 package com.joaoflaviofreitas.dietplan.component.food.domain.usecase
 
 import com.joaoflaviofreitas.dietplan.component.food.domain.repository.MealRepository
+import kotlinx.coroutines.flow.last
 
 class AddAerobicAsDoneUseCaseImpl(private val repository: MealRepository): AddAerobicAsDoneUseCase {
     override suspend fun execute(userEmail: String): Boolean {

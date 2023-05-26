@@ -2,6 +2,7 @@ package com.joaoflaviofreitas.dietplan
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
@@ -9,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.firebase.auth.FirebaseAuth
 import com.joaoflaviofreitas.dietplan.databinding.ActivityMainBinding
+import com.joaoflaviofreitas.dietplan.ui.authentication.signin.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -23,6 +25,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var auth: FirebaseAuth
+
+    private val authViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +44,11 @@ class MainActivity : AppCompatActivity() {
         binding.bottomMenu.setOnItemSelectedListener { menu ->
             when (menu.title) {
                 "Home" -> {
-                    navController.navigate(R.id.homeFragment)
+                    navController.navigate(R.id.action_profileFragment_to_homeFragment)
                     true
                 }
                 "Profile" -> {
-                    navController.navigate(R.id.profileFragment)
+                    navController.navigate(R.id.action_homeFragment_to_profileFragment)
                     true
                 }
                 else -> false
@@ -66,7 +70,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
         if (auth.currentUser != null) {
-            navGraph.setStartDestination(R.id.homeFragment)
+            authViewModel.checkIfUserMakesDailyGoal(auth.currentUser!!.email!!)
+            authViewModel.checkIfUserMakesDailyGoal.observe(this) { result ->
+                if (result) {
+                    navGraph.setStartDestination(R.id.homeFragment)
+                } else {
+                    navGraph.setStartDestination(R.id.dailyGoalFragment)
+                }
+            }
         } else {
             navGraph.setStartDestination(R.id.loginFragment)
         }
