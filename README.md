@@ -3,7 +3,7 @@
 Esse é um app a qual o usuario bota suas metas diarias(calorias,proteina,carboidrato,gordura,água) e insere as refeições a qual ele ingere durante o dia, e atraves de uma UI interativa ele vai gerindo a propria dieta
 
 <div style="display: flex; justify-content: space-between;">
-  <img src="https://github.com/joaoflavio30/diet-list/assets/111129857/6d78d044-44df-4e30-b4a6-edea1704c81f" alt="Home" style="width: 200px;">
+  <img src="https://github.com/joaoflavio30/diet-list/assets/111129857/2c1a4282-04a9-47df-ac8d-0649bc0d2efb" alt="Home" style="width: 200px;">
   <img src="https://github.com/joaoflavio30/diet-list/assets/111129857/b4b6e8b8-e360-45ae-ade9-50d793a28da8" alt="Search" style="width: 200px;">
   <img src="https://github.com/joaoflavio30/diet-list/assets/111129857/99d65dbe-9e37-416a-875e-eda1dfca0203" alt="Profile" style="width: 200px;">
 </div>
