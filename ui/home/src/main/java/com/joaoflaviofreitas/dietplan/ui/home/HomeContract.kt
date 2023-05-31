@@ -35,16 +35,16 @@ interface HomeContract {
         fun achievedGoalObserver()
     }
     interface HomeViewModel {
-        suspend fun getAchievedGoal(userEmail: String)
+        suspend fun getAchievedGoal()
 
-        suspend fun getDailyDiet(userEmail: String)
+        suspend fun getDailyDiet()
 
-        suspend fun incWater(userEmail: String, achievedGoal: AchievedGoal): Boolean
+        suspend fun incWater(achievedGoal: AchievedGoal): Boolean
 
-        suspend fun resetAchievedGoal(userEmail: String, currentDate: String, achievedGoal: AchievedGoal)
+        suspend fun resetAchievedGoal(currentDate: String, achievedGoal: AchievedGoal)
 
-        fun resetDailyGoal(userEmail: String)
+        fun resetDailyGoal()
 
-        suspend fun addAerobicAsDone(userEmail: String): Boolean
+        suspend fun addAerobicAsDone(): Boolean
     }
 }

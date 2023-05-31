@@ -13,4 +13,5 @@
     <string name="password">Password</string>
     <string name="remember_me" >Remember me</string>
     <string name="sign_in">Sign In</string>
+    <string name="create_your_account">Create your account</string>
 </resources>

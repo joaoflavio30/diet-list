@@ -28,6 +28,11 @@ gradleVersion = "7.3.1"
 androidXLifecycleVersion = "2.5.1"
 cropImageVersion = "4.5.0"
 splashScreenVersion = "1.0.0-alpha01"
+mockitoVersion = "4.8.0"
+mockitoKotlinVersion = "4.0.0"
+androidxCoreTestVersion = "2.1.0"
+mockkVersion = "1.13.3"
+coroutinesTestVersion = "1.6.4"
 
 [libraries]
 androidxNavigationFragmentKtx = {module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
@@ -64,6 +69,12 @@ androidxLifecycleViewmodelKtx = {module = "androidx.lifecycle:lifecycle-viewmode
 androidxLifecycleNavigationNavigationSafeArgs = {module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navVersion"}
 cropImage = {module = "com.vanniktech:android-image-cropper", version.ref = "cropImageVersion"}
 splashScreen = {module = "androidx.core:core-splashscreen", version.ref = "splashScreenVersion"}
+mockito = {module = "org.mockito:mockito-core", version.ref = "mockitoVersion"}
+mockitoKotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlinVersion" }
+androidxCoreTest = {module = 'androidx.arch.core:core-testing', version.ref = "androidxCoreTestVersion"}
+mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
+kotlinxCoroutinesTest = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-test', version.ref = "coroutinesTestVersion" }
+
 
 
 

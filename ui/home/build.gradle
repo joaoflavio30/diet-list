@@ -32,6 +32,13 @@ dependencies {
     implementation libs.playServicesFitness
     implementation libs.playServicesAuth
 
+    testImplementation libs.junit
+    testImplementation libs.mockito
+    testImplementation libs.mockitoKotlin
+    testImplementation libs.androidxCoreTest
+    testImplementation libs.mockk
+    testImplementation libs.kotlinxCoroutinesTest
+
     implementation project(':component:food:domain')
     implementation project(':ui:common')
 }

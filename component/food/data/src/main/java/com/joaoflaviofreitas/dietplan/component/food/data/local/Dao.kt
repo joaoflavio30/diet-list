@@ -5,7 +5,6 @@ import androidx.room.Dao
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.DailyGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.Meal
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface Dao {

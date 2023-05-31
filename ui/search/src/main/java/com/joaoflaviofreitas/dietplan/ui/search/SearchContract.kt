@@ -1,7 +1,6 @@
 package com.joaoflaviofreitas.dietplan.ui.search
 
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
-import com.joaoflaviofreitas.dietplan.component.food.domain.model.DailyGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.Meal
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.RequestFood
 
@@ -32,17 +31,11 @@ interface SearchContract {
 
         fun getMeal(ingredient: RequestFood)
 
-        fun resetDailyDietWhenMidnight()
-
-        fun saveRemoteDataInDatabase(meal: Meal)
-
-        fun submitDailyDiet(nutrients: DailyGoal)
-
-        suspend fun getDailyDiet(userEmail: String)
+        suspend fun getDailyDiet()
 
         fun submitAchievedGoal(achievedGoal: AchievedGoal)
 
-        suspend fun getAchievedGoal(userEmail: String)
+        suspend fun getAchievedGoal()
 
         fun updateAchievedGoal(meal: Meal, achievedGoal: AchievedGoal)
     }

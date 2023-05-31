@@ -51,8 +51,8 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.getAchievedGoal(auth.currentUser!!.email!!)
-            viewModel.getDailyDiet(auth.currentUser!!.email!!)
+            viewModel.getAchievedGoal()
+            viewModel.getDailyDiet()
         }
     }
 
@@ -113,7 +113,7 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
 
     override fun checkIfIsNextDayForZeroAchievedGoal() {
         lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.resetAchievedGoal(auth.currentUser!!.email!!, currentDate, achievedGoal)
+            viewModel.resetAchievedGoal(currentDate, achievedGoal)
         }
     }
 
@@ -131,7 +131,7 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
                 "Yes",
             ) { _, _ ->
                 lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.addAerobicAsDone(auth.currentUser!!.email!!)
+                    viewModel.addAerobicAsDone()
                     binding.aerobicContent?.text = getString(R.string.done)
                 }
             }
@@ -179,7 +179,7 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
                 "Yes",
             ) { _, _ ->
                 lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.resetDailyGoal(auth.currentUser!!.email!!)
+                    viewModel.resetDailyGoal()
                     navigateToDailyGoalFragment()
                 }
             }
@@ -252,7 +252,7 @@ class HomeFragment : Fragment(), HomeContract.HomeFragment {
                 "Yes",
             ) { _, _ ->
                 lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.incWater(auth.currentUser!!.email!!, achievedGoal)
+                    viewModel.incWater(achievedGoal)
                     binding.currentWater.text = getString(R.string.water_numb).formatCurrentVsTotal(
                         achievedGoal.water.toString(),
                         dailyGoal.water.toString(),
