@@ -1,0 +1,14 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.joaoflaviofreitas.dietplan.component.storage'
+    compileSdk 32
+    
+}
+
+dependencies {
+
+}

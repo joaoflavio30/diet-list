@@ -5,6 +5,12 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven { url "https://jitpack.io"}
+        jcenter(){
+            content{
+                includeModule("com.theartofdev.edmodo","android-image-cropper")
+            }
+        }
     }
 }
 dependencyResolutionManagement {
@@ -12,9 +18,30 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://jitpack.io"}
+        jcenter(){
+            content{
+                includeModule("com.theartofdev.edmodo","android-image-cropper")
+            }
+        }
     }
 }
 enableFeaturePreview("VERSION_CATALOGS")
 rootProject.name = "DietPlan"
 include ':app'
 
+include ':ui:authentication'
+include ':component:authentication'
+include ':component:authentication:data'
+include ':component:authentication:domain'
+include ':ui:home'
+include ':component:food'
+include ':component:food:data'
+include ':component:food:domain'
+include ':ui:search'
+include ':ui:common'
+include ':ui:dailygoal'
+include ':ui:profile'
+include ':component:storage'
+include ':component:storage:data'
+include ':component:storage:domain'

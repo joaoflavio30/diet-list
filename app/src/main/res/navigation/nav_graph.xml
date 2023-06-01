@@ -3,61 +3,124 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/registerFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.dietplan.fragments.RegisterFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.authentication.signup.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"
+
+           />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.dietplan.fragments.LoginFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.authentication.signin.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            />
+        <action
+            android:id="@id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"
+           />
+        <action
+            android:id="@+id/action_loginFragment_to_dailyGoalFragment"
+            app:destination="@id/dailyGoalFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"
+            />
+        <action
+            android:id="@+id/action_loginFragment_to_restorePasswordFragment"
+            app:destination="@id/restorePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.dietplan.home.HomeFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
             android:id="@+id/action_homeFragment_to_dailyGoalFragment"
-            app:destination="@id/dailyGoalFragment" />
+            app:destination="@id/dailyGoalFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment"/>
     </fragment>
     <fragment
-        android:id="@+id/dietFragment"
-        android:name="com.example.dietplan.home.DietFragment"
-        android:label="fragment_diet"
-        tools:layout="@layout/fragment_diet" />
-    <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.dietplan.searchfood.SearchFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <argument
             android:name="meal_type"
-            app:argType="string"
-            android:defaultValue='""' />
+            android:defaultValue='""'
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:popUpToSaveState="true"
+           />
     </fragment>
     <fragment
         android:id="@+id/dailyGoalFragment"
-        android:name="com.example.dietplan.ui.dailygoal.DailyGoalFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.dailygoal.DailyGoalFragment"
         android:label="fragment_daily_goal"
-        tools:layout="@layout/fragment_daily_goal" />
+        tools:layout="@layout/fragment_daily_goal">
+        <action
+            android:id="@+id/action_dailyGoalFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/dailyGoalFragment"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.dietplan.ProfileFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.profile.profilefragment.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            />
+        <action
+            android:id="@+id/action_profileFragment_to_profileImageFragment"
+            app:destination="@id/profileImageFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/restorePasswordFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.authentication.restorepassword.RestorePasswordFragment"
+        android:label="RestorePasswordFragment" />
+    <fragment
+        android:id="@+id/profileImageFragment"
+        android:name="com.joaoflaviofreitas.dietplan.ui.profile.profileimagefragment.ProfileImageFragment"
+        android:label="ProfileImageFragment" >
+        <action
+            android:id="@+id/action_profileImageFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+        />
+    </fragment>
 </navigation>

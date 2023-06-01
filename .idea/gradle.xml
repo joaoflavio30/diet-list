@@ -7,10 +7,28 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="Embedded JDK" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/component" />
+            <option value="$PROJECT_DIR$/component/authentication" />
+            <option value="$PROJECT_DIR$/component/authentication/data" />
+            <option value="$PROJECT_DIR$/component/authentication/domain" />
+            <option value="$PROJECT_DIR$/component/food" />
+            <option value="$PROJECT_DIR$/component/food/data" />
+            <option value="$PROJECT_DIR$/component/food/domain" />
+            <option value="$PROJECT_DIR$/component/storage" />
+            <option value="$PROJECT_DIR$/component/storage/data" />
+            <option value="$PROJECT_DIR$/component/storage/domain" />
+            <option value="$PROJECT_DIR$/ui" />
+            <option value="$PROJECT_DIR$/ui/authentication" />
+            <option value="$PROJECT_DIR$/ui/common" />
+            <option value="$PROJECT_DIR$/ui/dailygoal" />
+            <option value="$PROJECT_DIR$/ui/home" />
+            <option value="$PROJECT_DIR$/ui/profile" />
+            <option value="$PROJECT_DIR$/ui/search" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1,0 +1,27 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.joaoflaviofreitas.dietplan.ui.common'
+    compileSdk rootProject.ext.sdkVersion
+
+    defaultConfig {
+        minSdk rootProject.ext.minSdkVersion
+    }
+
+}
+
+dependencies {
+implementation libs.androidxCoreKtx
+
+    implementation libs.androidMaterial
+
+    implementation libs.junit
+    implementation libs.mockito
+    implementation libs.mockitoKotlin
+    implementation libs.androidxCoreTest
+    implementation libs.mockk
+    implementation libs.kotlinxCoroutinesTest
+}

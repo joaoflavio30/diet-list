@@ -2,22 +2,12 @@
     <string name="app_name">DietPlan</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="facebook_app_id">126305273718013</string>
-    <string name="fb_login_protocol_scheme">fb1234</string>
-    <string name="facebook_client_token">89aab7570688e4936733300d3758ae1f</string>
-    <string name="your_web_client_id">335865405389-0q4ug5fppl9l0c7c2p0o29at4im91pv4.apps.googleusercontent.com</string>
-    <string name="date">Saturday, 18 January</string>
     <string name="protein_numb">%1$s<font color="#808080" size="10">/%2$s</font></string>
-    <string name="water_numb">%1$s<font color="#808080" size="10">/%2$s litres</font></string>
-    <string name="dialog_title">Qual refeição ?</string>
-    <string name="breakfast">Breakfast</string>
-    <string name="edit_text_search">put the amount of food and what food</string>
+
     <string name="protein">Protein</string>
     <string name="fat">Fat</string>
     <string name="adicionar">Adicionar</string>
-    <string name="search">Search</string>
-    <string name="quantity">quantity</string>
-    <string name="daily_goal">Daily Goal</string>
+
     <string name="carbohydrate">Carbohydrate</string>
     <string name="calories">Calories</string>
     <string name="submit">Submit</string>
@@ -26,11 +16,15 @@
     <string name="title">
 Today
 </string>
-    <string name="lunch">Lunch</string>
-    <string name="snack">Snack</string>
-    <string name="dinner">Dinner</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="change_picture">Change Picture</string>
     <string name="food_routine">Food Routine</string>
+    <string name="register">Register</string>
+    <string name="continue_button_text">Continue</string>
+    <string name="welcome_message">Welcome User!</string>
+    <string name="sinopse_app">Make this app your daily food plan to lead a healthy life</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
+    <string name="which_period_food">Which period food</string>
 </resources>
 

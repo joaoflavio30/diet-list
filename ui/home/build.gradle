@@ -1,0 +1,44 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.joaoflaviofreitas.dietplan.ui.home'
+    compileSdk rootProject.ext.sdkVersion
+    defaultConfig {  minSdk rootProject.ext.minSdkVersion }
+
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation libs.hiltAndroid
+    kapt libs.hiltCompiler
+    implementation libs.androidxConstraintLayout
+
+    implementation libs.circleImageView
+    implementation libs.androidMaterial
+
+    implementation libs.bundles.navigation
+    implementation libs.firebaseStorageKtx
+    implementation libs.firebaseAuthKtx
+    implementation libs.glide
+    kapt libs.glideCompiler
+
+    implementation libs.playServicesFitness
+    implementation libs.playServicesAuth
+
+    testImplementation libs.junit
+    testImplementation libs.mockito
+    testImplementation libs.mockitoKotlin
+    testImplementation libs.androidxCoreTest
+    testImplementation libs.mockk
+    testImplementation libs.kotlinxCoroutinesTest
+
+    implementation project(':component:food:domain')
+    implementation project(':ui:common')
+}

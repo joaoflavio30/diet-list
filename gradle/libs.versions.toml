@@ -1,25 +1,88 @@
 [versions]
 navVersion = "2.5.3"
 firebaseAuthVersion = "21.1.0"
-firebaseStorageVersion = "20.1.0"
+firebaseStorageVersion = "20.2.0"
+firebaseUiStorageVersion = "7.2.0"
 coreKtxVersion = "1.7.0"
 appCompatVersion = "1.6.1"
 materialVersion = "1.8.0"
 constraintLayoutVersion = "2.1.4"
 circleImageVersion = "2.1.0"
+androidxWorkRuntimeKtx = "2.8.0"
+junitVersion = "4.13.2"
+androidxJunitVersion = "1.1.5"
+espressoVersion = "3.5.1"
+firebaseBomVersion = "31.2.3"
+firebaseUiAuthVersion = "7.2.0"
+retrofitVersion = "2.9.0"
+gsonVersion = "2.9.0"
+coroutinesVersion = "1.6.4"
+glideVersion = "4.15.0"
+playServicesFitnessVersion = "21.1.0"
+hiltVersion = "2.44.2"
+hiltWorkVersion = "1.0.0"
+playServicesAuthVersion = "20.5.0"
+androidxRoomKtxVersion = "2.5.0"
+kotlinVersion = "1.7.20"
+gradleVersion = "7.3.1"
+androidXLifecycleVersion = "2.5.1"
+cropImageVersion = "4.5.0"
+splashScreenVersion = "1.0.0-alpha01"
+mockitoVersion = "4.8.0"
+mockitoKotlinVersion = "4.0.0"
+androidxCoreTestVersion = "2.1.0"
+mockkVersion = "1.13.3"
+coroutinesTestVersion = "1.6.4"
 
 [libraries]
-androidx-navigation-fragment-ktx = {module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
-androidx-navigation-ui-ktx = {module = "androidx.navigation:navigation-ui-ktx", version.ref = "navVersion"}
-firebase-auth-ktx = {module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthVersion"}
-firebase-storage-ktx = {module = "com.google.firebase:firebase-storage-ktx", version.ref = "firebaseStorageVersion"}
-androidx-core-ktx = {module = "androidx.core:core-ktx" , version.ref = "coreKtxVersion"}
-android-material = {module = "com.google.android.material:material", version.ref = "materialVersion"}
-androidx-constraintlayout = {module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayoutVersion"}
-circleimageview = {module = "de.hdodenhof:circleimageview", version.ref = "circleImageVersion"}
+androidxNavigationFragmentKtx = {module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
+androidxNavigationUiKtx = {module = "androidx.navigation:navigation-ui-ktx", version.ref = "navVersion"}
+firebaseAuthKtx = {module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthVersion"}
+firebaseStorageKtx = {module = "com.google.firebase:firebase-storage-ktx", version.ref = "firebaseStorageVersion"}
+firebaseUiStorage = {module = "com.firebaseui:firebase-ui-storage", version.ref = "firebaseUiStorageVersion"}
+androidxCoreKtx = {module = "androidx.core:core-ktx" , version.ref = "coreKtxVersion"}
+androidMaterial = {module = "com.google.android.material:material", version.ref = "materialVersion"}
+androidxConstraintLayout = {module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayoutVersion"}
+circleImageView = {module = "de.hdodenhof:circleimageview", version.ref = "circleImageVersion"}
+androidxWorkRuntimeKtx = {module = "androidx.work:work-runtime-ktx", version.ref = "androidxWorkRuntimeKtx"}
+junit = {module = "junit:junit", version.ref = "junitVersion"}
+androidxJunit = {module = "androidx.test.ext:junit", version.ref = "androidxJunitVersion"}
+espressoCore = {module = "androidx.test.espresso:espresso-core", version.ref = "espressoVersion"}
+firebaseBom = {module = "com.google.firebase:firebase-bom", version.ref = "firebaseBomVersion"}
+firebaseUiAuth = {module = "com.firebaseui:firebase-ui-auth", version.ref = "firebaseUiAuthVersion"}
+retrofit = {module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion"}
+gsonConverter = {module = "com.squareup.retrofit2:converter-gson", version.ref = "gsonVersion"}
+coroutinesAndroid = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutinesVersion"}
+firebaseStorage = {module = "com.google.firebase:firebase-storage", version.ref = "firebaseStorageVersion"}
+glide = {module = "com.github.bumptech.glide:glide", version.ref = "glideVersion"}
+glideCompiler = {module = "com.github.bumptech.glide:compiler", version.ref = "glideVersion"}
+playServicesFitness = {module = "com.google.android.gms:play-services-fitness", version.ref = "playServicesFitnessVersion"}
+hiltAndroid = {module = "com.google.dagger:hilt-android", version.ref = "hiltVersion"}
+hiltCompiler = {module = "com.google.dagger:hilt-compiler", version.ref = "hiltVersion"}
+hiltWork = {module = "androidx.hilt:hilt-work", version.ref = "hiltWorkVersion"}
+playServicesAuth = {module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuthVersion"}
+androidxRoomKtx = { module = "androidx.room:room-ktx", version.ref = "androidxRoomKtxVersion" }
+roomCompiler = {module = "androidx.room:room-compiler", version.ref = "androidxRoomKtxVersion"}
+androidxLifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidXLifecycleVersion" }
+androidxLifecycleLivedataKtx = {module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidXLifecycleVersion"}
+androidxLifecycleViewmodelKtx = {module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidXLifecycleVersion"}
+androidxLifecycleNavigationNavigationSafeArgs = {module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navVersion"}
+cropImage = {module = "com.vanniktech:android-image-cropper", version.ref = "cropImageVersion"}
+splashScreen = {module = "androidx.core:core-splashscreen", version.ref = "splashScreenVersion"}
+mockito = {module = "org.mockito:mockito-core", version.ref = "mockitoVersion"}
+mockitoKotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlinVersion" }
+androidxCoreTest = {module = 'androidx.arch.core:core-testing', version.ref = "androidxCoreTestVersion"}
+mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
+kotlinxCoroutinesTest = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-test', version.ref = "coroutinesTestVersion" }
+
+
 
 
 [bundles]
-navigation = ["androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx"]
+navigation = ["androidxNavigationFragmentKtx", "androidxNavigationUiKtx"]
 
 [plugins]
+androidApplication = {id = 'com.android.application', version.ref = "gradleVersion"}
+androidLibrary = {id = 'com.android.library', version.ref = "gradleVersion"}
+kotlinAndroid = {id = 'org.jetbrains.kotlin.android', version.ref = "kotlinVersion"}
+
