@@ -4,10 +4,12 @@ import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.repository.MealRepository
 import com.joaoflaviofreitas.dietplan.component.food.domain.usecase.ResetAchievedGoalUseCase
 import com.joaoflaviofreitas.dietplan.component.food.domain.usecase.ResetAchievedGoalUseCaseImpl
+import io.mockk.clearMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
@@ -58,5 +60,10 @@ class ResetAchievedGoalUseCaseTest {
 
             coVerify(exactly = 0) { repository.updateAchievedGoal(expectedAchievedGoal) }
         }
+    }
+
+    @After
+    fun teardown() {
+        clearMocks(repository)
     }
 }
