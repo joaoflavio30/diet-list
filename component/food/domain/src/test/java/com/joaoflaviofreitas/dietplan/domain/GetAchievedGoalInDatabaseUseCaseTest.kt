@@ -4,11 +4,13 @@ import com.joaoflaviofreitas.dietplan.component.food.domain.model.AchievedGoal
 import com.joaoflaviofreitas.dietplan.component.food.domain.repository.MealRepository
 import com.joaoflaviofreitas.dietplan.component.food.domain.usecase.GetAchievedGoalInDatabaseUseCase
 import com.joaoflaviofreitas.dietplan.component.food.domain.usecase.GetAchievedGoalInDatabaseUseCaseImpl
+import io.mockk.clearMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.confirmVerified
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Assert.assertThrows
 import org.junit.Before
 import org.junit.Test
@@ -50,5 +52,10 @@ class GetAchievedGoalInDatabaseUseCaseTest {
         }
         coVerify { repository.getAchievedGoal(fakeEmail) }
         confirmVerified(repository)
+    }
+
+    @After
+    fun teardown() {
+        clearMocks(repository)
     }
 }
