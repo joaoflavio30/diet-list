@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.joaoflaviofreitas.dietplan.ui.home.HomeFragment">
 
     <ScrollView
@@ -18,12 +17,12 @@
             android:layout_height="wrap_content">
 
             <TextView
+                style="@style/TextColor"
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:text="@string/date"
-                android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@id/profile_img"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calories_count"
-                android:textColor="@color/black"
+                style="@style/TextColor"
                 android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="@id/count_calories"
                 app:layout_constraintEnd_toEndOf="@id/count_calories"
@@ -71,7 +70,7 @@
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="50dp"
                 android:text="@string/protein_numb"
-                android:textColor="@color/black"
+                style="@style/TextColor"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toStartOf="@id/count_calories"
                 app:layout_constraintStart_toStartOf="parent"
@@ -85,16 +84,17 @@
                 android:src="@drawable/protein"
                 app:layout_constraintBottom_toBottomOf="@id/protein_text"
                 app:layout_constraintStart_toStartOf="@id/protein"
-                app:layout_constraintTop_toBottomOf="@id/protein" />
+                app:layout_constraintTop_toBottomOf="@id/protein"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/protein_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="Protein"
-                android:textColor="@color/grey"
-                android:textSize="10sp"
+                android:text="@string/protein"
+                style="@style/TextColor"
+                android:textSize="11sp"
                 app:layout_constraintStart_toEndOf="@id/img_protein"
                 app:layout_constraintTop_toBottomOf="@id/protein" />
 
@@ -113,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/protein_numb"
-                android:textColor="@color/black"
+                style="@style/TextColor"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="@id/count_calories"
                 app:layout_constraintStart_toStartOf="@id/count_calories"
@@ -134,9 +134,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="Carb"
-                android:textColor="@color/grey"
-                android:textSize="10sp"
+                android:text="@string/carb"
+                style="@style/TextColor"
+                android:textSize="11sp"
                 app:layout_constraintStart_toEndOf="@id/img_carb"
                 app:layout_constraintTop_toBottomOf="@id/carb" />
 
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
                 android:text="@string/protein_numb"
-                android:textColor="@color/black"
+                style="@style/TextColor"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/count_calories"
@@ -160,16 +160,17 @@
                 android:src="@drawable/pizza"
                 app:layout_constraintBottom_toBottomOf="@id/fat_text"
                 app:layout_constraintStart_toStartOf="@id/fat"
-                app:layout_constraintTop_toBottomOf="@id/fat" />
+                app:layout_constraintTop_toBottomOf="@id/fat"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/fat_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="Fat"
-                android:textColor="@color/grey"
-                android:textSize="10sp"
+                android:text="@string/fat"
+                style="@style/TextColor"
+                android:textSize="11sp"
                 app:layout_constraintStart_toEndOf="@id/img_fat"
                 app:layout_constraintTop_toBottomOf="@id/fat" />
 
@@ -187,8 +188,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="Metrics"
-                android:textColor="@color/black"
+                android:text="@string/metrics"
+                style="@style/TextColor"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@id/date"
                 app:layout_constraintTop_toBottomOf="@id/protein" />
@@ -215,8 +216,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="15dp"
                         android:drawableEnd="@drawable/ic_baseline_water_drop_24"
-                        android:text="Water"
-                        android:textColor="@color/black"
+                        android:text="@string/water"
+                        style="@style/TextColor"
                         android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -303,7 +304,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/water_numb"
-                        android:textColor="@color/black"
+                        style="@style/TextColor"
                         android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@id/title_card"
@@ -337,7 +338,7 @@
                         android:layout_margin="15dp"
                         android:drawableEnd="@drawable/ic_baseline_directions_run_24"
                         android:text="@string/aerobic"
-                        android:textColor="@color/black"
+                        style="@style/TextColor"
                         android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
