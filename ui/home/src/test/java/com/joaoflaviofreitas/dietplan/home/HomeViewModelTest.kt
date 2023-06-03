@@ -17,15 +17,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
-import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
-@RunWith(MockitoJUnitRunner::class)
 class HomeViewModelTest {
 
     companion object {
@@ -56,6 +53,7 @@ class HomeViewModelTest {
         `when`(firebaseAuthMock.currentUser).thenReturn(currentUserMock)
 
         `when`(currentUserMock.email).thenReturn(EMAIL_TEST)
+
         viewModel = HomeViewModel(
             firebaseAuthMock,
             getAchievedGoalInDatabaseUseCase,

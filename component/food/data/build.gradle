@@ -22,5 +22,12 @@ dependencies {
     implementation libs.retrofit
     implementation libs.gsonConverter
 
+    testImplementation libs.junit
+    testImplementation libs.mockito
+    testImplementation libs.mockitoKotlin
+    testImplementation libs.androidxCoreTest
+    testImplementation libs.mockk
+    testImplementation libs.kotlinxCoroutinesTest
+
     implementation project(":component:food:domain")
 }

@@ -33,6 +33,8 @@ interface HomeContract {
         fun navigateToDailyGoalFragment()
 
         fun achievedGoalObserver()
+
+        fun bindNutritionImageColor()
     }
     interface HomeViewModel {
         suspend fun getAchievedGoal()
