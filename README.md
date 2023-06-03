@@ -9,6 +9,7 @@ Esse é um app a qual o usuario bota suas metas diarias(calorias,proteina,carboi
 </div>
 
 
+![Screenshot_20230525_233326](https://github.com/joaoflavio30/diet-list/assets/111129857/8c7f74e7-0218-4803-aac0-094dfff3efb4)
 
 
 ## Tecnologias Utilizadas
