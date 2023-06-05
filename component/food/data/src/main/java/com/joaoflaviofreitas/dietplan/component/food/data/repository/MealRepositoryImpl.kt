@@ -25,7 +25,6 @@ internal class MealRepositoryImpl @Inject constructor(private val database: Dao,
         return withContext(Dispatchers.IO) {
             try {
                 val parsedIngredient = ingredient.quantity.toString() + " " + ingredient.measure + " " + ingredient.foodName
-                Log.d("tag1234", parsedIngredient)
                 remoteData.getFoodInfo(parsedIngredient)
             } catch (e: Exception) {
                 throw Exception("Failed to get data from API: ${e.message}")
