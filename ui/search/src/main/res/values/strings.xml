@@ -9,4 +9,9 @@
     <string name="adicionar">Adicionar</string>
     <string name="submit">Submit</string>
     <string name="how_many_is_it_missing">How many is it missing</string>
+    <string name="oz">Oz</string>
+    <string name="lb">Lb</string>
+    <string name="kg">Kg</string>
+    <string name="carb">Carb</string>
+    <string name="carbohydrate">Carbohydrate</string>
 </resources>
