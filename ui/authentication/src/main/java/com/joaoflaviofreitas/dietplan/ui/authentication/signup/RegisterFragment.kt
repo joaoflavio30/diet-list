@@ -41,17 +41,12 @@ class RegisterFragment : Fragment(), SignUpContract.SignUpFragment {
     }
 
     override fun checkFields(): Boolean {
-        val username = binding.username.text.toString()
         val email = binding.email.text.toString()
         val password = binding.password.text.toString()
         val confirmPassword = binding.secondPassword.text.toString()
         var valid = false
 
         when {
-            username.isEmpty() -> {
-                binding.username.setError("Enter username!", null)
-                binding.username.requestFocus()
-            }
             email.isEmpty() -> {
                 binding.email.setError("Enter email address.", null)
                 binding.email.requestFocus()
@@ -105,7 +100,7 @@ class RegisterFragment : Fragment(), SignUpContract.SignUpFragment {
         viewModel.signUpSuccess.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is DataState.Success -> { showToastLengthLong("Sign up success!")
-                    Log.d("teste","${auth.currentUser}")
+                    Log.d("teste", "${auth.currentUser}")
                     navigateToSignIn()
                 }
                 is DataState.Loading -> {}
