@@ -44,11 +44,15 @@ class MainActivity : AppCompatActivity() {
         binding.bottomMenu.setOnItemSelectedListener { menu ->
             when (menu.title) {
                 "Home" -> {
-                    navController.navigate(R.id.action_profileFragment_to_homeFragment)
+                    if (navController.currentDestination?.id == R.id.profileFragment) {
+                        navController.navigate(R.id.action_profileFragment_to_homeFragment)
+                    }
                     true
                 }
                 "Profile" -> {
-                    navController.navigate(R.id.action_homeFragment_to_profileFragment)
+                    if (navController.currentDestination?.id == R.id.homeFragment) {
+                        navController.navigate(R.id.action_homeFragment_to_profileFragment)
+                    }
                     true
                 }
                 else -> false
