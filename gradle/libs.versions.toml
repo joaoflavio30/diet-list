@@ -33,6 +33,7 @@ mockitoKotlinVersion = "4.0.0"
 androidxCoreTestVersion = "2.1.0"
 mockkVersion = "1.13.3"
 coroutinesTestVersion = "1.6.4"
+androidxStartupVersion = "1.1.1"
 
 [libraries]
 androidxNavigationFragmentKtx = {module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
@@ -74,6 +75,7 @@ mockitoKotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "m
 androidxCoreTest = {module = 'androidx.arch.core:core-testing', version.ref = "androidxCoreTestVersion"}
 mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
 kotlinxCoroutinesTest = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-test', version.ref = "coroutinesTestVersion" }
+androidxStartup = { module = 'androidx.startup:startup-runtime', version.ref = "androidxStartupVersion" }
 
 
 

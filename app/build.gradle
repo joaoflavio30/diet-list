@@ -56,7 +56,8 @@ dependencies {
     kapt libs.hiltCompiler
 
     implementation libs.splashScreen
-
+    implementation libs.androidxStartup
+    implementation libs.cropImage
 
     implementation libs.androidxCoreKtx
     implementation libs.firebaseAuthKtx
