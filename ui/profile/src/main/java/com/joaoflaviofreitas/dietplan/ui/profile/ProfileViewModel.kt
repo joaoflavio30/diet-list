@@ -9,6 +9,7 @@ import com.google.firebase.auth.AuthCredential
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.model.DataState
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.ChangeEmailUseCase
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.ChangePasswordUseCase
+import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.DeleteUserUseCase
 import com.joaoflaviofreitas.dietplan.component.authentication.domain.usecase.SignOutUseCase
 import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.DeleteImageProfileUseCase
 import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.GetMetadataOfProfileImageUseCase
@@ -26,17 +27,20 @@ class ProfileViewModel @Inject constructor(
     private val deleteImageProfileUseCase: DeleteImageProfileUseCase,
     private val getMetadataOfProfileImageUseCase: GetMetadataOfProfileImageUseCase,
     private val signOutUseCase: SignOutUseCase,
+    private val deleteUserUseCase: DeleteUserUseCase,
 
 ) : ViewModel(), ProfileContract.ProfileViewModel {
 
     private val _profileImage = MutableLiveData("")
-    val profileImage get() = _profileImage
 
     private val _changeSuccessObserver = MutableLiveData<DataState<Boolean>>()
     val changeSuccessObserver: LiveData<DataState<Boolean>> = _changeSuccessObserver
 
     private val _deleteImageSuccessObserver = MutableLiveData<DataState<Boolean>>()
-    val deleteImageSuccessObserver get() = _deleteImageSuccessObserver
+
+    val userDeletedSuccess: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
 
     override fun changeEmail(credential: AuthCredential, email: String) {
         viewModelScope.launch {
@@ -91,6 +95,16 @@ class ProfileViewModel @Inject constructor(
             is DataState.Success -> DataState.Success(true)
             is DataState.Error -> DataState.Error(result.exception)
             is DataState.Loading -> { DataState.Loading }
+        }
+    }
+
+    override fun deleteUser() {
+        viewModelScope.launch {
+            when (val result = deleteUserUseCase.execute()) {
+                is DataState.Success -> userDeletedSuccess.postValue(true)
+                is DataState.Error -> userDeletedSuccess.postValue(false)
+                else -> {}
+            }
         }
     }
 }

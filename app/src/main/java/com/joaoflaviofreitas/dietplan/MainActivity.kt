@@ -81,11 +81,12 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     navGraph.setStartDestination(R.id.dailyGoalFragment)
                 }
+                navController.setGraph(navGraph, null)
             }
         } else {
             navGraph.setStartDestination(R.id.loginFragment)
+            navController.setGraph(navGraph, null)
         }
-        navController.setGraph(navGraph, null)
     }
 
     private fun showBottomMenu() {
