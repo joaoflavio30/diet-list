@@ -47,4 +47,8 @@ object DomainModule {
     @Provides
     @Singleton
     fun providesSignOutUseCase(authRepository: FirebaseAuthRepository):SignOutUseCase = SignOutUseCaseImpl(authRepository)
+
+    @Provides
+    @Singleton
+    fun providesDeleteUserUseCase(authRepository: FirebaseAuthRepository): DeleteUserUseCase = DeleteUserUseCaseImpl(authRepository)
 }

@@ -44,7 +44,7 @@ internal class FirebaseStorageRepositoryImpl @Inject constructor(private val aut
         return withContext(Dispatchers.IO) {
             try { DataState.Loading
                 val storageRef = storage.reference.child("profile_images/${auth.currentUser?.uid}/profile.jpg")
-                if(storageRef.parent != null) storageRef.delete().await()
+                if (storageRef.parent != null) storageRef.delete().await()
                 if (!storageRef.downloadUrl.isSuccessful) {
                     DataState.Success(true)
                 } else {
@@ -55,7 +55,6 @@ internal class FirebaseStorageRepositoryImpl @Inject constructor(private val aut
             }
         }
     }
-
     override suspend fun getMetadataOfImage(): Long {
         return withContext(Dispatchers.IO) {
             try {

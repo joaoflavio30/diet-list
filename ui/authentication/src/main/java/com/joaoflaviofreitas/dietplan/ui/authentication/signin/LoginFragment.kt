@@ -124,7 +124,7 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
                     checkIfUserMakesDailyGoalObserver()
                     requireActivity().supportFragmentManager.popBackStack(R.id.loginFragment, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 }
-                is DataState.Error -> showToastLengthLong("Failed to login: ${result.exception}")
+                is DataState.Error -> showToastLengthLong("Failed to login")
                 is DataState.Loading -> {}
             }
         }

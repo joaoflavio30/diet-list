@@ -159,4 +159,15 @@ internal class FirebaseAuthRepositoryImpl @Inject constructor(private val auth: 
             }
         }
     }
+
+    override suspend fun deleteUser(): DataState<Boolean> {
+        return withContext(Dispatchers.IO) {
+            try {
+                auth.currentUser!!.delete().await()
+                DataState.Success(true)
+            } catch (e:FirebaseAuthException) {
+                DataState.Error(e)
+            }
+        }
+    }
 }

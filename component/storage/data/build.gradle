@@ -18,6 +18,12 @@ dependencies {
     kapt libs.hiltCompiler
     implementation libs.hiltAndroid
 
+    testImplementation libs.junit
+    testImplementation libs.mockito
+    testImplementation libs.mockitoKotlin
+    testImplementation libs.androidxCoreTest
+    testImplementation libs.mockk
+    testImplementation libs.kotlinxCoroutinesTest
 
     implementation project(':component:storage:domain')
 }

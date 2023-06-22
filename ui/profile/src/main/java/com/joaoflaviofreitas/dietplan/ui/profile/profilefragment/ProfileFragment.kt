@@ -141,6 +141,9 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
         binding.logoutBtn.setOnClickListener {
             showDialogForLogout()
         }
+        binding.deleteUserBtn.setOnClickListener {
+            deleteUserDialog()
+        }
     }
 
     override fun changeEmailOrPasswordWithAuthenticationUser(changeEmailOrPassword: String) {
@@ -337,5 +340,22 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
         googleSignInClient.revokeAccess().addOnCompleteListener { task ->
             if (!task.isSuccessful) showToastLengthLong("Error in Revoke the Google access!")
         }
+    }
+
+    override fun deleteUser() {
+        viewModel.deleteUser()
+        viewModel.userDeletedSuccess.observe(viewLifecycleOwner) { result ->
+            if (result) {
+                navigateToLoginFragment()
+                showToastLengthLong("User deleted")
+            }
+        }
+    }
+
+    override fun deleteUserDialog() {
+        MaterialAlertDialogBuilder(requireContext()).setTitle("Do you want to delete your account ?").setPositiveButton("Yes") { _, _ ->
+            deleteUser()
+        }.setNegativeButton("No") { _, _ ->
+        }.create().show()
     }
 }

@@ -39,6 +39,10 @@ interface ProfileContract {
         fun checkIfUserIsLoggedWithGoogle(): Boolean
 
         fun removeTokenOfGoogle()
+
+        fun deleteUser()
+
+        fun deleteUserDialog()
     }
 
     interface ProfileViewModel {
@@ -58,5 +62,7 @@ interface ProfileContract {
         suspend fun getMetadataOfProfileImage(): Long
 
         fun signOut(): DataState<Boolean>
+
+        fun deleteUser()
     }
 }
