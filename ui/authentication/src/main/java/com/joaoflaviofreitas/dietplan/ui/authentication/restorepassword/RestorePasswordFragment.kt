@@ -94,7 +94,7 @@ class RestorePasswordFragment : Fragment(), RestoreContract.RestorePasswordFragm
             when (result) {
                 is DataState.Success -> { showToastLengthLong(text = "Check your email!")
                     navigateToPopBackStack() }
-                is DataState.Error -> showToastLengthLong(text = "failed: ${result.exception}")
+                is DataState.Error -> showToastLengthLong(text = "Restore failed")
                 is DataState.Loading -> {}
             }
         }

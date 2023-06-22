@@ -104,7 +104,7 @@ class RegisterFragment : Fragment(), SignUpContract.SignUpFragment {
                     navigateToSignIn()
                 }
                 is DataState.Loading -> {}
-                is DataState.Error -> { showToastLengthLong("User register false: ${result.exception}") }
+                is DataState.Error -> { showToastLengthLong("User register false") }
             }
         }
     }
