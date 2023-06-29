@@ -1,6 +1,5 @@
 package com.joaoflaviofreitas.dietplan.ui.authentication.signin
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -46,7 +45,6 @@ class LoginViewModel @Inject constructor(
     }
 
     override fun signInWithGoogle(credential: AuthCredential) {
-        Log.d("teste do login", "chamado")
         viewModelScope.launch {
             when (val result = signInWithGoogleUseCase.execute(credential)) {
                 is DataState.Loading -> _progressBarSignIn.postValue(true)

@@ -303,6 +303,7 @@ class ProfileFragment : Fragment(), ProfileContract.ProfileFragment {
         MaterialAlertDialogBuilder(requireContext()).setTitle("Are you sure you want to leave?").setPositiveButton("Yes") { _, _ ->
             if (checkIfUserIsLoggedWithGoogle()) removeTokenOfGoogle()
             logout()
+            binding.logoutBtn.visibility = View.GONE
         }.setNegativeButton("No") { dialog, _ ->
             dialog.dismiss()
         }.show()

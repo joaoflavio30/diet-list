@@ -43,6 +43,10 @@ interface SignInContracts {
         fun checkUserWantsRememberPassword()
 
         fun bindRememberedEmail()
+
+        fun switchButtonsAsClickable()
+
+        fun switchButtonsAsNotClickable()
     }
 
     interface SignInViewModel {
