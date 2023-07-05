@@ -6,8 +6,8 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 const val BASE_URL = "https://api.edamam.com"
-const val APP_ID = "e01c0774"
-const val APP_KEY = "18f3dcfd4be69061549c30c75c329987"
+const val APP_ID = "7f4cac62"
+const val APP_KEY = "51740879a391522b10699c8a1f91eebc"
 
 interface Api {
 

@@ -71,7 +71,6 @@
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="50dp"
                 android:text="@string/protein_numb"
-                android:textSize="15sp"
                 app:layout_constraintEnd_toStartOf="@id/count_calories"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/count_calories" />
@@ -114,7 +113,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/protein_numb"
-                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="@id/count_calories"
                 app:layout_constraintStart_toStartOf="@id/count_calories"
                 app:layout_constraintTop_toTopOf="@id/protein" />
@@ -147,7 +145,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
                 android:text="@string/protein_numb"
-                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/count_calories"
                 app:layout_constraintTop_toTopOf="@id/protein" />
@@ -327,7 +324,7 @@
                 app:layout_constraintTop_toBottomOf="@id/metrics">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="160dp"
                     android:layout_height="match_parent">
 
 
@@ -349,7 +346,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/not_done"
                         android:textColor="@color/red"
-                        android:textSize="25sp"
+                        android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@id/title_card_aerobic"
                         app:layout_constraintTop_toTopOf="parent" />
