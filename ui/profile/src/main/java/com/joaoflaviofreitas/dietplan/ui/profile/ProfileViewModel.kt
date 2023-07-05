@@ -16,6 +16,7 @@ import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.GetMetada
 import com.joaoflaviofreitas.dietplan.component.storage.domain.usecase.SaveImageProfileUseCase
 import com.joaoflaviofreitas.dietplan.ui.profile.profilefragment.ProfileContract
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -41,6 +42,8 @@ class ProfileViewModel @Inject constructor(
     val userDeletedSuccess: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
+
+    private var job: Job = Job()
 
     override fun changeEmail(credential: AuthCredential, email: String) {
         viewModelScope.launch {

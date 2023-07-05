@@ -65,6 +65,7 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
         bindRememberedEmail()
         initGoogleSignInClient()
         setOnClickListener()
+        signInSuccessObserver()
         progressBarSignInObserver()
     }
     override fun checkFields(): Boolean {
@@ -106,25 +107,34 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
             if (checkFields()) {
                 val userAuth = UserAuth(binding.loginField.text.toString(), binding.password.text.toString())
                 viewModel.signIn(userAuth)
-                signInSuccessObserver()
+                switchButtonsAsNotClickable()
             }
         }
 
-        binding.forgotPassword.setOnClickListener { navigateToRestorePasswordFragment() }
+        binding.forgotPassword.setOnClickListener {
+            navigateToRestorePasswordFragment()
+        }
 
-        binding.register.setOnClickListener { navigateToSignUp() }
+        binding.register.setOnClickListener {
+            navigateToSignUp()
+        }
     }
 
     override fun signInSuccessObserver() {
         viewModel.signInSuccess.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is DataState.Success -> {
+                    Log.d("teste", "signInSucess chamado")
                     showToastLengthLong("Login success!")
                     checkUserWantsRememberPassword()
                     checkIfUserMakesDailyGoalObserver()
                     requireActivity().supportFragmentManager.popBackStack(R.id.loginFragment, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 }
-                is DataState.Error -> showToastLengthLong("Failed to login")
+                is DataState.Error -> {
+                    showToastLengthLong("Failed to login")
+                    Log.d("erro", "E:${result.exception}")
+                    switchButtonsAsClickable()
+                }
                 is DataState.Loading -> {}
             }
         }
@@ -161,7 +171,7 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
             Log.d("chamado2", "teste")
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             viewModel.signInWithGoogle(credential)
-            signInSuccessObserver()
+            switchButtonsAsNotClickable()
         } catch (e: ApiException) {
             // Trate a exceção de acordo com suas necessidades
             Log.e("chamado", "Erro ao fazer login com o Google: ${e.message}")
@@ -230,5 +240,19 @@ class LoginFragment : Fragment(), SignInContracts.SignInFragment {
         val sharedPreferences = requireContext().getSharedPreferences("MyPrefsOfEmail", Context.MODE_PRIVATE)
         binding.loginField.setText(sharedPreferences.getString("userEmail", ""))
         binding.checkbox.isChecked = sharedPreferences.getBoolean("checkbox", false)
+    }
+
+    override fun switchButtonsAsClickable() {
+        binding.signInButton.isClickable = true
+        binding.btnLogin.isClickable = true
+        binding.register.isClickable = true
+        binding.forgotPassword.isClickable = true
+    }
+
+    override fun switchButtonsAsNotClickable() {
+        binding.signInButton.isClickable = false
+        binding.btnLogin.isClickable = false
+        binding.register.isClickable = false
+        binding.forgotPassword.isClickable = false
     }
 }

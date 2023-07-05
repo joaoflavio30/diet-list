@@ -3,19 +3,22 @@ package com.joaoflaviofreitas.dietplan.component.food.data.remote
 import com.joaoflaviofreitas.dietplan.component.food.domain.model.ProductResponse
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Query
 
-const val BASE_URL = "https://api.edamam.com"
-const val APP_ID = "e01c0774"
-const val APP_KEY = "18f3dcfd4be69061549c30c75c329987"
+const val BASE_URL = "https://edamam-edamam-nutrition-analysis.p.rapidapi.com"
+const val APP_ID = "edamam-edamam-nutrition-analysis.p.rapidapi.com"
+const val APP_KEY = "d2d328e09dmsh93392ae57f386c2p137884jsn8fa35c8824b6"
 
 interface Api {
 
     @GET("/api/nutrition-data")
+    @Headers(
+        "X-RapidAPI-Key: d2d328e09dmsh93392ae57f386c2p137884jsn8fa35c8824b6",
+        "X-RapidAPI-Host: edamam-edamam-nutrition-analysis.p.rapidapi.com",
+    )
     suspend fun getFoodInfo(
         @Query("ingr") ingr: String,
-        @Query("app_id") appId: String = APP_ID,
-        @Query("app_key") appKey: String = APP_KEY,
         @Query("nutrition-type") nutritionType: String = "logging",
     ): Response<ProductResponse>
 }
