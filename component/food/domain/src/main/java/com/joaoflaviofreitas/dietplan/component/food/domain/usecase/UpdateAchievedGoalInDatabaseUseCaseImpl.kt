@@ -16,5 +16,5 @@ internal class UpdateAchievedGoalInDatabaseUseCaseImpl(private val repository: M
         )
         return repository.updateAchievedGoal(newAchievedGoal)
     }
-    private fun format(numb: Double) = DecimalFormat("#.0").format(numb).toDouble()
+    private fun format(numb: Double) = DecimalFormat("#.0").format(numb).replace(",", ".").toDouble()
 }

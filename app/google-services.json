@@ -20,6 +20,14 @@
             "package_name": "com.joaoflaviofreitas.dietplan",
             "certificate_hash": "2c7ca5a88ef596ffcd4e3e33a55221fa336b9d09"
           }
+        },
+        {
+          "client_id": "335865405389-sk0jq7cp1a2q7i033iom4c9s0oahlpr5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.joaoflaviofreitas.dietplan",
+            "certificate_hash": "191438e45cfb18afd1bc07d10b27a4c3a26a580d"
+          }
         }
       ],
       "api_key": [
@@ -29,7 +37,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "335865405389-he5bn50sh8fdolbed05oo2v72qt6soha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

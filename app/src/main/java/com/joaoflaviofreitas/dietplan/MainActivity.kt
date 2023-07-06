@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.marginBottom
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -70,7 +72,12 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.homeFragment -> showBottomMenu()
                 R.id.profileFragment -> showBottomMenu()
-                else -> hideBottomMenu()
+                else -> {
+                    hideBottomMenu()
+                    val layoutParams = binding.navHostFragment.layoutParams as ConstraintLayout.LayoutParams
+                    layoutParams.bottomMargin = 0
+                    binding.navHostFragment.layoutParams = layoutParams
+                }
             }
         }
         if (auth.currentUser != null) {
@@ -94,6 +101,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hideBottomMenu() {
-        binding.bottomMenu.visibility = View.INVISIBLE
+        binding.bottomMenu.visibility = View.GONE
     }
 }

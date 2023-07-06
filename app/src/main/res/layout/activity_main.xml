@@ -33,10 +33,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:src="@drawable/baseline_add_24"
             android:elevation="20dp"
             android:importantForAccessibility="no"
             app:backgroundTint="#b71728"
-            app:fabSize="mini"
+            app:fabSize="normal"
             app:tint="@color/white" />
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
