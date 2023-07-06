@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="card_width_large">150dp</dimen>
+    <dimen name="btn_width">100dp</dimen>
 </resources>

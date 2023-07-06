@@ -4,6 +4,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -14,8 +15,8 @@ android {
         applicationId "com.joaoflaviofreitas.dietplan"
         minSdk rootProject.ext.minSdkVersion
         targetSdk rootProject.ext.targetVersion
-        versionCode 4
-        versionName "1.0"
+        versionCode 9
+        versionName "1.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -57,6 +58,8 @@ dependencies {
 
 
     implementation libs.hiltAndroid
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
     kapt libs.hiltCompiler
 
     implementation libs.splashScreen
@@ -65,6 +68,9 @@ dependencies {
 
     implementation libs.androidxCoreKtx
     implementation libs.firebaseAuthKtx
+    implementation libs.firebaseBom
+
+    implementation platform(libs.firebaseBom)
 
     implementation project(':component:authentication:data')
     implementation project(':component:authentication:domain')

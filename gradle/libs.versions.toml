@@ -34,6 +34,7 @@ androidxCoreTestVersion = "2.1.0"
 mockkVersion = "1.13.3"
 coroutinesTestVersion = "1.6.4"
 androidxStartupVersion = "1.1.1"
+firebaseCrashlyticsVersion = "18.2.1"
 
 [libraries]
 androidxNavigationFragmentKtx = {module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
@@ -76,6 +77,7 @@ androidxCoreTest = {module = 'androidx.arch.core:core-testing', version.ref = "a
 mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
 kotlinxCoroutinesTest = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-test', version.ref = "coroutinesTestVersion" }
 androidxStartup = { module = 'androidx.startup:startup-runtime', version.ref = "androidxStartupVersion" }
+firebaseCrashlytics = { module = 'com.google.firebase:firebase-crashlytics', version.ref = "firebaseCrashlyticsVersion" }
 
 
 

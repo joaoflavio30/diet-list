@@ -11,6 +11,8 @@ import com.joaoflaviofreitas.dietplan.component.food.domain.model.RequestFood
 import com.joaoflaviofreitas.dietplan.component.food.domain.usecase.*
 import com.joaoflaviofreitas.dietplan.ui.common.utils.ext.formatPropertiesWithTwoDecimalPlaces
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -42,13 +44,16 @@ class SearchViewModel @Inject constructor(
     val loadDailyGoal: MutableLiveData<DailyGoal> by lazy {
         MutableLiveData<DailyGoal>()
     }
+    private var job: Job = Job()
 
     override suspend fun isPossibleToFetchDataOffline(ingredient: RequestFood): Boolean {
         return checkIfHaveDataInDatabaseUseCase.execute(ingredient.foodName)
     }
 
     override fun getMeal(ingredient: RequestFood) {
-        viewModelScope.launch {
+        job.cancel()
+        job = viewModelScope.launch {
+            delay(600)
             if (isPossibleToFetchDataOffline(ingredient)) {
                 _searchMeal.postValue(getMealByDatabaseUseCase.execute(ingredient))
             } else {

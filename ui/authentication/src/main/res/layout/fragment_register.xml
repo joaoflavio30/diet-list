@@ -104,7 +104,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login"
             style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="@dimen/card_width_large"
+            android:layout_width="@dimen/btn_width"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
             android:backgroundTint="@color/white"
@@ -121,7 +121,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_register"
             style="?attr/materialButtonStyle"
-            android:layout_width="@dimen/card_width_large"
+            android:layout_width="@dimen/btn_width"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
             android:paddingVertical="15dp"
