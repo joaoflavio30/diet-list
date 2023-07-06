@@ -25,6 +25,7 @@ dependencies {
     implementation libs.androidMaterial
 
     implementation libs.hiltAndroid
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.7'
     kapt libs.hiltCompiler
 
     implementation libs.bundles.navigation

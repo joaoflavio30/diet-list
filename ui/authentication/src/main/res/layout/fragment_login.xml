@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progress_circular"
@@ -109,15 +109,17 @@
             android:text="@string/forgot_your_account_password_restore"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_login" />
+            app:layout_constraintTop_toBottomOf="@id/btn_login"
+            android:textStyle="italic"/>
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/register"
 
             style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="150dp"
+            android:layout_width="@dimen/btn_width"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
+            android:layout_marginStart="40dp"
             android:backgroundTint="@color/white"
             android:paddingVertical="15dp"
             android:text="@string/sign_up"
@@ -132,9 +134,9 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login"
             style="?attr/materialButtonStyle"
-            android:layout_width="150dp"
+            android:layout_width="@dimen/btn_width"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
+            android:layout_marginEnd="40dp"
             android:paddingVertical="15dp"
             android:text="@string/sign_in"
             app:cornerRadius="20dp"
